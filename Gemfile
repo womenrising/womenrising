@@ -37,4 +37,11 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'coveralls', require: false
+  gem 'capybara'
+  gem 'launchy'
+  gem 'shoulda-matchers'
+  gem 'pry'
+end
