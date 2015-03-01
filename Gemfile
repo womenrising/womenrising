@@ -31,6 +31,7 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-linkedin-oauth2'
+gem 'figaro'
 
 # Use unicorn as the app server
 # gem 'unicorn'

@@ -64,6 +64,9 @@ GEM
     execjs (2.3.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     hashie (3.4.0)
     hike (1.2.3)
     i18n (0.7.0)
@@ -212,6 +215,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   coveralls
   devise
+  figaro
   jbuilder (~> 2.0)
   jquery-rails
   launchy
