@@ -1,12 +1,14 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbackController
 
   def linkedin
-    omniauth_hash = env["omniauth.auth"]
-    cuttent_user.create_linkedin_connection(
-      :token => omniauth_hash["extra"]["access_token"].token,
-      :secret => omniauth_hash["extra"]["access_token"].secret,
-      :uid => omniauth_hash["uid"]
-    )
-    redirect_to root_path, :notice => "You've successfully connected your LinkedIn account."
+    auth = env["omniauth.auth"]
+    @user = User.connect_to_linkedin(request.env["omniauth.auth"],current_user)
+    if @user.presisted?
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success"
+      sigh_in_and_redirect @user, :event => :authentication
+    else
+      session["devise.linkedin_uid"] = request.env["omniauth.auth"]
+      redirect_to new_user_registration_url
+    end
   end
 end
