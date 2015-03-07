@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(linkedin)
-    if current_user.sign_in_count == 1
-      new_user_path(current_user)
+    if current_user.sign_in_count == 1 || current_user.waitlist == true
+      edit_user_path(current_user)
     else
       user_path(current_user)
     end
