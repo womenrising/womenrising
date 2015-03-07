@@ -1,0 +1,21 @@
+<%= form_for @user do |f| %>
+  <p>First Name</p>
+  <%= f.text_field :first_name %></br>
+  <p>Last Name</p>
+  <%= f.text_field :last_name %></br>
+  <p>Primary Industry</p>
+  <%= f.select :primary_industry, options_for_select([["Select One", ""], "Technology", "Business", 'Automotive', 'startup', 'finance', 'other business','medical', 'law', 'other' ]), :class => 'genForm_dropBox' %></br>
+  <p>Secondary Industry</p>
+  <%= f.select :secondary_industry, options_for_select([["Select One", ""], "Technology", "Business", 'Automotive', 'startup', 'finance', 'other business','medical', 'law', 'other' ]), :class => 'genForm_dropBox' %></br>
+  <p>Tertiary Industry</p>
+  <%= f.select :tertiary_industry, options_for_select([["Select One", ""], "Technology", "Business", 'Automotive', 'startup', 'finance', 'other business','medical', 'law', 'other' ]), :class => 'genForm_dropBox' %></br>
+  <p>Would you like to mentor?</p>
+  <p>true</p><%= radio_button_tag(:mentor, "true", value:true)%></br>
+  <p>false</p><%= radio_button_tag(:mentor, "false", value:false)%></br>
+  <p>What are three questions someone should ask if they wanted to get to know you?</p>
+  <%= f.text_area :question_1 %></br>
+  <p>Why did you choose to join this site?</p>
+  <%= f.text_area :question_2 %></br>
+  <p>Where are you going or where do you want to go with your career! </p>
+  <%= f.text_area :question_3 %>
+<%end%>
