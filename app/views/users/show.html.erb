@@ -1,0 +1,10 @@
+<h3>Name: <%= @user.first_name%> <%= @user.last_name%></h3>
+<h4>Primary Industry: <%= @user.primary_industry%></h4>
+<h4>Stage Of Career: <%= @user.stage_of_career%></h4>
+<h4>Goal Right Now: <%= @user.current_goal%></h4>
+<% if @user.mentor == true %>
+  <h4>I will mentor for: <%= @user.mentor_industry %></h4>
+<%end%>
+<h4>I want to be a peer with: <%= @user.peer_industry%></h4>
+<h4>My Top 3 non-career interests are <%= @user.top_3_interests%></h4>
+

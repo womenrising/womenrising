@@ -10,8 +10,8 @@
   <%= f.label :Other%><%= radio_button_tag(:primary_industry, "Other", value:"Other")%></br>
   <%= f.label :Stage_of_Career%>
   <%= f.select :stage_of_career, options_for_select([["Intern/Apprentice/Aspiring",1],["Gaining a foothold",2],["Management / Senior",3],["Director/VP/Chief Architect",4],["C-Level/Founder",5]])%> </br>
-  <%= f.label :Goal_Right_Now%>
-  <%= f.select :goal_right_now, options_for_select([["Rising the ranks / breaking the glass ceiling","Rising the ranks / breaking the glass ceiling"],["Switching industries","Switching industries"],["Finding work/life balance","Finding work/life balance"]])%> 
+  <%= f.label :Current_Goal%>
+  <%= f.select :current_goal, options_for_select([["Rising the ranks / breaking the glass ceiling","Rising the ranks / breaking the glass ceiling"],["Switching industries","Switching industries"],["Finding work/life balance","Finding work/life balance"]])%> 
   <h5>Would you like to mentor?</h5>
   <%= f.label :True%><%= radio_button_tag(:mentor, "true", value:true)%>
   <%= f.label :False%><%= radio_button_tag(:mentor, "false", value:false)%></br>
