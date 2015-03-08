@@ -1,21 +1,34 @@
 <%= form_for @user do |f| %>
-  <p>First Name</p>
+  <%= f.label :First_Name%>
   <%= f.text_field :first_name %></br>
-  <p>Last Name</p>
+  <%= f.label :Last_Name%>
   <%= f.text_field :last_name %></br>
-  <p>Primary Industry</p>
-  <%= f.select :primary_industry, options_for_select([["Select One", ""], "Technology", "Business", 'Automotive', 'startup', 'finance', 'other business','medical', 'law', 'other' ]), :class => 'genForm_dropBox' %></br>
-  <p>Secondary Industry</p>
-  <%= f.select :secondary_industry, options_for_select([["Select One", ""], "Technology", "Business", 'Automotive', 'startup', 'finance', 'other business','medical', 'law', 'other' ]), :class => 'genForm_dropBox' %></br>
-  <p>Tertiary Industry</p>
-  <%= f.select :tertiary_industry, options_for_select([["Select One", ""], "Technology", "Business", 'Automotive', 'startup', 'finance', 'other business','medical', 'law', 'other' ]), :class => 'genForm_dropBox' %></br>
-  <p>Would you like to mentor?</p>
-  <p>true</p><%= radio_button_tag(:mentor, "true", value:true)%></br>
-  <p>false</p><%= radio_button_tag(:mentor, "false", value:false)%></br>
-  <p>What are three questions someone should ask if they wanted to get to know you?</p>
-  <%= f.text_area :question_1 %></br>
-  <p>Why did you choose to join this site?</p>
-  <%= f.text_area :question_2 %></br>
-  <p>Where are you going or where do you want to go with your career! </p>
-  <%= f.text_area :question_3 %>
+  <h5>Primary Industry</h5>
+  <%= f.label :Technology%><%= radio_button_tag(:primary_industry, "Technology", value:"Technology")%>
+  <%= f.label :Startups%><%= radio_button_tag(:primary_industry, "Startups", value:"Startups")%></br>
+  <%= f.label :Business%><%= radio_button_tag(:primary_industry, "Business", value:"Business")%>
+  <%= f.label :Other%><%= radio_button_tag(:primary_industry, "Other", value:"Other")%></br>
+  <%= f.label :Stage_of_Career%>
+  <%= f.select :stage_of_career, options_for_select([["Intern/Apprentice/Aspiring",1],["Gaining a foothold",2],["Management / Senior",3],["Director/VP/Chief Architect",4],["C-Level/Founder",5]])%> </br>
+  <%= f.label :Goal_Right_Now%>
+  <%= f.select :goal_right_now, options_for_select([["Rising the ranks / breaking the glass ceiling","Rising the ranks / breaking the glass ceiling"],["Switching industries","Switching industries"],["Finding work/life balance","Finding work/life balance"]])%> 
+  <h5>Would you like to mentor?</h5>
+  <%= f.label :True%><%= radio_button_tag(:mentor, "true", value:true)%>
+  <%= f.label :False%><%= radio_button_tag(:mentor, "false", value:false)%></br>
+  <h5>Mentor Industry (if you chose yes for mentoring):</h5>
+  <%= f.label :Technology%><%= radio_button_tag(:mentor_industry, "Technology", value:"Technology")%></br>
+  <%= f.label :Startups%><%= radio_button_tag(:mentor_industry, "Startups", value:"Startups")%></br>
+  <%= f.label :Business%><%= radio_button_tag(:mentor_industry, "Business", value:"Business")%></br>
+  <%= f.label :Other%><%= radio_button_tag(:mentor_industry, "Other", value:"Other")%></br>
+  <h5>Peer Industry:</h5>
+  <%= f.label :Technology%><%= radio_button_tag(:peer_industry, "Technology", value:"Technology")%></br>
+  <%= f.label :Startups%><%= radio_button_tag(:peer_industry, "Startups", value:"Startups")%></br>
+  <%= f.label :Business%><%= radio_button_tag(:peer_industry, "Business", value:"Business")%></br>
+  <%= f.label :Other%><%= radio_button_tag(:peer_industry, "Other", value:"Other")%></br>
+  <h5>Do you live in Detroit? (Note: if you do not live in Detroit then you can only mentor not be apart of a peer group)</h5>
+  <%= f.label :True%><%= radio_button_tag(:live_in_detroit, "True", value:true)%></br>
+  <%= f.label :False%><%= radio_button_tag(:live_in_detroit, "False", value:false)%></br>
+  <h5>What are 3 interests do you have outside of your career?</h5>
+  <%= f.text_area :top_3_interests %></br>
+  <%= f.submit "Submit", class:"btn"%>
 <%end%>

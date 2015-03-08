@@ -35,12 +35,12 @@ ActiveRecord::Schema.define(version: 20150302002618) do
     t.string   "last_name"
     t.boolean  "mentor",                 default: false
     t.string   "primary_industry"
-    t.string   "secondary_industry"
-    t.string   "tertiary_industry"
-    t.string   "stage_of_career"
-    t.text     "question_1"
-    t.text     "question_2"
-    t.text     "question_3"
+    t.integer  "stage_of_career"
+    t.string   "mentor_industry"
+    t.string   "peer_industry"
+    t.string   "goal_right_now"
+    t.text     "top_3_interests"
+    t.boolean  "live_in_detroit",        default: true
     t.boolean  "waitlist",               default: true
   end
 
