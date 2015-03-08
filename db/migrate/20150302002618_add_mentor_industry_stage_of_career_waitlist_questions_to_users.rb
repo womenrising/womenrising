@@ -2,12 +2,12 @@ class AddMentorIndustryStageOfCareerWaitlistQuestionsToUsers < ActiveRecord::Mig
   def change
     add_column :users, :mentor, :boolean, default:false
     add_column :users, :primary_industry, :string
-    add_column :users, :secondary_industry, :string
-    add_column :users, :tertiary_industry, :string
-    add_column :users, :stage_of_career, :string
-    add_column :users, :question_1, :text
-    add_column :users, :question_2, :text
-    add_column :users, :question_3, :text
+    add_column :users, :stage_of_career, :integer
+    add_column :users, :mentor_industry, :string
+    add_column :users, :peer_industry, :string
+    add_column :users, :goal_right_now, :string
+    add_column :users, :top_3_interests, :text
+    add_column :users, :live_in_detroit, :boolean, default:true,
     add_column :users, :waitlist, :boolean, default:true
   end
 end
