@@ -8,6 +8,6 @@ class AddMentorIndustryStageOfCareerWaitlistQuestionsToUsers < ActiveRecord::Mig
     add_column :users, :current_goal, :string
     add_column :users, :top_3_interests, :text
     add_column :users, :live_in_detroit, :boolean, default:true
-    add_column :users, :waitlist, :boolean, default:true
+    add_column :users, :waitlist, :boolean, default:false
   end
 end

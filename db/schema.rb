@@ -38,10 +38,10 @@ ActiveRecord::Schema.define(version: 20150302002618) do
     t.integer  "stage_of_career"
     t.string   "mentor_industry"
     t.string   "peer_industry"
-    t.string   "goal_right_now"
+    t.string   "current_goal"
     t.text     "top_3_interests"
     t.boolean  "live_in_detroit",        default: true
-    t.boolean  "waitlist",               default: true
+    t.boolean  "waitlist",               default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
