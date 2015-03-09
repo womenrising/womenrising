@@ -17,4 +17,10 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def check_industry
+    if self.primary_industry == "Other"
+      self.waitlist = true
+    end
+  end
 end
