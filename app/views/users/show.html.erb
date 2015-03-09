@@ -1,6 +1,13 @@
 <h3>Name: <%= @user.first_name%> <%= @user.last_name%></h3>
 <h4>Primary Industry: <%= @user.primary_industry%></h4>
-<h4>Stage Of Career: <%= @user.stage_of_career%></h4>
+<h4>Stage Of Career: <% case @user.stage_of_career
+                        when 1%><%= "Intern/Apprentice/Aspiring"%>
+                      <%when 2%><%= "Gaining a foothold"%>
+                      <%when 3%><%= "Management / Senior"%>
+                      <%when 4%><%= "Director/VP/Chief Architect"%>
+                      <%when 5%><%= "C-Level/Founder"%>
+                      <%end%>
+</h4>
 <h4>Goal Right Now: <%= @user.current_goal%></h4>
 <% if @user.mentor == true %>
   <h4>I will mentor for: <%= @user.mentor_industry %></h4>
