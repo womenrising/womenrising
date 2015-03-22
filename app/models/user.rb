@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  
+ after_validation :check_industry
 
   def self.connect_to_linkedin(auth, signed_in_resource =nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -21,8 +21,10 @@ class User < ActiveRecord::Base
   end
 
   def check_industry
-    if self.primary_industry == "Other"
+    if self.primary_industry == "Other" || self.primary_industry == nil
       self.waitlist = true
+    else
+      self.waitlist = false
     end
   end
 end
