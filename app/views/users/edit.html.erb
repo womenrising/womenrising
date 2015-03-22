@@ -27,6 +27,5 @@
   <%= f.label :Live_in_Detroit%>
   <%= f.select :live_in_detroit, options_for_select([["Yes",true],["No",false]], @user.live_in_detroit) %> </br>
   <%= f.label :top_3_interests%>
-  <%= f.text_area :top_3_interests %></br>
   <%= f.submit "Submit", class:"btn"%>
 <%end%>
