@@ -10,6 +10,6 @@ class AddMentorIndustryStageOfCareerWaitlistQuestionsToUsers < ActiveRecord::Mig
     add_column :users, :live_in_detroit, :boolean, default:true
     add_column :users, :waitlist, :boolean, default:true
     add_column :users, :is_participating_next_month, :boolean, default:false
-    add_column :users, :is_asssined_peer, :boolean, default:false
+    add_column :users, :is_assigned_peer_group, :boolean, default:false
   end
 end
