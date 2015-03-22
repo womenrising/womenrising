@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150302002618) do
     t.string   "mentor_industry"
     t.string   "peer_industry"
     t.string   "current_goal"
-    t.text     "top_3_interests"
+    t.text     "top_3_interests",        default: [],                 array: true
     t.boolean  "live_in_detroit",        default: true
     t.boolean  "waitlist",               default: false
   end
