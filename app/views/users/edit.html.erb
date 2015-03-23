@@ -36,7 +36,7 @@
   <%= f.label :top_3_interests%>
    <% @interests.each do |interest| %>
     <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-    <%= f.label :interest, interest.humanize, :multiple => true%>
+    <%= f.label :interest, interest.humanize, :value => interest%>
   <%end%></br>
  <%= f.submit "Submit", class:"btn"%>
 <%end%>

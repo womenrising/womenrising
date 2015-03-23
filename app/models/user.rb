@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
  validates :top_3_interests, length: {maximum: 3, too_long: " is limited to %{count} interests"}
- validates_presence_of :first_name, :last_name, :stage_of_career, :top_3_interests, :current_goal, :peer_industry, :primary_industry
+ validates_presence_of :first_name, :last_name
+ validates_presence_of :mentor_industry, if: :mentor
  after_validation :check_industry
 
   def self.connect_to_linkedin(auth, signed_in_resource =nil)
@@ -23,10 +24,11 @@ class User < ActiveRecord::Base
   end
 
   def check_industry
-    if self.primary_industry == "Other" || self.primary_industry == nil
+    if self.primary_industry == "Other" || self.primary_industry == nil 
       self.waitlist = true
     else
       self.waitlist = false
     end
   end
+
 end
