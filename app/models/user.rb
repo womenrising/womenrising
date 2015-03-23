@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
  validates :top_3_interests, length: {maximum: 3, too_long: " is limited to %{count} interests"}
- validates_presence_of :first_name, :last_name
+ validates_presence_of :first_name, :last_name, :stage_of_career, :top_3_interests, :current_goal, :peer_industry, :primary_industry
  after_validation :check_industry
 
   def self.connect_to_linkedin(auth, signed_in_resource =nil)
