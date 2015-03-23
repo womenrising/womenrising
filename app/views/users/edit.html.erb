@@ -1,4 +1,11 @@
+
 <%= form_for @user do |f| %>
+  <% if @user.errors %>
+    <p>Error:</p>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message%></li>
+    <%end%>
+  <%end%>
   <%= f.label :First_Name%>
   <%= f.text_field :first_name %></br>
   <%= f.label :Last_Name%>
