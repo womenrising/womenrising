@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
- validates :top_3_interests, length: {maximum: 3, too_long: "must choose at most %{count} interests"}
+ validates :top_3_interests, length: {maximum: 3, too_long: " is limited to %{count} interests"}
  after_validation :check_industry
 
   def self.connect_to_linkedin(auth, signed_in_resource =nil)
