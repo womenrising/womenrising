@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def check_industry
-    if self.primary_industry == "Other" || self.primary_industry == nil 
+    if self.primary_industry == "Other" || self.primary_industry == nil || self.peer_industry == nil || self.top_3_interests == []
       self.waitlist = true
     else
       self.waitlist = false
