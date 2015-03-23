@@ -42,6 +42,8 @@ gem 'figaro'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 group :development, :test do
+  gem 'fabrication'
+  gem 'faker'
   gem 'rspec-rails'
   gem 'coveralls', require: false
   gem 'capybara'

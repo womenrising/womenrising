@@ -1,3 +1,7 @@
+<% if @user.waitlist%>
+  <h1>Waitlist</h1>
+  <p>either because you gave other that we don't support yet or because you did not finish your profile</p>
+<%end%>
 <h3>Name: <%= @user.first_name%> <%= @user.last_name%></h3>
 <h4>Primary Industry: <%= @user.primary_industry%></h4>
 <h4>Stage Of Career: <% case @user.stage_of_career

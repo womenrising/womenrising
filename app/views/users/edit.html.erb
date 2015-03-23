@@ -1,4 +1,11 @@
+
 <%= form_for @user do |f| %>
+  <% if @user.errors.messages != {}%>
+    <p>Error:</p>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message%></li>
+    <%end%>
+  <%end%>
   <%= f.label :First_Name%>
   <%= f.text_field :first_name %></br>
   <%= f.label :Last_Name%>
@@ -7,7 +14,9 @@
   <% @industries.each do |industry| %>
     <%= f.radio_button :primary_industry, industry%>
     <%= f.label :industry, industry.humanize, :value => industry%>
-  <%end%></br>
+  <%end%>
+    <%= f.radio_button :primary_industry, "Other"%>
+    <%= f.label :Other, "Other".humanize, :value => "Other"%></br>
   <%= f.label :Stage_of_Career%>
   <%= f.select :stage_of_career, options_for_select([["Intern/Apprentice/Aspiring",1],["Gaining a foothold",2],["Management / Senior",3],["Director/VP/Chief Architect",4],["C-Level/Founder",5]], @user.stage_of_career)%> </br>
   <%= f.label :Current_Goal%>
@@ -27,6 +36,9 @@
   <%= f.label :Live_in_Detroit%>
   <%= f.select :live_in_detroit, options_for_select([["Yes",true],["No",false]], @user.live_in_detroit) %> </br>
   <%= f.label :top_3_interests%>
-  <%= f.text_area :top_3_interests %></br>
-  <%= f.submit "Submit", class:"btn"%>
+   <% @interests.each do |interest| %>
+    <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
+    <%= f.label :interest, interest.humanize, :value => interest%>
+  <%end%></br>
+ <%= f.submit "Submit", class:"btn"%>
 <%end%>

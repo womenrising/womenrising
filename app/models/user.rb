@@ -4,6 +4,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
+ validates :top_3_interests, length: {maximum: 3, too_long: " is limited to %{count} interests"}
+ validates_presence_of :first_name, :last_name
+ validates_presence_of :mentor_industry, if: :mentor
+ after_validation :check_industry
+
   def self.connect_to_linkedin(auth, signed_in_resource =nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user
@@ -19,8 +24,11 @@ class User < ActiveRecord::Base
   end
 
   def check_industry
-    if self.primary_industry == "Other"
+    if self.primary_industry == "Other" || self.primary_industry == nil || self.peer_industry == nil || self.top_3_interests == []
       self.waitlist = true
+    else
+      self.waitlist = false
     end
   end
+
 end
