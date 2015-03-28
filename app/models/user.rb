@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :mentors, class_name: "mentor", foreign_key: 'mentor_id'
+  has_may :mentees, class_name: "mentor", foreign_key: 'mentee_id'
  validates :top_3_interests, length: {maximum: 3, too_long: " is limited to %{count} interests"}
  validates_presence_of :first_name, :last_name
  validates_presence_of :mentor_industry, if: :mentor
