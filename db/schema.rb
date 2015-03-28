@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302002618) do
+ActiveRecord::Schema.define(version: 20150325031935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20150302002618) do
     t.boolean  "waitlist",                    default: true
     t.boolean  "is_participating_next_month", default: false
     t.boolean  "is_assigned_peer_group",      default: false
+    t.integer  "mentor_times",                default: 1
+    t.integer  "mentor_limit",                default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
