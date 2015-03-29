@@ -1,4 +1,5 @@
 class Mentor < ActiveRecord::Base
+  validates_presence_of :question
 
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
   belongs_to :mentoring, class_name: "User", foreign_key: 'mentor_id'
