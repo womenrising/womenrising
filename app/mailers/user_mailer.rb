@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
     @mentor_match = mentor_match
     @mentor = mentor_match.mentoring
     @mentee = mentor_match.mentee
-    mail(to: @mentor.email, subject: "#{mentee.first_name} has requested to learn with you")
+    mail(to: @mentor.email, subject: "#{@mentee.first_name} has requested to learn with you")
   end
 
   def mentee_mail(mentor_match)
