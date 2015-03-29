@@ -28,6 +28,8 @@
     <%= f.radio_button :mentor_industry, industry%>
     <%= f.label :industry, industry.humanize, :value => industry%>
   <%end%></br>
+  <%= f.label :Mentor_limit%>
+  <%= f.number_field :mentor_limit, in: 0..10%></br>
   <%= f.label :Peer_industry%>
   <% @industries.each do |industry| %>
     <%= f.radio_button :peer_industry, industry%>

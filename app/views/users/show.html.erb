@@ -15,7 +15,15 @@
 <h4>Goal Right Now: <%= @user.current_goal%></h4>
 <% if @user.mentor == true %>
   <h4>I will mentor for: <%= @user.mentor_industry %></h4>
+  <h4> I want to mentor <%= @user.mentor_limit%> time a month and I have left <%= @user.mentor_times %> this month</h4>
 <%end%>
 <h4>I want to be a peer with: <%= @user.peer_industry%></h4>
-<h4>My Top 3 non-career interests are <%= @user.top_3_interests%></h4>
+<h4>My Top 3 non-career interests are: </h4>
+<ol>
+  <% @user.top_3_interests.each do |interest|%>
+  <li><%= interest%></li>
+  <%end%>
+</ol>
 
+
+<%= link_to "Request a Mentor", new_mentor_path%>
