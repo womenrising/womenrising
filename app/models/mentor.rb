@@ -6,6 +6,7 @@ class Mentor < ActiveRecord::Base
 
   before_validation(on: :create) do
     self.mentor_id = choose_mentor.id
+    mentoring.update(mentor_times: mentoring.mentor_times -=1)
   end
 
   def get_possible_mentors
