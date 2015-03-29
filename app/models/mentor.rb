@@ -14,4 +14,9 @@ class Mentor < ActiveRecord::Base
     end
     all_mentors
   end
+
+  def choose_mentor
+    choice = get_possible_mentors - previous_mentors.pop(3)
+    choice.sample
+  end
 end
