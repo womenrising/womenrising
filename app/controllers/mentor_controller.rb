@@ -1,0 +1,2 @@
+class MentorController < ApplicationController
+end
