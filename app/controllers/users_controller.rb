@@ -31,4 +31,11 @@ class UsersController < ApplicationController
     @user.update(is_participating_next_month: true)
     redirect_to user_path(current_user)
   end
+
+  def not_participate
+    @user = current_user
+    @user.update(is_participating_next_month: false)
+    redirect_to user_path(current_user)
+  end
+
 end
