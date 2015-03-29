@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Women Rising, <%= @user.first_name%></h1>
+    <p> We are dedicated to helping women meet other women and get mentored/further their careers in their respective fields</p>
+    <p> This app is designed to do two things</p>
+      <ol>
+        <li>Introduce you to other women in your field</li>
+        <li>Allow you to get one on one time with a women that has more experience in your field</li>
+      </ol>
+    <p>We are happy to help out and if you want to give us any feedback on our app we are more than happy to hear it. You can reach us at <%= mail_to('info@womenrising.co', "here") %>
+    </p>
+    <p>Thanks for joining!</p>
+    <p>The Women Rising Team</p>
+  </body>
+</html>
