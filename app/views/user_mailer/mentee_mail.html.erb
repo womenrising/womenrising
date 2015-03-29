@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+  </head>
+  <body>
+    <h1>Hi <%= @mentee.first_name%></h1>
+    <p> Hope you are having a wonderful day!</p>
+    <p> You have requested to be mentored by <%= @mentor.first_name%> <%= @mentor.last_name%></p>
+    <p> You had a question about: <%= @mentor_match.question%></p>
+    <p> You can reach your mentor at: <%= mail_to( @mentor.email)%></p>
+    <p>Thank you!</p>
+    <p>The Women Rising Team</p>
+  </body>
+</html>

@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
       if registered_user
         return registered_user
       else
-        p user = User.create(first_name:auth.info.first_name, last_name:auth.info.last_name, provider:auth.provider, uid:auth.uid, email:auth.info.email, password:Devise.friendly_token[0,20] )
+        user = User.create(first_name:auth.info.first_name, last_name:auth.info.last_name, provider:auth.provider, uid:auth.uid, email:auth.info.email, password:Devise.friendly_token[0,20] )
+        UserMailer.welcome_mail(user).deliver
       end
     end
   end

@@ -15,6 +15,7 @@ class MentorsController < ApplicationController
     @user = current_user
     @mentor = Mentor.new(mentee_id: current_user.id, question: params[:mentor][:question])
     if @mentor.save
+      @mentor.send_mail
       redirect_to user_path(current_user)
     else
       render 'new'

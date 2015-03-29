@@ -28,4 +28,9 @@ class Mentor < ActiveRecord::Base
     choice = get_possible_mentors - previous_mentors.pop(3)
     choice.sample
   end
+
+  def send_mail
+    UserMailer.mentor_mail(self).deliver
+    UserMailer.mentee_mail(self).deliver
+  end
 end
