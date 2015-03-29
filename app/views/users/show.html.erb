@@ -15,6 +15,7 @@
 <h4>Goal Right Now: <%= @user.current_goal%></h4>
 <% if @user.mentor == true %>
   <h4>I will mentor for: <%= @user.mentor_industry %></h4>
+  <h4> I am avalible to mentor <%= @user.mentor_limit%> and I have left <%= @user.mentor_times %></h4>
 <%end%>
 <h4>I want to be a peer with: <%= @user.peer_industry%></h4>
 <h4>My Top 3 non-career interests are <%= @user.top_3_interests%></h4>
