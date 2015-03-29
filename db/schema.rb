@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150328221825) do
   create_table "mentors", force: true do |t|
     t.integer  "mentor_id"
     t.integer  "mentee_id"
+    t.text     "question"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
