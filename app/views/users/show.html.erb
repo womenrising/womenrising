@@ -25,5 +25,7 @@
   <%end%>
 </ol>
 
+<p>Will you participate next month? <%= @user.is_participating_next_month ? "yes" : "no"%></p>
+<%= link_to "Click to participate next month", participate_path(@user)%></br>
 
 <%= link_to "Request a Mentor", new_mentor_path%>
