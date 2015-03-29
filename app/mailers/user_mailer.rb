@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   default from: "info@womenrising.co"
 
-  def welcome(user)
+  def welcome_mail(user)
     @user
     mail(to: @user.email, subject: "Welcome to Women Rising!")
   end
