@@ -4,7 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
   </head>
   <body>
-    <h1>Hi <%= @mentor.name%></h1>
+    <h1>Hi <%= @mentor.first_name%></h1>
     <p> Hope you are having a wonderful day!</p>
+    <p> <%= @mentee.first_name%> <%= @mentee.last_name%> would like to be mentored by you</p>
+    <p> She has a question about: <%= @mentor_match.question%></p>
+    <p> You can reach her at: <%= mail_to( @mentee.email)%></p>
+    <p>Thank you!</p>
+    <p>The Women Rising Team</p>
   </body>
 </html>
