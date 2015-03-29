@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
   resources :users
   resources :mentors
-  get 'users/:id/will_participate' => 'users#participate'
+  get 'users/:id/will_participate' => 'users#participate', as: :participate
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
