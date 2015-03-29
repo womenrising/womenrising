@@ -1,7 +1,0 @@
-<%= form_for @mentor do |f| %>
-  <% @industries.each do |industry| %>
-    <%= f.radio_button :mentor_industry, industry %>
-    <%= f.label :industry, industry.humanize, :value=> industry %>
-  <%end%>
-  <%= f.submit "Submit", class:"btn"%>
-<%end%>
