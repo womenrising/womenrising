@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :peer1, class_name: "Peer", foreign_key: "peer1_id"
   has_many :peer2, class_name: "Peer", foreign_key: "peer2_id"
   has_many :peer3, class_name: "Peer", foreign_key: "peer3_id"
+  has_many :peer4, class_name: "Peer", foreign_key: "peer4_id"
  validates :top_3_interests, length: {maximum: 3, too_long: " is limited to %{count} interests"}
  validates :top_3_interests, length: {maximum: 3, too_long: " is limited to %{count} interests"}
  validates_presence_of :first_name, :last_name
