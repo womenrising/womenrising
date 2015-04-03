@@ -6,5 +6,14 @@ describe Peer do
   it { should belong_to(:peer3)}
   it { should belong_to(:peer4)}
 
+  it "can get users" do
+    FactoryGirl.create(:user).should be_valid
+  end
+
+  before{300.times{FactoryGirl.create(:user)}}
+  it "Should have a database of 300 users" do
+    expect(User.all.count).to eq(300)
+  end
+
   
 end
