@@ -1,5 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Peer, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Peer do
+  it { should belong_to(:peer1)}
+  it { should belong_to(:peer2)}
+  it { should belong_to(:peer3)}
+  it { should belong_to(:peer4)}
+
+  
 end
