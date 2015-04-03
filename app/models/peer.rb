@@ -4,19 +4,43 @@ class Peer < ActiveRecord::Base
   belongs_to :peer3, class_name: "User", foreign_key: 'peer3_id'
   belongs_to :peer4, class_name: "User", foreign_key: 'peer4_id'
 
+    def group_peers
+      frist = get_all_peers("Technology", 1)
+      get_first_peer(first)
+    end
 
-  def get_all_peers
-    @all_avalible = User.where(live_in_detroit:true, is_participating_next_month: true, waitlist: false, is_assigned_peer_group: false)
+
+
+  def get_first_peer(industry, stage_of_career)
+    fist_peer =  User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("peer_industry = ? AND stage_of_career = ?", "Technology", 1).sample
+    peer_group = [first_peer]
   end
 
-  def choose_first_peer
-    @first_peer = get_all_peers.sample
-  end
-
-  def get_ther_peers
-    min = @first_peer.stage_of_career > 1 ? (@first_peer.stage_of_career - 1) : 1
-    max = @first_peer.stage_of_career < 5 ? (@first_peer.stage_of_career + 1) : 5
+  def get_other_peers(peer_group)
+    stage_of_career = adverage_stage_of_career
+    min = stage_of_career > 1 ? (stage_of_career - 1) : 1
+    max = stage_of_career < 5 ? (stage_of_career + 1) : 5
+    industry = peer_group[0].peer_industry
+    career_goal = peer_group[0].career_goal
+    interests = get_interests(peer_group)
 
     @peers = User.where(live_in_detroit:true, is_participating_next_month: true, waitlist: false, is_assigned_peer_group: false, peer_industry: @first_peer.peer_industry).where('stage_of_career >= ? AND stage_of_career <= ?', min, max)
     end
+
+    def get_interests(peer_group)
+      interests = []
+      peer_group.each do |user|
+        insterst += user.interests 
+      end
+      interests
+    end
+
+    def adverage_stage_of_career(peer_group)
+      counter = 0
+      peer_group.each do |user|
+        counter += user.stage_of_career
+      end
+      counter
+    end
+
 end
