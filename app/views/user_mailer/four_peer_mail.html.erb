@@ -8,33 +8,31 @@
 
 <h4>Your mini-meetup for March: </h4>
 <ul>
-	<li><%= @peer1.first_name%> <%= @peer1.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer1.top_3_interests.each do |interest, index| %> 
-			<% if index == 3 %>
-				<%= interst %>
+	<li><%= @peer1.first_name%> <%= @peer1.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer1.top_3_interests.each_with_index do |interest, index| %> 
+			<% if index == 2 %>
+				<%= interest %>
 			<% else%>
-				<%= interst %>,
-	 		<%end%>)
+				<%= interest %>,
+	 		<%end%>
+	 	<%end%>)
 	 </li>
-	 <li><%= @peer2.first_name%> <%= @peer2.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer2.top_3_interests.each do |interest, index| %> 
-			<% if index == 3 %>
-				<%= interst %>
-			<% else%>
-				<%= interst %>,
-	 		<%end%>)
+	 <li><%= @peer2.first_name%> <%= @peer2.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer2.top_3_interests.each_with_index do |interest, index| %> <% if index == 2 %> <%= interest %> <% else%> <%= interest %>, <%end%> <%end%>)
 	 </li>
-	 <li><%= @peer3.first_name%> <%= @peer3.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer3.top_3_interests.each do |interest, index| %> 
-			<% if index == 3 %>
-				<%= interst %>
+	 <li><%= @peer3.first_name%> <%= @peer3.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer3.top_3_interests.each_with_index do |interest, index| %> 
+			<% if index == 2 %>
+				<%= interest %>
 			<% else%>
-				<%= interst %>,
-	 		<%end%>)
+				<%= interest %>,
+	 		<%end%>
+	 	<%end%>)
 	 </li>
-	 <li><%= @peer4.first_name%> <%= @peer4.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer4.top_3_interests.each do |interest, index| %> 
-			<% if index == 3 %>
-				<%= interst %>
+	 <li><%= @peer4.first_name%> <%= @peer4.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer4.top_3_interests.each_with_index do |interest, index| %> 
+			<% if index == 2 %>
+				<%= interest %>
 			<% else%>
-				<%= interst %>,
-	 		<%end%>)
+				<%= interest %>,
+	 		<%end%>
+	 	<%end%>)
 	 </li>
 </ul>
 
@@ -44,4 +42,4 @@
 <p>Happy solidarity and inspiration! </p>
 <p>The Women Rising Team</p>
 
-<p>Groups were formulated based on the factors of (starting with most important): major goal, career level in industry, preferred industry to meet with and non-career interests. This formula is still in production, so feel free to reply with some <%= mail_to( info@womenrising.co , "Feedback")%>!<p>
+<p>Groups were formulated based on the factors of (starting with most important): major goal, career level in industry, preferred industry to meet with and non-career interests. This formula is still in production, so feel free to reply with some <%= mail_to( "info@womenrising.co" , "Feedback")%>!<p>
