@@ -88,7 +88,7 @@ describe Peer do
       group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Wine").sample(2)
       peer = User.where(current_goal: "Switching industries").where("? = ANY(top_3_interests)","Yoga").sample
       groups = [group1,group2,group3]
-      new_groups = Peer.assign_group(groups, peer)
+      new_groups = Peer.assign_group(groups, peer, 3)
       expect(new_groups[1].length).to eq(2)
       expect(new_groups[1][1]).to be(peer)
     end
@@ -99,7 +99,7 @@ describe Peer do
       group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
       peer = User.create(email: "hello@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Fruit"])
       groups = [group1,group2,group3]
-      new_groups = Peer.assign_group(groups, peer)
+      new_groups = Peer.assign_group(groups, peer, 3)
       expect(new_groups[0].length).to eq(3)
       expect(new_groups[2].length).to eq(3)
       expect(new_groups[2][2]).to be(peer)
@@ -111,7 +111,7 @@ describe Peer do
       group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
       peer = User.create(email: "hello@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Animals","Fruit"])
       groups = [group1,group2,group3]
-      new_groups = Peer.assign_group(groups, peer)
+      new_groups = Peer.assign_group(groups, peer, 3)
       expect(new_groups.length).to eq(4)
     end
   end
@@ -119,19 +119,28 @@ describe Peer do
   context "#works_through_groups" do
     it "Should loop through all the users for Tech and 1 and assign them all tp groups" do
       possible_peers = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1)
-      peer_groups = Peer.create_groups("Technology", 1)
+      peer_groups = Peer.create_groups("Technology", 1, [])
       expect(peer_groups.flatten.length).to eq(possible_peers.length)
     end
   end
 
-  # context "#reassign_not_full_groups" do
-  #   it "Should loop through all the users for Tech and 1 and assign them all tp groups" do
-  #     possible_peers = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1)
-  #     peer_groups = Peer.reassign_not_full_groups("Technology", 1)
-  #     expect(peer_groups.length).to eq(possible_peers.length/3)
-  #     expect(peer_groups.flatten.length).to eq(possible_peers.length)
-  #   end
-  # end
+  context "#reassign_not_full_groups" do
+    it "Should loop through all the users for Tech and 1 and assign them all to groups if possible" do
+      groups = Peer.create_groups("Technology", 1, [])
+      outlyers = Peer.get_not_full_groups(groups)
+      peer_groups = Peer.reassign_not_full_groups(groups, outlyers)
+      new_outlyers = Peer.get_not_full_groups(peer_groups)
+      expect(new_outlyers.length <= outlyers.length).to be(true)
+    end
+  end
+
+  context "#automattially_create_groups" do
+    it "Should loop through all the users and make groups" do
+      Peer.automattially_create_groups
+      remainder = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false)
+      expect(remainder.length).to eq(0)
+    end
+  end
 
   context "#get_not_full_groups" do
     it "Should return a array of the groups that were are not complete" do
