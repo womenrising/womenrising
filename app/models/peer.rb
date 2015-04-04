@@ -26,12 +26,11 @@ class Peer < ActiveRecord::Base
 
   # end
 
-  # def self.check_interests(group, peer)
-  #   valid = true
-  #   group_interests = get_group_interests(group)
-  #   if group[0].current_goal == peer.current_goal && 
-
-  # end
+  def self.check_interests(group, peer)
+    group_interests = get_group_interests(group)
+    p peer.top_3_interests
+    return (peer.top_3_interests - group_interests).length < 3
+  end
 
   def self.get_group_interests(group)
     group_interests = []

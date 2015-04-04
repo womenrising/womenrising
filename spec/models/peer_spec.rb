@@ -37,19 +37,19 @@ describe Peer do
     end
   end
 
-  # context "#check_interests" do
-  #   it "Should return false if there isn't a same common interest" do
-  #     group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
-  #     peer = User.create(email: "hello@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, top_3_interests: ["Anime", "Animals","Fruit"])
-  #     expect(Peer.check_interests(group, peer)).to eq(false)
-  #   end
+  context "#check_interests" do
+    it "Should return false if there isn't a same common interest" do
+      group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
+      peer = User.create(email: "hello@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, top_3_interests: ["Anime", "Animals","Fruit"])
+      expect(Peer.check_interests(group, peer)).to eq(false)
+    end
 
-  #   it "Should return false if there isn't a same common interest" do
-  #     group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(3)
-  #     peer = group.pop
-  #     expect(Peer.check_interests(group, peer)).to eq(true)
-  #   end
-  # end
+    it "Should return true if there is a same common interest" do
+      group = User.where("? = ANY(top_3_interests)", "Cats").sample(3)
+      peer = group.pop
+      expect(Peer.check_interests(group, peer)).to eq(true)
+    end
+  end
 
   context "#get_group_interests" do
     it "should return an array of common interests" do
