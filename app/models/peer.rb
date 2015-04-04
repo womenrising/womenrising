@@ -22,25 +22,25 @@ class Peer < ActiveRecord::Base
     max = stage_of_career < 5 ? (stage_of_career + 1) : 5
     industry = peer_group[0].peer_industry
     career_goal = peer_group[0].career_goal
-    interests = get_interests(peer_group)
+    interests = peer_group[0].sample
 
-    @peers = User.where(live_in_detroit:true, is_participating_next_month: true, waitlist: false, is_assigned_peer_group: false, peer_industry: @first_peer.peer_industry).where('stage_of_career >= ? AND stage_of_career <= ?', min, max)
-    end
+    @peers = User.where(live_in_detroit:true, is_participating_next_month: true, waitlist: false, is_assigned_peer_group: false, peer_industry: @first_peer.peer_industry).where('stage_of_career >= ? AND stage_of_career <= ?', min, max, inerest)
+  end
 
-    def get_interests(peer_group)
-      interests = []
-      peer_group.each do |user|
-        insterst += user.interests 
-      end
-      interests
+  def get_interests(peer_group)
+    interests = []
+    peer_group.each do |user|
+      insterst += user.interests 
     end
+    interests
+  end
 
-    def adverage_stage_of_career(peer_group)
-      counter = 0
-      peer_group.each do |user|
-        counter += user.stage_of_career
-      end
-      counter
+  def average_stage_of_career(peer_group)
+    counter = 0
+    peer_group.each do |user|
+      counter += user.stage_of_career
     end
+    counter / peer_group.length
+  end
 
 end
