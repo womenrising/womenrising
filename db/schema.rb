@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328221825) do
+ActiveRecord::Schema.define(version: 20150403023939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20150328221825) do
     t.text     "question"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "peers", force: true do |t|
+    t.integer  "peer1_id"
+    t.integer  "peer2_id"
+    t.integer  "peer3_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "peer4_id"
   end
 
   create_table "users", force: true do |t|
@@ -54,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150328221825) do
     t.boolean  "is_assigned_peer_group",      default: false
     t.integer  "mentor_times",                default: 1
     t.integer  "mentor_limit",                default: 1
+    t.boolean  "is_participating_this_month"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

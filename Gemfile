@@ -44,6 +44,7 @@ gem 'figaro'
 group :development, :test do
   gem 'fabrication'
   gem 'faker'
+  gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'coveralls', require: false
   gem 'capybara'
