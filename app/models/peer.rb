@@ -16,4 +16,54 @@ class Peer < ActiveRecord::Base
     group - [peer]
   end
 
+  # def check_group(group, peer)
+  #   valid = true
+  #   group.each do |group_peer|
+  #     if peer.current_goal != group_peer.current_goal
+  #       valid = false
+  #     end
+  #   end
+
+  # end
+
+  # def self.check_interests(group, peer)
+  #   valid = true
+  #   group_interests = get_group_interests(group)
+  #   if group[0].current_goal == peer.current_goal && 
+
+  # end
+
+  def self.get_group_interests(group)
+    group_interests = []
+    group.each do |peer|
+      if group_interests.empty?
+        group_interests = peer.top_3_interests
+      else
+        differing_interest = group_interests - peer.top_3_interests
+        group_interests -= differing_interest
+      end
+    end
+    group_interests
+  end
+
+
+  # def self.create_groups(industry, stage_of_career)
+  #   @@completed_group = []
+  #   temp_groups = []
+  #   group = get_peer_group(industry, stage_of_career)
+  #   while group.length > 3
+  #     current_peer = get_one_peer
+  #     group = remove_peer(group, current_peer)
+  #     if @@temp_groups.length == 0
+  #       @@temp_groups << [current_peer]
+  #     else
+  #       @@temp_groups.each do |a_group|
+  #         if check_group(a_group, current_peer)
+  #           a_group << current_peer
+  #           if a_group.length == 3
+
+  #     end
+  #   end
+  # end
+
 end
