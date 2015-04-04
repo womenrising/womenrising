@@ -52,9 +52,25 @@ describe Peer do
   context "#averge_stage_of_career" do
     it "should return the average stage of career given two of the same should be the same" do
       peer = Peer.new
-      peer_group = User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("peer_industry = ? AND stage_of_career = ?", "Technology", 1).sample(2)
+      peer_group = User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("stage_of_career = ?", 1).sample(2)
       average = peer.average_stage_of_career(peer_group)
       expect(average).to eq(1)
-    end      
+    end
+
+    it "should return the average stage of career given two of the same should be one apart" do
+      peer = Peer.new
+      peer_one = User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("stage_of_career = ?",2).sample
+      peer_two = User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("stage_of_career = ?", 3).sample
+      average = peer.average_stage_of_career([peer_one, peer_two])
+      expect(average).to eq(2)
+    end 
+
+    it "should return the average stage of career given two of the same should be two apart" do
+      peer = Peer.new
+      peer_one = User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("stage_of_career = ?", 3).sample
+      peer_two = User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("stage_of_career = ?", 5).sample
+      average = peer.average_stage_of_career([peer_one, peer_two])
+      expect(average).to eq(4)
+    end        
   end
 end
