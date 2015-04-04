@@ -38,24 +38,14 @@ class Peer < ActiveRecord::Base
     group_interests
   end
 
-
-  # def self.create_groups(industry, stage_of_career)
-  #   @@completed_group = []
-  #   temp_groups = []
-  #   group = get_peer_group(industry, stage_of_career)
-  #   while group.length > 3
-  #     current_peer = get_one_peer
-  #     group = remove_peer(group, current_peer)
-  #     if @@temp_groups.length == 0
-  #       @@temp_groups << [current_peer]
-  #     else
-  #       @@temp_groups.each do |a_group|
-  #         if check_group(a_group, current_peer)
-  #           a_group << current_peer
-  #           if a_group.length == 3
-
-  #     end
-  #   end
-  # end
+  def self.assign_group(peer_groups, peer)
+    peer_groups.each do |group|
+      if check_group(group, peer) && group.length < 3
+        group << peer
+        p group
+        return peer_groups
+      end
+    end
+  end
 
 end
