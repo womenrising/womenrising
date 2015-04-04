@@ -4,5 +4,8 @@ class Peer < ActiveRecord::Base
   belongs_to :peer3, class_name: "User", foreign_key: 'peer3_id'
   belongs_to :peer4, class_name: "User", foreign_key: 'peer4_id'
 
+  def self.get_peer_group(industry, stage_of_career)
+    User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
+  end
 
 end

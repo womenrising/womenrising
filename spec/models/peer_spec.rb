@@ -13,6 +13,13 @@ describe Peer do
   before{100.times{FactoryGirl.create(:user)}}
   it "Should have a database of 300 users" do
     expect(User.all.count).to eq(100)
+  end 
+
+  context "#self.get_current_peers" do
+    it "should " do
+      group = Peer.get_peer_group("Technology",1)
+      expect(group).not_to be_empty 
+    end
   end
 
 
