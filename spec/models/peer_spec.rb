@@ -82,7 +82,7 @@ describe Peer do
 
   context "#adding_to_peer_groups" do
 
-    it "should add the peer if check group returns true" do
+    it "It will add a person to a group that they will fit in with" do
       group1 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
       group2 = [] << User.where(current_goal: "Switching industries").where("? = ANY(top_3_interests)", "Yoga" ).sample
       group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Wine").sample(2)
@@ -93,7 +93,7 @@ describe Peer do
       expect(new_groups[1][1]).to be(peer)
     end
 
-    it "should add the peer if check group returns true" do
+    it "should not add the person to a group that is already full" do
       group1 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(3)
       group2 = [] << User.where(current_goal: "Switching industries").where("? = ANY(top_3_interests)", "Yoga" ).sample
       group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
@@ -103,6 +103,16 @@ describe Peer do
       expect(new_groups[0].length).to eq(3)
       expect(new_groups[2].length).to eq(3)
       expect(new_groups[2][2]).to be(peer)
+    end
+
+    it "should add a group at the end if non of the other groups match" do
+      group1 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(3)
+      group2 = [] << User.where(current_goal: "Switching industries").where("? = ANY(top_3_interests)", "Yoga" ).sample
+      group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
+      peer = User.create(email: "hello@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Animals","Fruit"])
+      groups = [group1,group2,group3]
+      new_groups = Peer.assign_group(groups, peer)
+      expect(new_groups.length).to eq(4)
     end
   end
 
