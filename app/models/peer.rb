@@ -16,19 +16,12 @@ class Peer < ActiveRecord::Base
     group - [peer]
   end
 
-  # def check_group(group, peer)
-  #   valid = true
-  #   group.each do |group_peer|
-  #     if peer.current_goal != group_peer.current_goal
-  #       valid = false
-  #     end
-  #   end
-
-  # end
+  def self.check_group(group, peer)
+    return peer.current_goal == group[0].current_goal && check_interests(group, peer)
+  end
 
   def self.check_interests(group, peer)
     group_interests = get_group_interests(group)
-    p peer.top_3_interests
     return (peer.top_3_interests - group_interests).length < 3
   end
 

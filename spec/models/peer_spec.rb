@@ -59,26 +59,26 @@ describe Peer do
      end
   end
 
-  # context "#check_group" do
-  #   # it "should return true if valid" do
-  #   #   group = [{interests: []}]
-  #   #   peer = group.pop
-  #   #   expect(check_group(group, peer)).to eq(true)
-  #   # end
+  context "#check_group" do
+    it "should return true if valid" do
+      group = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(3)
+      peer = group.pop
+      expect(Peer.check_group(group, peer)).to eq(true)
+    end
 
-  #   it "should return false if they don't have the same stage_of_career" do
-  #     group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
-  #     peer = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Switching industries").where("? = ANY(top_3_interests)", "Cats").sample
-  #     expect(check_group(group, peer)).to be(false)
-  #   end
+    it "should return false if they don't have the same urrent_goal" do
+      group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
+      peer = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1).where("current_goal != ? ", "Switching industries").sample
+      expect(Peer.check_group(group, peer)).to be(false)
+    end
 
-  #   it "should return true if valid" do
-  #     group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
-  #     peer = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? != ANY(top_3_interests)","Cats")
-  #     expect(check_group(group, peer)).to be(false)
-  #   end
+    it "should return false if invalid interests" do
+      group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
+      peer = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance").where("? != ANY(top_3_interests)","Cats").sample
+      expect(Peer.check_group(group, peer)).to be(false)
+    end
 
-  # end
+  end
 
 
 end
