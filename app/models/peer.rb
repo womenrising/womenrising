@@ -14,9 +14,14 @@ class Peer < ActiveRecord::Base
           groups -= outlyers
           groups = reassign_not_full_groups(groups, outlyers.flatten)
           new_outlyers = get_not_full_groups(groups)
-          if new_outlyers.flatten.length > 0
+          if stage_of_career == 5 && industry == "Startup" && new_outlyers.flatten.length > 0
+            groups = assign_groups_final(groups, new_outlyers.flatten)
+          elsif new_outlyers.flatten.length > 0
             remainder += new_outlyers.flatten
           end
+          # if new_outlyers.flatten.length > 0
+          #   remainder += new_outlyers.flatten
+          # end
         end
         groups.each do |group|
           if group.length == 3
@@ -31,6 +36,25 @@ class Peer < ActiveRecord::Base
       end
     end
     
+  end
+
+  def self.assign_groups_final(group, outlyers)
+    outlyers = outlyers.flatten
+    while outlyers.length > 0
+      current_peer = get_one_peer(outlyers)
+      outlyers = remove_peer(outlyers, current_peer)
+      peer_groups = assign_group_no_checks(group, current_peer, 4)
+    end
+    peer_groups
+  end
+
+  def self.assign_group_no_checks(peer_groups, peer, length)
+    peer_groups.each do |group|
+      if group.length < length
+        group << peer
+        return peer_groups
+      end
+    end
   end
 
   def self.get_peer_group(industry, stage_of_career)
