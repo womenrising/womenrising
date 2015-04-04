@@ -29,5 +29,13 @@ describe Peer do
     end
   end
 
+  context "#self.remove_peer(group, peer)" do
+    it "should get a single " do
+      group = Peer.get_peer_group("Technology",1)
+      peer = Peer.get_one_peer(group)
+      expect(Peer.remove_peer(group, peer).count).to eq(group.length - 1)
+    end
+  end
+
 
 end

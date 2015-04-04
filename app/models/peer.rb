@@ -12,4 +12,8 @@ class Peer < ActiveRecord::Base
     group.sample
   end
 
+  def self.remove_peer(group, peer)
+    group - [peer]
+  end
+
 end
