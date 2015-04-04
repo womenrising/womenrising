@@ -124,4 +124,26 @@ describe Peer do
     end
   end
 
+  # context "#reassign_not_full_groups" do
+  #   it "Should loop through all the users for Tech and 1 and assign them all tp groups" do
+  #     possible_peers = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1)
+  #     peer_groups = Peer.reassign_not_full_groups("Technology", 1)
+  #     expect(peer_groups.length).to eq(possible_peers.length/3)
+  #     expect(peer_groups.flatten.length).to eq(possible_peers.length)
+  #   end
+  # end
+
+  context "#get_not_full_groups" do
+    it "Should return a array of the groups that were are not complete" do
+      peer_groups = Peer.get_not_full_groups([[1,2,3],[1,2],[1],[2,3,4]])
+      expect(peer_groups.length).to eq(2)
+      expect(peer_groups).to eq([[1,2],[1]])
+    end
+    it "Should return an empty array if nothing is found" do
+      peer_groups = Peer.get_not_full_groups([[1,2,3],[1,2,3],[1,3,4],[2,3,4]])
+      expect(peer_groups.length).to eq(0)
+      expect(peer_groups).to eq([])
+    end
+  end
+
 end
