@@ -4,10 +4,27 @@ class Peer < ActiveRecord::Base
   belongs_to :peer3, class_name: "User", foreign_key: 'peer3_id'
   belongs_to :peer4, class_name: "User", foreign_key: 'peer4_id'
 
-  attr_reader :interests
+  attr_accessor :get_group
 
-  def get_first_peer(industry, stage_of_career)
-    first_peer =  User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("peer_industry = ? AND stage_of_career = ?", industry, stage_of_career).sample
+  # def assign_peers(industry, stage_of_career)
+  #   @get_group = User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("peer_industry = ? AND stage_of_career = ?", industry, stage_of_career)
+  #   while  > 2
+  #     first_peer = get_first_peer
+  #     if get_first_peer != nil
+  #       other_peers = get_other_peers(first_peer)
+  #       if !get_other_peers
+  #         self.peer1 = first_peer.id
+  #         self.peer2 = other_peers[0].id
+  #         self.peer3 = other_peers[0].id
+  #       end
+  #     end
+  #   end
+  # end
+
+
+
+  def get_first_peer
+    first_peer =  @get_group.sample
     if first_peer == nil
       first_peer
     else
