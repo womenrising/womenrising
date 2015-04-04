@@ -4,6 +4,18 @@ class Peer < ActiveRecord::Base
   belongs_to :peer3, class_name: "User", foreign_key: 'peer3_id'
   belongs_to :peer4, class_name: "User", foreign_key: 'peer4_id'
 
+  after_save do
+    self.send_mail
+  end
+
+  def send_mail
+    if self.peer4 == nil
+      UserMailer.three_peer_mail(self).deliver
+    else
+      UserMailer.four_peer_mail(self).deliver
+    end
+  end
+
   def self.automattially_create_groups
     remainder = []
     ["Technology","Business", "Startup"].each do |industry|
