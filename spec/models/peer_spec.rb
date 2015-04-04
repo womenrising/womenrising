@@ -22,5 +22,12 @@ describe Peer do
     end
   end
 
+  context "#self.get_one_peer" do
+    it "should get a single " do
+      peer = Peer.get_one_peer(Peer.get_peer_group("Technology",1))
+      expect(peer).to be_an_instance_of(User)
+    end
+  end
+
 
 end
