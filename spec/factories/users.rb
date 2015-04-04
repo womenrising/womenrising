@@ -9,7 +9,7 @@ FactoryGirl.define do
   last_name {Faker::Name.last_name}
   mentor {%w(true false).sample}
   primary_industry {["Business", "Technology", "Startup","Other"].sample}
-  stage_of_career {%w(1 2 3 4 5).sample}
+  stage_of_career {1}
   mentor_industry {["Business", "Technology", "Startup"].sample}
   peer_industry {["Business", "Technology", "Startup"].sample}
   current_goal {["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample}
