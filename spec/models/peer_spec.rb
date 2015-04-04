@@ -116,4 +116,12 @@ describe Peer do
     end
   end
 
+  context "#works_through_groups" do
+    it "Should loop through all the users for Tech and 1 and assign them all tp groups" do
+      possible_peers = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1)
+      peer_groups = Peer.create_groups("Technology", 1)
+      expect(peer_groups.flatten.length).to eq(possible_peers.length)
+    end
+  end
+
 end

@@ -8,6 +8,17 @@ class Peer < ActiveRecord::Base
     User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
   end
 
+  def self.create_groups(industry, stage_of_career)
+    group = get_peer_group(industry, stage_of_career)
+    peer_groups = []
+    while group.length > 0
+      current_peer = get_one_peer(group)
+      group = remove_peer(group, current_peer)
+      peer_groups = assign_group(peer_groups, current_peer)
+    end
+    peer_groups
+  end
+
   def self.get_one_peer(group)
     group.sample
   end
