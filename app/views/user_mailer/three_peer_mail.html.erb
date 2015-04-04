@@ -1,0 +1,40 @@
+<h1>Introducing, Your Women Rising matches!</h1>
+
+<h3>Get ready to schedule and meet with your new friends!</h3>
+
+<p>Welcome to your "Mini-meetup match" email! These women most likely had the same career goals, are around your career stage or requested meeting women form your line of work</p>
+
+<p>Remember, from here we leave it to you to get in touch with your two peer matches and find a time for a group coffee, lunch or a drink in the Detroit area. <strong>Find time to schedule in the next couple weeks so you don't forget!</strong> </p>
+
+<h4>Your mini-meetup for March: </h4>
+<ul>
+	<li><%= @peer1.first_name%> <%= @peer1.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer1.top_3_interests.each do |interest, index| %> 
+			<% if index == 3 %>
+				<%= interst %>
+			<% else%>
+				<%= interst %>,
+	 		<%end%>)
+	 </li>
+	 <li><%= @peer2.first_name%> <%= @peer2.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer2.top_3_interests.each do |interest, index| %> 
+			<% if index == 3 %>
+				<%= interst %>
+			<% else%>
+				<%= interst %>,
+	 		<%end%>)
+	 </li>
+	 <li><%= @peer3.first_name%> <%= @peer3.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer3.top_3_interests.each do |interest, index| %> 
+			<% if index == 3 %>
+				<%= interst %>
+			<% else%>
+				<%= interst %>,
+	 		<%end%>)
+	 </li>
+</ul>
+
+<p>Remember, this is about meeting new people so be open minded! You never know which of these women could become your new best friend or help you get your next job. We'll be following up to hear about your experience with each other to help inform our next match!
+</p>
+
+<p>Happy solidarity and inspiration! </p>
+<p>The Women Rising Team</p>
+
+<p>Groups were formulated based on the factors of (starting with most important): major goal, career level in industry, preferred industry to meet with and non-career interests. This formula is still in production, so feel free to reply with some <%= mail_to( info@womenrising.co , "Feedback")%>!<p>
