@@ -40,9 +40,9 @@ class Peer < ActiveRecord::Base
 
   def self.assign_group(peer_groups, peer)
     peer_groups.each do |group|
+      p peer
       if check_group(group, peer) && group.length < 3
         group << peer
-        p group
         return peer_groups
       end
     end
