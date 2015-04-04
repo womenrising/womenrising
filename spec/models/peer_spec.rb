@@ -35,17 +35,20 @@ describe Peer do
 
     it "should give you one invalid user for 1 Other" do
       peer = Peer.new
-      user = peer.get_first_peer("Other", 3)
-      first_user = user[0]
-      expect(first_user).to be(nil)
-      expect(user).to match_array([nil])
-      expect(user.length).to eq(1)
+      expect(peer.get_first_peer("Other", 3)).to be(nil)
     end
   end
 
   context "#get_other_peers" do
-    it "Should find a peer " do
-
+    it "Should find a peer for Technology and 1" do
+      peer = Peer.new
+      peer_group = peer.get_first_peer("Technology", 1)
+      first_peer = peer_group[0]
+      current_peer = peer.get_other_peers(peer_group)
+      expect(current_peer.peer_industry).to eq("Technology")
+      expect(current_peer.stage_of_career).to eq(first_peer.stage_of_career)
+      expect(current_peer.top_3_interests.include?(peer.interests)).to be(true)
+      expect(current_peer.current_goal).to eq(first_peer.current_goal)
     end
   end
 
@@ -73,4 +76,5 @@ describe Peer do
       expect(average).to eq(4)
     end        
   end
+
 end
