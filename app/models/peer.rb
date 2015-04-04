@@ -12,7 +12,7 @@ class Peer < ActiveRecord::Base
 
 
   def get_first_peer(industry, stage_of_career)
-    fist_peer =  User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("peer_industry = ? AND stage_of_career = ?", "Technology", 1).sample
+    first_peer =  User.where(live_in_detroit:true, is_participating_this_month: true, waitlist: false, is_assigned_peer_group: false).where("peer_industry = ? AND stage_of_career = ?", industry, stage_of_career).sample
     peer_group = [first_peer]
   end
 
