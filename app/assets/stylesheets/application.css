@@ -25,7 +25,12 @@
 	color: #FFF;
 }
 
+.text-muted:hover {
+	color: #add8e6;
+}
+
 .title {
+	padding-top: 20px;
 	padding-left: 40px;
 }
 
@@ -37,8 +42,9 @@
 	background-color:#000;
 }
 
-.nav a:hover{
-	color: #FFF;
+ .wrapper {
+    overflow: auto;
+    height: 99.9%;
 }
 
 footer {
@@ -46,7 +52,25 @@ footer {
 	color: #FFF;
 	text-align: center;
 	width: 100%;
-	position: absolute;
-	bottom: 0;
-	left: 0;
+	padding: 20px;
+}
+
+html, body {
+	height: 100%;
+	overflow: auto;
+}
+
+title a:hover {
+	color: #FFF;
+}
+
+footer h5 a:hover {
+	color: #add8e6;
+}
+
+footer h5 a {
+	color: #FFF;
+}
+footer p {
+	margin-bottom: 0px; 
 }

@@ -7,13 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="wrapper">
   <div class="header">
     <nav class="navbar center">
-      <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-        <span class="icon-bar"></span>
-      </button>
-      <div class="collapse navbar-collapse navHeaderCollapse">
-        <ul class="nav nav-pills navbar-right">
+        <ul class="nav nav-pills pull-right">
           <% if user_signed_in? %>
             <li><%= link_to "Edit Profile", edit_user_path(@user)%></li>
             <li><%= link_to "View Profile", user_path(@user)%></li>
@@ -23,19 +20,17 @@
             <li><%= link_to "Sign In with LinkedIn", user_omniauth_authorize_path('linkedin') %></li>
           <%end%>
         </ul>
-      </div>
       <div class="title center header">
-        <%= link_to "Women Rising.", root_path, :class => "title h1 text-muted" %>
+        <%= link_to "Women Rising.", root_path, :class => "h1 text-muted" %>
      </div>
     </nav>
   </div>
 
 <%= yield %>
-
+  </div>
   <footer>
     <h5>Tweet @ us: <%= link_to "@TheWomenRising", "https://twitter.com/TheWomenRising"%> | Email us: <%= mail_to "info@womenrising.co"%></h5>
     <p>Women Rising, 2015</p>
   </footer>
-
 </body>
 </html>
