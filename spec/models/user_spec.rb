@@ -21,4 +21,12 @@ RSpec.describe User, :type => :model do
   		expect(current_user.is_assigned_peer_group).to eq(true)
   	end
   end
+
+  context "#check_industry" do
+  	it "should be false if everything is put in right" do
+  		user = User.create!(email: "hellowerd2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 5, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: nil,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), live_in_detroit: %w(true false).sample, is_participating_next_month: true, is_participating_this_month: false,
+ 				mentor_times: 0, mentor_limit: 1, is_assigned_peer_group: true)
+  		expect(user.waitlist).to eq(true)
+  	end
+  end
 end
