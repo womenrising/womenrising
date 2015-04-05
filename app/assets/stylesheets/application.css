@@ -16,7 +16,7 @@
  */
 
 .navbar {
-	padding-top: 10px;
+	padding-top: 20px;
 	background-color: #555;
 	height: 100px;
 }
@@ -45,6 +45,10 @@
  .wrapper {
     overflow: auto;
     height: 99.9%;
+}
+
+.nav {
+	padding-right: 20px;
 }
 
 footer {

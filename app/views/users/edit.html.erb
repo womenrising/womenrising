@@ -38,7 +38,7 @@
   <%= f.label :Live_in_Detroit%>
   <%= f.select :live_in_detroit, options_for_select([["Yes",true],["No",false]], @user.live_in_detroit) %> </br>
   <%= f.label :top_3_interests%>
-   <% @interests.each do |interest| %>
+   <% @interests.each_with_index do |interest,index| %>
     <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
     <%= f.label :interest, interest.humanize, :value => interest%>
   <%end%></br>
