@@ -30,8 +30,8 @@ class Peer < ActiveRecord::Base
             groups = assign_groups_final(groups, new_outlyers.flatten)
           elsif new_outlyers.flatten.length > 0
             remainder += new_outlyers.flatten
+            groups -= new_outlyers
           end
-          groups -= new_outlyers
         end
         groups.each do |group|
           if group.length == 3
