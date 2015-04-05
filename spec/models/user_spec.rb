@@ -35,15 +35,21 @@ RSpec.describe User, :type => :model do
   		expect(user.waitlist).to eq(false)
   	end
 
-  	it "should be true if everything primary industry is nil" do
+  	it "should be true if primary industry is nil" do
   		user = User.where(waitlist: false).sample
   		user.update(primary_industry:nil)
   		expect(user.waitlist).to eq(true)
   	end
 
-  	it "should be true if everything primary industry is nil" do
+  	it "should be true if primary industry is Other" do
   		user = User.where(waitlist: false).sample
   		user.update(primary_industry:"Other")
+  		expect(user.waitlist).to eq(true)
+  	end
+
+  	it "should be true if top_3_interests is []" do
+  		user = User.where(waitlist: false).sample
+  		user.update(top_3_interests: [])
   		expect(user.waitlist).to eq(true)
   	end
   end
