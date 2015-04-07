@@ -52,8 +52,27 @@
     height: 99.9%;
 }
 
+
 .nav {
 	padding-right: 20px;
+}
+
+.section {
+	width: 260px;
+	text-align: center;
+	display: inline-block;
+	margin-right: 60px;
+	margin-left: 90px;
+	margin-bottom: 20px;
+}
+
+
+
+.second-footer {
+	text-align: center;
+	padding-top: 20px;
+	background-color: #1cad7e;
+	color: #FFF;
 }
 
 footer {
