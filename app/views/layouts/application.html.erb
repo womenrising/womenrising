@@ -7,17 +7,29 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <nav>
-    <% if user_signed_in? %>
-      <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
-      <%= link_to "Edit Profile", edit_user_path(@user)%>
-      <%= link_to "View Profile", user_path(@user)%>
-    <%else%>
-      <%= link_to "Sign In with LinkedIn", user_omniauth_authorize_path('linkedin') %>
-    <%end%>
-  </nav>
+  <div class="header">
+    <nav class="navbar center">
+        <ul class="nav nav-pills pull-right">
+          <% if user_signed_in? %>
+            <li><%= link_to "Edit Profile", edit_user_path(@user)%></li>
+            <li><%= link_to "View Profile", user_path(@user)%></li>
+            <li><%= link_to "Request a Mentor", new_mentor_path%></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %><li>
+          <%else%>
+            <li><%= link_to "Sign In with LinkedIn", user_omniauth_authorize_path('linkedin') %></li>
+          <%end%>
+        </ul>
+      <div class="title center header">
+        <%= link_to "Women Rising.", root_path, :class => "h1 text-muted" %>
+        <p>Women supporting women in tech and business.</p>
+     </div>
+    </nav>
+  </div>
 
 <%= yield %>
-
+  <footer>
+    <h5>Tweet @ us: <%= link_to "@TheWomenRising", "https://twitter.com/TheWomenRising"%> | Email us: <%= mail_to "info@womenrising.co"%></h5>
+    <p>Women Rising, 2015</p>
+  </footer>
 </body>
 </html>

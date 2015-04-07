@@ -10,7 +10,131 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require bootstrap.min
  *= require_tree .
  *= require_self
- *= require bootstrap.min
  */
+
+.navbar {
+	padding-top: 26px;
+	background-color: #555;
+	height: 140px;
+}
+
+.text-muted {
+	color: #FFF;
+}
+
+.text-muted:hover {
+	color: #add8e6;
+}
+
+.title {
+	padding-top: 10px;
+	padding-left: 40px;
+}
+
+.title p {
+	color: #f66c00;
+	font-size: 1.3em;
+	padding-left: 20px;
+}
+
+.header {
+	padding-bottom: 40px;
+}
+
+.nav>li>a{
+	color: #FFF;
+}
+
+.nav>li>a:hover{
+	background-color:#000;
+}
+
+ .wrapper {
+    overflow: auto;
+    height: 110%;
+}
+
+
+.nav {
+	padding-right: 20px;
+}
+
+.section {
+	width: 260px;
+	text-align: center;
+	display: inline-block;
+	margin-right: 60px;
+	margin-left: 90px;
+	margin-bottom: 20px;
+}
+
+body {
+	background-color: #1cad7e
+	color: #FFF;
+}
+
+
+
+.second-footer {
+	text-align: center;
+	padding-top: 20px;
+	background-color: #1cad7e;
+	color: #FFF;
+}
+
+footer {
+	background-color: #555;
+	color: #FFF;
+	text-align: center;
+	width: 100%;
+	padding: 30px;
+}
+
+html, body {
+	height: 100%;
+	overflow: auto;
+}
+
+title a:hover {
+	color: #FFF;
+}
+
+footer h5 a:hover {
+	color: #add8e6;
+}
+
+footer h5 a {
+	color: #FFF;
+}
+footer p {
+	margin-bottom: 0px; 
+}
+
+.waitlist {
+	color: #f66c00;
+}
+
+.context {
+	background-color: #1cad7e;
+	color: #FFF;
+	margin: 0 auto;
+	width: 60%;
+	font-size: 1.3em;
+	padding: 20px;
+	border-radius: 20px;
+}
+
+input,select {
+	color: #000;
+}
+
+.context a {
+	color: #f66c00;
+}
+
+.partners {
+	text-align: center;
+}
