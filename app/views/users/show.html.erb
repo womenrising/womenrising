@@ -1,6 +1,5 @@
-<div class="wrapper">
-  
-    <div class="waitlist">
+<h1 class="subject">Your Profile:</h1>
+ <div class="waitlist">
       <% if @user.waitlist%>
         <h1>Waitlisted</h1>
         <p>Either because you made your primary career Other which we currently don't support yet or you did not finish your profile</p>
@@ -39,4 +38,3 @@
 
     <%= link_to "Request a Mentor", new_mentor_path%>
   </div>
-</div>

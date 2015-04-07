@@ -15,19 +15,41 @@
  *= require_self
  */
 
+body {
+	background-color: #F4F4F4;
+	color: #000;
+}
+
+.context {
+	background-color: #1cad7e;
+	color: #FFF;
+	margin: 0 auto;
+	margin-bottom: 60px;
+	width: 60%;
+	font-size: 1.3em;
+	padding: 20px;
+	border-radius: 20px;
+}
+
+.context a {
+	color: #f66c00;
+}
+
+.subject {
+	color: #f66c00;
+	margin-left: 250px;
+}
+
+
+
+ /*header*/
+
 .navbar {
 	padding-top: 26px;
 	background-color: #555;
 	height: 140px;
 }
 
-.text-muted {
-	color: #FFF;
-}
-
-.text-muted:hover {
-	color: #add8e6;
-}
 
 .title {
 	padding-top: 10px;
@@ -44,16 +66,10 @@
 	padding-bottom: 40px;
 }
 
-.mentor {
-	text-align: center;
-	width: 38%;
-	margin: 0 auto;
-	background-color: #1cad7e;
-	color: #FFF;
-	padding: 40px;
-	border-radius: 10px;
-	font-size: 1.3em;
+.nav {
+	padding-right: 20px;
 }
+
 .nav>li>a{
 	color: #FFF;
 }
@@ -62,14 +78,25 @@
 	background-color:#000;
 }
 
- .wrapper {
-    overflow: auto;
-    height: 110%;
+.text-muted {
+	color: #FFF;
 }
 
+.text-muted:hover {
+	color: #add8e6;
+}
 
-.nav {
-	padding-right: 20px;
+/* index*/
+
+.second-footer {
+	text-align: center;
+	padding-top: 20px;
+	background-color: #1cad7e;
+	color: #FFF;
+}
+
+.second-footer h1 {
+	margin-bottom: 40px;
 }
 
 .section {
@@ -82,19 +109,58 @@
 	margin-bottom: 20px;
 }
 
-body {
-	background-color: #F4F4F4;
+.section img {
+	width: 141px;
+	height: 141px;
+}
+
+.partners {
+	text-align: center;
+	margin-bottom: 60px;
+}
+
+.partners img {
+	height: 170px;
+}
+
+.logo {
+	text-align: center;
+}
+
+/*user show*/
+
+.waitlist {
+	color: #f66c00;
+}
+
+
+/*user edit*/
+
+input,select {
 	color: #000;
 }
 
+/* request mentor*/
 
+ .wrapper {
+    overflow: auto;
+    height: 110%;
+}
 
-.second-footer {
+.mentor {
 	text-align: center;
-	padding-top: 20px;
+	width: 38%;
+	margin: 0 auto;
 	background-color: #1cad7e;
 	color: #FFF;
+	padding: 40px;
+	border-radius: 10px;
+	font-size: 1.3em;
+	margin-bottom: 120px;
 }
+
+/*footer*/
+
 
 footer {
 	background-color: #555;
@@ -102,15 +168,6 @@ footer {
 	text-align: center;
 	width: 100%;
 	padding: 30px;
-}
-
-html, body {
-	height: 100%;
-	overflow: auto;
-}
-
-title a:hover {
-	color: #FFF;
 }
 
 footer h5 a:hover {
@@ -124,28 +181,3 @@ footer p {
 	margin-bottom: 0px; 
 }
 
-.waitlist {
-	color: #f66c00;
-}
-
-.context {
-	background-color: #1cad7e;
-	color: #FFF;
-	margin: 0 auto;
-	width: 60%;
-	font-size: 1.3em;
-	padding: 20px;
-	border-radius: 20px;
-}
-
-input,select {
-	color: #000;
-}
-
-.context a {
-	color: #f66c00;
-}
-
-.partners {
-	text-align: center;
-}
