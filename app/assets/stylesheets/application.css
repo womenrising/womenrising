@@ -113,6 +113,16 @@ footer p {
 	margin-bottom: 0px; 
 }
 
+.waitlist {
+	color: #f66c00;
+}
+
 .context {
-	
+	background-color: #1cad7e;
+	color: #FFF;
+	margin: 0 auto;
+}
+
+.partners {
+	text-align: center;
 }
