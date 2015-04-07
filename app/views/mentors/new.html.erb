@@ -1,11 +1,14 @@
-<h5>What would you like to talk with your mentor about?</h5>
-<%= form_for @mentor do |f| %>
-  <% if @mentor.errors.messages != {}%>
-    <p>Error:</p>
-    <% @mentor.errors.full_messages.each do |message|%>
-      <li><%=message%></li>
-    <%end%>
-  <%end%>
-  <%= f.text_field :question  %>
-  <%= f.submit "Submit", class:"btn"%>
-<%end%>
+<div class="wrapper">
+	<h5>What would you like to talk with your mentor about?</h5>
+	<%= form_for @mentor do |f| %>
+	  <% if @mentor.errors.messages != {}%>
+	    <p>Error:</p>
+	    <% @mentor.errors.full_messages.each do |message|%>
+	      <li><%=message%></li>
+	    <%end%>
+	  <%end%>
+	  <%= f.text_field :question  %>
+	  <%= f.submit "Submit", class:"btn"%>
+	<%end%>
+
+</div>

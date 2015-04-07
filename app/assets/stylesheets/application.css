@@ -16,9 +16,9 @@
  */
 
 .navbar {
-	padding-top: 20px;
+	padding-top: 26px;
 	background-color: #555;
-	height: 100px;
+	height: 140px;
 }
 
 .text-muted {
@@ -35,8 +35,13 @@
 }
 
 .title p {
-	color: #FFF;
+	color: #f66c00;
+	font-size: 1.3em;
 	padding-left: 20px;
+}
+
+.header {
+	padding-bottom: 40px;
 }
 
 .nav>li>a{
@@ -49,7 +54,7 @@
 
  .wrapper {
     overflow: auto;
-    height: 99.9%;
+    height: 99%;
 }
 
 
@@ -64,6 +69,11 @@
 	margin-right: 60px;
 	margin-left: 90px;
 	margin-bottom: 20px;
+}
+
+body {
+	background-color: #1cad7e
+	color: #FFF;
 }
 
 
@@ -101,4 +111,8 @@ footer h5 a {
 }
 footer p {
 	margin-bottom: 0px; 
+}
+
+.context {
+	
 }
