@@ -44,6 +44,16 @@
 	padding-bottom: 40px;
 }
 
+.mentor {
+	text-align: center;
+	width: 38%;
+	margin: 0 auto;
+	background-color: #1cad7e;
+	color: #FFF;
+	padding: 40px;
+	border-radius: 10px;
+	font-size: 1.3em;
+}
 .nav>li>a{
 	color: #FFF;
 }
@@ -63,6 +73,7 @@
 }
 
 .section {
+	vertical-align: text-top;
 	width: 260px;
 	text-align: center;
 	display: inline-block;
@@ -72,8 +83,8 @@
 }
 
 body {
-	background-color: #1cad7e
-	color: #FFF;
+	background-color: #F4F4F4;
+	color: #000;
 }
 
 

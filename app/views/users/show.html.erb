@@ -9,8 +9,7 @@
   <div class="context">
     <h3>Name: <%= @user.first_name%> <%= @user.last_name%></h3>
     <h4>Primary Industry: <%= @user.primary_industry%></h4>
-    <h4>Stage Of Career: <p>Note: if you are in start up rate this more on experience level over position title</p>
-      <% case @user.stage_of_career
+    <h4>Stage Of Career: <% case @user.stage_of_career
           when 1%><%= "Intern/Apprentice/Aspiring"%>
         <%when 2%><%= "Gaining a foothold"%>
         <%when 3%><%= "Management / Senior"%>
