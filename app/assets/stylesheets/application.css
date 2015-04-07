@@ -54,7 +54,7 @@
 
  .wrapper {
     overflow: auto;
-    height: 99%;
+    height: 110%;
 }
 
 
@@ -121,6 +121,18 @@ footer p {
 	background-color: #1cad7e;
 	color: #FFF;
 	margin: 0 auto;
+	width: 60%;
+	font-size: 1.3em;
+	padding: 20px;
+	border-radius: 20px;
+}
+
+input,select {
+	color: #000;
+}
+
+.context a {
+	color: #f66c00;
 }
 
 .partners {
