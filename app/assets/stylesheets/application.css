@@ -183,6 +183,11 @@ body {
 
 /*user edit*/
 
+.field_with_errors {
+	width: 15px;
+	display: inline-block;
+}
+
 input,select {
 	color: #000;
 }
