@@ -1,12 +1,12 @@
 <div class="row">
   <div class="blog-main">
   <h1 class="subject">Your Profile:</h1>
- <div class="waitlist">
-      <% if @user.waitlist%>
-        <h1>Waitlisted</h1>
-        <p>Either because you made your primary career Other which we currently don't support yet or you did not finish your profile</p>
-      <%end%>
+ <% if @user.waitlist%>
+    <div class="waitlist">
+        <h2>Waitlisted</h2>
+        <p>Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile</p>
     </div>
+  <%end%>
   <div class="context">
     <h4>Name: <%= @user.first_name%> <%= @user.last_name%></h4>
     <h4>Primary Industry: <%= @user.primary_industry%></h4>
