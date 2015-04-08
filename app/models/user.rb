@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
  validates_presence_of :mentor_industry, if: :mentor
  after_validation :check_industry
 
+ after_save :send_mail
+
   def self.connect_to_linkedin(auth, signed_in_resource =nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user
@@ -25,8 +27,6 @@ class User < ActiveRecord::Base
         return registered_user
       else
         user = User.create(first_name:auth.info.first_name, last_name:auth.info.last_name, provider:auth.provider, uid:auth.uid, email:auth.info.email, password:Devise.friendly_token[0,20] )
-        UserMailer.welcome_mail(user).deliver
-        user
       end
     end
   end
@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
       user.update(mentor_times: user.mentor_limit,is_participating_this_month: user.is_participating_next_month, is_participating_next_month: false, is_assigned_peer_group: false)
     end
     Peer.automattially_create_groups
+  end
+
+  def send_mail
+    UserMailer.welcome_mail(user).deliver
   end
 
   def check_industry
