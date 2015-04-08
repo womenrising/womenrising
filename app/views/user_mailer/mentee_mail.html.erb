@@ -4,12 +4,15 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
   </head>
   <body>
-    <h1>Hi <%= @mentee.first_name%></h1>
-    <p> Hope you are having a wonderful day!</p>
-    <p> You have requested to be mentored by <%= @mentor.first_name%> <%= @mentor.last_name%></p>
-    <p> You had a question about: <%= @mentor_match.question%></p>
-    <p> You can reach your mentor at: <%= mail_to( @mentor.email)%></p>
-    <p>Thank you!</p>
+    <h1>Hi Ladies,</h1>
+    <p>We are proud and excited to introduce you as a mentor-mentee match from Women Rising!</p>
+    <p> <strong>Mentee:</strong> <%= @mentee.first_name%> <%= mail_to( @mentee.email)%></p>
+    <p> <strong>Mentor:</strong> <%= @mentor.first_name%> <%= mail_to( @mentor.email)%></p>
+    <p><strong>Question:</strong> <%= @mentor_match.question%></p>
+    <p><strong>Note to mentees:</strong> it's on you to follow up with your assigned mentor and arrange a time for a 30 minute Skype/Google Hangout/Phone call to have your question answered! These women are busy and they are taking time from their busy schedules for this! </p>
+
+    <p><strong>Reminder to both parties:</strong> We believe finding a mentor should be like dating -- you gotta find chemistry. Each party commits only to a 30 minute call to talk out this question. If nothing clicks, you can get a new mentor/mentee next month. But if there's mentor magic in the air, we encourage you to follow up with each other at will! </p>
+    <p>Cheers,</p>
     <p>The Women Rising Team</p>
   </body>
 </html>
