@@ -1,15 +1,16 @@
 class Mentor < ActiveRecord::Base
   validates_presence_of :question
+  validate :not_on_waitlist, :have_avalible_mentors
 
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
   belongs_to :mentoring, class_name: "User", foreign_key: 'mentor_id'
 
-  before_validation(on: :create) do
-    if choose_mentor.nil?
-      raise "We don't have mentors for you at this time"
-    else
-      self.mentor_id = choose_mentor.id
-    end
+  def not_on_waitlist
+    errors.add(:waitlisted,"members cannot get mentors") if self.mentee.waitlist
+  end
+
+  def have_avalible_mentors
+    errors.add(:mentors, "are not avalible for your currently") if choose_mentor.nil?
   end
 
   after_save do
