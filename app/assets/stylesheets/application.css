@@ -44,6 +44,22 @@ body {
 
  /*header*/
 
+ .btn-default {
+ 	margin: 0 auto;
+ 	background-color: #f66c00;
+ 	width: 20%;
+ 	margin-top: 20px;
+ 	margin-bottom: 40px;
+ }
+
+ .btn-default:hover {
+ 	background-color: #f66c00;
+ }
+
+ .btn-default a {
+ 	color: #000;
+ }
+
 .navbar {
 	padding-top: 26px;
 	background-color: #555;
@@ -87,6 +103,10 @@ body {
 }
 
 /* index*/
+
+.logo h1 {
+	margin-bottom: 30px;
+}
 
 .second-footer {
 	text-align: center;

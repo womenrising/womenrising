@@ -3,6 +3,11 @@
 	<img src="WomenRising.png"/>
 	<h1>Studies show that mentors and friends determine your career trajectory.</h1>
 	<h1>Find that support group with us.</h1>
+	<% if !user_signed_in? %>
+	<div class="btn btn-lg btn-default">
+		<%= link_to "Sign In with LinkedIn", user_omniauth_authorize_path('linkedin') %>
+	</div>
+	<%end%>
 </div>
 <div class="second-footer">
 	<h1>Join Women Rising (it's free) will help you:</h1>
