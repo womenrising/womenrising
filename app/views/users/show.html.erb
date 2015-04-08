@@ -1,16 +1,16 @@
-<div class="wrapper">
-  
-    <div class="waitlist">
+<div class="row">
+  <div class="blog-main">
+  <h1 class="subject">Your Profile:</h1>
+ <div class="waitlist">
       <% if @user.waitlist%>
         <h1>Waitlisted</h1>
         <p>Either because you made your primary career Other which we currently don't support yet or you did not finish your profile</p>
       <%end%>
     </div>
   <div class="context">
-    <h3>Name: <%= @user.first_name%> <%= @user.last_name%></h3>
+    <h4>Name: <%= @user.first_name%> <%= @user.last_name%></h4>
     <h4>Primary Industry: <%= @user.primary_industry%></h4>
-    <h4>Stage Of Career: <p>Note: if you are in start up rate this more on experience level over position title</p>
-      <% case @user.stage_of_career
+    <h4>Stage Of Career: <% case @user.stage_of_career
           when 1%><%= "Intern/Apprentice/Aspiring"%>
         <%when 2%><%= "Gaining a foothold"%>
         <%when 3%><%= "Management / Senior"%>
@@ -32,6 +32,9 @@
     </ol>
 
     <p>Will you participate next month? <%= @user.is_participating_next_month ? "yes" : "no"%></p>
+</div>
+</div>
+  <div class="blog-sidebar">
     <% if !@user.is_participating_next_month %>
       <%= link_to "Click to participate next month", participate_path(@user)%></br>
     <%else%>

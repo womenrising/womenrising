@@ -1,4 +1,4 @@
-<div class="wrapper">
+<h1 class="subject">Edit Your Profile:</h1>
   <div class="context"
     <%= form_for @user do |f| %>
       <% if @user.errors.messages != {}%>
@@ -7,7 +7,7 @@
           <li><%= message%></li>
         <%end%>
       <%end%>
-      <%= f.label :First_Name%>
+      <%= f.label :First_Name %>
       <%= f.text_field :first_name %></br>
       <%= f.label :Last_Name%>
       <%= f.text_field :last_name %></br>
@@ -19,6 +19,7 @@
         <%= f.radio_button :primary_industry, "Other"%>
         <%= f.label :Other, "Other".humanize, :value => "Other"%></br>
       <%= f.label :Stage_of_Career%>
+      <p>Note: if you are in start up rate this more on experience level over position title</p>
       <%= f.select :stage_of_career, options_for_select([["Intern/Apprentice/Aspiring",1],["Gaining a foothold",2],["Management / Senior",3],["Director/VP/Chief Architect",4],["C-Level/Founder",5]], @user.stage_of_career)%> </br>
       <%= f.label :Current_Goal%>
       <%= f.select :current_goal, options_for_select([["Rising the ranks / breaking the glass ceiling","Rising the ranks / breaking the glass ceiling"],["Switching industries","Switching industries"],["Finding work/life balance","Finding work/life balance"]], @user.current_goal)%> </br>
@@ -39,16 +40,17 @@
       <%= f.label :Live_in_Detroit%>
       <%= f.select :live_in_detroit, options_for_select([["Yes",true],["No",false]], @user.live_in_detroit) %> </br>
       <%= f.label :top_3_interests%></br>
+      <div class="interests">
         <% @interests.each_with_index do |interest,index| %>
-          <% if (index + 1) % 2 == 0 %>
+          <% if (index + 1) % 3 == 0 %>
             <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-            <%= f.label :interest, interest.humanize, :value => interest%></br>
+            <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></br>
           <%else%>
             <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-            <%= f.label :interest, interest.humanize, :value => interest%>
+            <%= f.label :interest, interest.humanize, :value => interest, class:"check"%>
           <%end%>
       <%end%></br>
+    </div>
      <%= f.submit "Submit", class:"btn"%>
     <%end%>
   </div>
-</div>
