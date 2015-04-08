@@ -7,7 +7,7 @@
           <li><%= message%></li>
         <%end%>
       <%end%>
-      <%= f.label :First_Name%>
+      <%= f.label :First_Name %>
       <%= f.text_field :first_name %></br>
       <%= f.label :Last_Name%>
       <%= f.text_field :last_name %></br>
@@ -40,15 +40,17 @@
       <%= f.label :Live_in_Detroit%>
       <%= f.select :live_in_detroit, options_for_select([["Yes",true],["No",false]], @user.live_in_detroit) %> </br>
       <%= f.label :top_3_interests%></br>
+      <div class="interests">
         <% @interests.each_with_index do |interest,index| %>
-          <% if (index + 1) % 2 == 0 %>
+          <% if (index + 1) % 3 == 0 %>
             <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-            <%= f.label :interest, interest.humanize, :value => interest%></br>
+            <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></br>
           <%else%>
             <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-            <%= f.label :interest, interest.humanize, :value => interest%>
+            <%= f.label :interest, interest.humanize, :value => interest, class:"check"%>
           <%end%>
       <%end%></br>
+    </div>
      <%= f.submit "Submit", class:"btn"%>
     <%end%>
   </div>

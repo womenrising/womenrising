@@ -181,6 +181,18 @@ input,select {
 	color: #000;
 }
 
+.interests {
+	margin-left: 90px;
+	margin-bottom: 20px;
+}
+
+.check {
+	vertical-align: top;
+	margin-right:20px;
+	margin-bottom: 10px;
+	width: 150px;
+}
+
 /* request mentor*/
 
  .wrapper {
