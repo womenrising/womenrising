@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks", :session => 'custom/devise/sessions'}, :skip => [:registrations]
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :session => 'custom/devise/sessions'}, :skip => [:registrations]
   resources :users
   resources :mentors
   get 'users/:id/will_participate' => 'users#participate', as: :participate

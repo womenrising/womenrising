@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :omniauthable, :omniauth_providers => [:linkedin]
+  devise :database_authenticatable, :omniauthable
          # :recoverable, :rememberable, :trackable, :validatable,  :registerable
 
   has_many :mentors, class_name: "Mentor", foreign_key: "mentor_id"
