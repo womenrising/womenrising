@@ -21,7 +21,7 @@ body {
 }
 
 .context {
-	background-color: #1cad7e;
+	background-color: #1C4585;
 	color: #FFF;
 	margin: 0 auto;
 	margin-bottom: 60px;
@@ -32,11 +32,11 @@ body {
 }
 
 .context a {
-	color: #f66c00;
+	color: #F2CB15;
 }
 
 .subject {
-	color: #f66c00;
+	color: #F2CB15;
 	margin-left: 150px;
 }
 
@@ -46,14 +46,14 @@ body {
 
  .btn-default {
  	margin: 0 auto;
- 	background-color: #f66c00;
+ 	background-color: #F2CB15;
  	width: 20%;
  	margin-top: 20px;
  	margin-bottom: 40px;
  }
 
  .btn-default:hover {
- 	background-color: #f66c00;
+ 	background-color: #F2CB15;
  }
 
  .btn-default a {
@@ -73,7 +73,7 @@ body {
 }
 
 .title p {
-	color: #f66c00;
+	color: #F2CB15;
 	font-size: 1.3em;
 	padding-left: 20px;
 }
@@ -111,7 +111,7 @@ body {
 .second-footer {
 	text-align: center;
 	padding-top: 20px;
-	background-color: #1cad7e;
+	background-color: #1C4585;
 	color: #FFF;
 }
 
@@ -150,7 +150,7 @@ body {
 /*user show*/
 
 .waitlist {
-	color: #f66c00;
+	color: #F2CB15;
 	width: 50%;
 	margin: 0 auto;
 }
@@ -177,7 +177,7 @@ body {
 }
 
 .blog-sidebar a {
-	color: #f66c00;
+	color: #F2CB15;
 	padding: 5px;
 }
 
@@ -210,7 +210,7 @@ input,select {
 	text-align: center;
 	width: 38%;
 	margin: 0 auto;
-	background-color: #1cad7e;
+	background-color: #1C4585;
 	color: #FFF;
 	padding: 40px;
 	border-radius: 10px;
