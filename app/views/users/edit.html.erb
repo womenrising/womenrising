@@ -1,5 +1,5 @@
 <h1 class="subject">Edit Your Profile:</h1>
-  <div class="context"
+  <div class="context">
     <%= form_for @user do |f| %>
       <% if @user.errors.messages != {}%>
         <p>Error:</p>
@@ -50,7 +50,9 @@
             <%= f.label :interest, interest.humanize, :value => interest, class:"check"%>
           <%end%>
       <%end%></br>
-    </div>
+   </div>   
+    <p>PS -- we'd love if you told some friends or tweeted something like "I just joined @TheWomenRising, an awesome new #Detroit network for women to connect, support and mentor each other! http://www.womenrising.co"</p>
+
      <%= f.submit "Submit", class:"btn"%>
     <%end%>
   </div>
