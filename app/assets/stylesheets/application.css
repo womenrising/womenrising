@@ -151,6 +151,12 @@ body {
 
 .waitlist {
 	color: #f66c00;
+	width: 50%;
+	margin: 0 auto;
+}
+
+.waitlist p {
+	font-size: 1.3em;
 }
 
 .blog-main {
