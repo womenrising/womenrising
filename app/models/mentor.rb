@@ -10,7 +10,7 @@ class Mentor < ActiveRecord::Base
   end
 
   def have_avalible_mentors
-    errors.add(:mentors, "are not avalible for your currently") if choose_mentor.nil?
+    errors.add(:mentors, "are not currently available for you!") if choose_mentor.nil?
   end
 
   after_save do
