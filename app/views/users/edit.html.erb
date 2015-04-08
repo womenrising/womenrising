@@ -23,16 +23,16 @@
       <%= f.select :stage_of_career, options_for_select([["Intern/Apprentice/Aspiring",1],["Gaining a foothold",2],["Management / Senior",3],["Director/VP/Chief Architect",4],["C-Level/Founder",5]], @user.stage_of_career)%> </br>
       <%= f.label :Current_Goal%>
       <%= f.select :current_goal, options_for_select([["Rising the ranks / breaking the glass ceiling","Rising the ranks / breaking the glass ceiling"],["Switching industries","Switching industries"],["Finding work/life balance","Finding work/life balance"]], @user.current_goal)%> </br>
-      <%= f.label :Mentor%>
+      <p>Would you like to <%= f.label :Mentor%>?<p>
       <%= f.select :mentor, options_for_select([["Yes",true],["No",false]], @user.mentor) %> </br>
-      <%= f.label :Mentor_industry%>
+      <h4>I would like to mentor in:</h4>
       <% @industries.each do |industry| %>
         <%= f.radio_button :mentor_industry, industry%>
         <%= f.label :industry, industry.humanize, :value => industry%>
       <%end%></br>
-      <%= f.label :Mentor_limit%>
+      <h4>How many times would you like to mentor per month?</h4>
       <%= f.number_field :mentor_limit, in: 0..10%></br>
-      <%= f.label :Peer_industry%>
+      <h4> I would like to meet peers in:</h4>
       <% @industries.each do |industry| %>
         <%= f.radio_button :peer_industry, industry%>
         <%= f.label :industry, industry.humanize, :value => industry%>
