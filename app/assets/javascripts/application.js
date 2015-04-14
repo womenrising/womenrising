@@ -16,3 +16,18 @@
 //= require bootstrap.min
 //= require_tree .
 
+$(document).ready(function () {
+	if ($("#user_mentor :selected").val(false)) {
+		$("#mentor_info").hide();
+	}
+    $("#user_mentor").on("change", function(){
+  		$("#mentor_info").toggle();
+	});
+
+  if ($("#user_live_in_detroit :selected").val(true)) {
+		$(".detroit_info").hide();
+	}
+    $("#user_live_in_detroit").on("change", function(){
+  		$(".detroit_info").toggle();
+	});
+});

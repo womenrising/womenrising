@@ -47,7 +47,7 @@ body {
  .btn-default {
  	margin: 0 auto;
  	background-color: #F2CB15;
- 	width: 20%;
+ 	width: 25%;
  	margin-top: 20px;
  	margin-bottom: 40px;
  }
@@ -59,6 +59,11 @@ body {
  .btn-default a {
  	color: #000;
  }
+
+.btn-lg {
+	padding: 30px;
+	font-size: 30px;
+}
 
 .navbar {
 	padding-top: 26px;
@@ -75,7 +80,6 @@ body {
 .title p {
 	color: #F2CB15;
 	font-size: 1.3em;
-	padding-left: 20px;
 }
 
 .header {
@@ -88,6 +92,7 @@ body {
 
 .nav>li>a{
 	color: #FFF;
+	font-size: 110%;
 }
 
 .nav>li>a:hover{
@@ -202,6 +207,14 @@ input,select {
 	margin-right:20px;
 	margin-bottom: 10px;
 	width: 150px;
+}
+
+.context h4 {
+	font-weight: bold;
+}
+
+.context span {
+	font-weight: bold;
 }
 
 /* request mentor*/
