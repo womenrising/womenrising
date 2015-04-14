@@ -209,6 +209,14 @@ input,select {
 	width: 150px;
 }
 
+.context h4 {
+	font-weight: bold;
+}
+
+.context span {
+	font-weight: bold;
+}
+
 /* request mentor*/
 
  .wrapper {
