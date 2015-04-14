@@ -13,6 +13,8 @@
     <%= f.text_field :last_name %></br>
     <%= f.label :Live_in_Detroit%>
     <%= f.select :live_in_detroit, options_for_select([["Yes",true],["No",false]], @user.live_in_detroit) %> </br>
+    <p class="detroit_info">
+      <span> NOTE IF YOU DON'T LIVE IN DETROIT: You will not be placed in a peer group and can only mentor currently</p>
     <%= f.label :top_3_interests%></br>
     <div class="interests">
       <% @interests.each_with_index do |interest,index| %>

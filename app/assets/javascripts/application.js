@@ -23,4 +23,11 @@ $(document).ready(function () {
     $("#user_mentor").on("change", function(){
   		$("#mentor_info").toggle();
 	});
+
+  if ($("#user_live_in_detroit :selected").val(true)) {
+		$(".detroit_info").hide();
+	}
+    $("#user_live_in_detroit").on("change", function(){
+  		$(".detroit_info").toggle();
+	});
 });
