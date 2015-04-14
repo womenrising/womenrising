@@ -16,3 +16,11 @@
 //= require bootstrap.min
 //= require_tree .
 
+$(document).ready(function () {
+	if ($("#user_mentor :selected").val(false)) {
+		$("#mentor_info").hide();
+	}
+    $("#user_mentor").on("change", function(){
+  		$("#mentor_info").toggle();
+	});
+});
