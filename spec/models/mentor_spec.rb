@@ -41,7 +41,7 @@ RSpec.describe Mentor, :type => :model do
 
  		it "Should return error if invaid user" do
  			mentee = User.where(is_participating_this_month:true, waitlist: false, primary_industry: "Technology").sample
- 			expect{Mentor.create(mentee_id: mentee.id, question: "Hello")}.to raise_error("We don't have mentors for you at this time")
+ 			expect(Mentor.create(mentee_id: mentee.id, question: "Hello")).to_not be_valid
  		end
  	end
 
