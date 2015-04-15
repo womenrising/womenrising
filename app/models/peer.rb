@@ -21,6 +21,7 @@ class Peer < ActiveRecord::Base
     ["Technology","Business", "Startup"].each do |industry|
       (1..5).each do |stage_of_career|
         groups = create_groups(industry, stage_of_career, remainder)
+        remainder = []
         outlyers = get_not_full_groups(groups)
         if outlyers.flatten.length > 0
           groups -= outlyers
