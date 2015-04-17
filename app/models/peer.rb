@@ -34,19 +34,23 @@ class Peer < ActiveRecord::Base
             groups -= new_outlyers
           end
         end
-        groups.each do |group|
-          if group.length == 3
-            Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2])
-          elsif group.length == 4
-            Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2],peer4:group[3])
-          end
-          group.each do |indv|
-            indv.update(is_assigned_peer_group: true)
-          end
-        end
+        create_peer_groups(groups)
       end
     end
     
+  end
+
+  def self.create_peer_groups(groups)
+    groups.each do |group|
+      if group.length == 3
+        Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2])
+      elsif group.length == 4
+        Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2],peer4:group[3])
+      end
+      group.each do |indv|
+        indv.update(is_assigned_peer_group: true)
+      end
+    end
   end
 
   def self.assign_groups_final(group, outlyers)
