@@ -34,6 +34,7 @@ describe Peer do
       group = Peer.get_peer_group("Technology",1)
       peer = Peer.get_one_peer(group)
       expect(Peer.remove_peer(group, peer).count).to eq(group.length - 1)
+       expect(Peer.remove_peer(group, peer).include?(peer)).to eq(false)
     end
   end
 
