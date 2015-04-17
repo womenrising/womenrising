@@ -13,7 +13,7 @@
 
 		<p>Remember, from here we leave it to you to get in touch with your two peer matches and find a time for a group coffee, lunch or a drink in the Detroit area. <strong>Find time to schedule in the next couple weeks so you don't forget!</strong> </p>
 
-		<h4>Your mini-meetup for March: </h4>
+		<h4>Your mini-meetup for this month: </h4>
 		<ul>
 			<li><%= @peer1.first_name%> <%= @peer1.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer1.top_3_interests.each_with_index do |interest, index| %> 
 					<% if index == 2 %>
@@ -23,7 +23,7 @@
 			 		<%end%>
 			 	<%end%>)
 			 </li>
-			 <li><%= @peer2.first_name%> <%= @peer2.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer2.top_3_interests.each_with_index do |interest, index| %> 
+			 <li><%= @peer2.first_name%> <%= @peer2.last_name%> <%= mail_to( @peer2.email)%> (Ask me about: <% @peer2.top_3_interests.each_with_index do |interest, index| %> 
 					<% if index == 2 %>
 						<%= interest %>
 					<% else%>
@@ -31,7 +31,7 @@
 			 		<%end%>
 			 	<%end%>)
 			 </li>
-			 <li><%= @peer3.first_name%> <%= @peer3.last_name%> <%= mail_to( @peer1.email)%> (Ask me about: <% @peer3.top_3_interests.each_with_index do |interest, index| %> 
+			 <li><%= @peer3.first_name%> <%= @peer3.last_name%> <%= mail_to( @peer3.email)%> (Ask me about: <% @peer3.top_3_interests.each_with_index do |interest, index| %> 
 					<% if index == 2 %>
 						<%= interest %>
 					<% else%>
