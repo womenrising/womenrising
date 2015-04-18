@@ -30,7 +30,7 @@ class Peer < ActiveRecord::Base
             groups = assign_groups_final(groups, new_outlyers.flatten)
           elsif new_outlyers.flatten.length > 0
             remainder = new_outlyers.flatten
-            groups -= new_outlyers
+            groups -= new_outlyers 
           end
         end
         create_peer_groups(groups)
@@ -138,7 +138,9 @@ class Peer < ActiveRecord::Base
   end
 
   def self.assign_group(peer_groups, peer, length)
+    p peer_groups
     peer_groups.each do |group|
+      p group
       if check_group(group, peer) && group.length < length
         group << peer
         return peer_groups

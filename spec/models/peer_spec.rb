@@ -16,7 +16,7 @@ describe Peer do
   end 
 
   context "#self.get_current_peers" do
-    it "should " do
+    it "should get a group of peers for the industry and stage of career passed in" do
       group = Peer.get_peer_group("Technology",1)
       expect(group).not_to be_empty 
     end
@@ -54,9 +54,11 @@ describe Peer do
 
   context "#get_group_interests" do
     it "should return an array of common interests" do
-      group = User.where("? = ANY(top_3_interests)", "Cats").sample(2)
+      group1_1 = User.create(email: "hello2@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Bats"])
+      group1_3 = User.create(email: "hello4@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Bats", "Cats","Beer"])
+      group = [group1_1, group1_3]
       expect(Peer.get_group_interests(group)).not_to be_empty
-      expect(Peer.get_group_interests(group)).to include("Cats")
+      expect(Peer.get_group_interests(group)).to eq(["Cats","Bats"])
      end
   end
 
@@ -81,11 +83,11 @@ describe Peer do
 
   end
 
-  context "#adding_to_peer_groups" do
+  context "#assign_group" do
 
     it "It will add a person to a group that they will fit in with" do
       group1 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
-      group2 = [] << User.where(current_goal: "Switching industries").where("? = ANY(top_3_interests)", "Yoga" ).sample
+      group2 = [User.where(current_goal: "Switching industries").where("? = ANY(top_3_interests)", "Yoga" ).sample]
       group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Wine").sample(2)
       peer = User.where(current_goal: "Switching industries").where("? = ANY(top_3_interests)","Yoga").sample
       groups = [group1,group2,group3]
@@ -95,10 +97,13 @@ describe Peer do
     end
 
     it "should not add the person to a group that is already full" do
-      group1 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(3)
-      group2 = [] << User.where(current_goal: "Switching industries").where("? = ANY(top_3_interests)", "Yoga" ).sample
+      group1_1 = User.create!(email: "hello2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Bats"])
+      group1_2 = User.create!(email: "hello3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"])
+      group1_3 = User.create!(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Cats","Beer"])
+      group1 = [group1_1, group1_2, group1_3]
+      group2 = [User.create!(email: "hello563 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["puppies", "yoga","bats"])]
       group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
-      peer = User.create(email: "hello@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Fruit"])
+      peer = User.create!(email: "hello52343 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Fruit"])
       groups = [group1,group2,group3]
       new_groups = Peer.assign_group(groups, peer, 3)
       expect(new_groups[0].length).to eq(3)
