@@ -138,9 +138,7 @@ class Peer < ActiveRecord::Base
   end
 
   def self.assign_group(peer_groups, peer, length)
-    p peer_groups
     peer_groups.each do |group|
-      p group
       if check_group(group, peer) && group.length < length
         group << peer
         return peer_groups
