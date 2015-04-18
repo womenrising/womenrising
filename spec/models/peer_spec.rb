@@ -17,21 +17,21 @@ describe Peer do
 
   context "#self.get_current_peers" do
     it "should get a group of peers for the industry and stage of career passed in" do
-      group = Peer.get_peer_group("Technology",1)
+      group = Peer.get_peers("Technology",1)
       expect(group).not_to be_empty 
     end
   end
 
   context "#self.get_one_peer" do
     it "should get a single " do
-      peer = Peer.get_one_peer(Peer.get_peer_group("Technology",1))
+      peer = Peer.get_one_peer(Peer.get_peers("Technology",1))
       expect(peer).to be_an_instance_of(User)
     end
   end
 
   context "#self.remove_peer(group, peer)" do
     it "should get a single " do
-      group = Peer.get_peer_group("Technology",1)
+      group = Peer.get_peers("Technology",1)
       peer = Peer.get_one_peer(group)
       expect(Peer.remove_peer(group, peer).count).to eq(group.length - 1)
        expect(Peer.remove_peer(group, peer).include?(peer)).to eq(false)
@@ -67,13 +67,15 @@ describe Peer do
       group1_1 = User.create!(email: "hello2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Bats"])
       group1_2 = User.create!(email: "hello3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"])
       group = [group1_1, group1_2]
-      peer = peer = User.create!(email: "hello52343 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Fruit"])
+      peer = User.create!(email: "hello52343 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Fruit"])
       expect(Peer.check_group(group, peer)).to eq(true)
     end
 
     it "should return false if they don't have the same current_goal" do
-      group = User.where("? = ANY(top_3_interests)", "Cats").sample(2)
-      peer = User.where("current_goal != ? ", "Switching industries").sample
+      group1_1 = User.create!(email: "hello2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Bats"])
+      group1_2 = User.create!(email: "hello3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"])
+      group = [group1_1, group1_2]
+       peer = User.create!(email: "hello52343 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Switching Industries", top_3_interests: ["Anime", "Cats","Fruit"])
       expect(Peer.check_group(group, peer)).to be(false)
     end
 
@@ -127,14 +129,14 @@ describe Peer do
   context "#works_through_groups" do
     it "Should loop through all the users for Tech and 1 and assign them all tp groups" do
       possible_peers = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1)
-      peer_groups = Peer.create_groups("Technology", 1, [])
+      peer_groups = Peer.create_groups([],"Technology", 1)
       expect(peer_groups.flatten.length).to eq(possible_peers.length)
     end
   end
 
   context "#reassign_not_full_groups" do
     it "Should loop through all the users for Tech and 1 and assign them all to groups if possible" do
-      groups = Peer.create_groups("Technology", 1, [])
+      groups = Peer.create_groups([],"Technology", 1)
       outlyers = Peer.get_not_full_groups(groups)
       peer_groups = Peer.reassign_not_full_groups(groups, outlyers)
       new_outlyers = Peer.get_not_full_groups(peer_groups)
@@ -142,10 +144,10 @@ describe Peer do
     end
   end
 
-  context "#automattially_create_groups" do
+  context "#automatially_create_groups" do
     it "Should loop through all the users and make groups" do
       start_group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: true)
-      Peer.automattially_create_groups
+      Peer.automatially_create_groups
       remainder = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false)
       expect(start_group.length > 0).to eq(true)
       expect(remainder.length).to eq(0)

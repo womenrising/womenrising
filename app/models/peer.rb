@@ -16,47 +16,67 @@ class Peer < ActiveRecord::Base
     end
   end
 
-  def self.automattially_create_groups
-    remainder = []
+  def self.automatially_create_groups
+    all_groups = []
     ["Technology","Business", "Startup"].each do |industry|
       (1..5).each do |stage_of_career|
-        groups = create_groups(industry, stage_of_career, remainder)
+        groups = create_groups(all_groups, industry, stage_of_career )
         outlyers = get_not_full_groups(groups)
         groups -= outlyers
-        if outlyers.flatten.length > 0
-          groups = reassign_not_full_groups(groups, outlyers.flatten)
+        outlyers = outlyers.flatten
+        if outlyers.length > 0
+          groups = reassign_not_full_groups(groups, outlyers)
           new_outlyers = get_not_full_groups(groups)
-          if stage_of_career == 5 && industry == "Startup" && new_outlyers.flatten.length > 0
-            groups = assign_groups_final(groups, new_outlyers.flatten)
+          if stage_of_career == 5 && industry == "Startup" && new_outlyers.length > 0
             groups -= new_outlyers 
-          elsif new_outlyers.flatten.length > 0
-            remainder = new_outlyers.flatten
+            new_outlyers = new_outlyers.flatten
+            groups = assign_groups_final(groups, new_outlyers)
           end
         end
-        groups.each do |group|
-          if group.length == 3
-            Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2])
-            update_group(group)
-          elsif group.length == 4
-            Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2],peer4:group[3])
-            update_group(group)
-          end
-        end
+        create_peer_groups(groups)
       end
     end
     
   end
 
-  def self.create_peer_groups(groups)
-    
+  def self.create_groups(all_groups, industry, stage_of_career)
+    group = get_peers(industry, stage_of_career)
+    peer_groups = []
+    while group.length > 0
+      current_peer = get_one_peer(group)
+      group = remove_peer(group, current_peer)
+      peer_groups = assign_group(peer_groups, current_peer, 3)
+    end
+    peer_groups
   end
 
-  def self.update_group(group)
-    group.each do |indv|
-      indv.update(is_assigned_peer_group: true)
+  def self.get_peers(industry, stage_of_career)
+    User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
+  end
+
+  def self.get_not_full_groups(all_peer_groups)
+    groups = all_peer_groups
+    peer_groups = []
+    groups.each do |group|
+      if group.length < 3
+        peer_groups << group
+      end
+    end
+    peer_groups
+  end
+
+  def self.create_peer_groups(groups)
+    groups.each do |group|
+      if group.length == 3
+        Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2])
+      elsif group.length == 4
+        Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2],peer4:group[3])
+      end
+      group.each do |indv|
+        indv.update(is_assigned_peer_group: true)
+      end
     end
   end
-
 
   def self.assign_groups_final(group, outlyers)
     outlyers = outlyers.flatten
@@ -77,41 +97,29 @@ class Peer < ActiveRecord::Base
     end
   end
 
-  def self.get_peer_group(industry, stage_of_career)
-    User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
-  end
 
-  def self.get_not_full_groups(all_peer_groups)
-    groups = all_peer_groups
-    peer_groups = []
-    groups.each do |group|
-      if group.length < 3
-        peer_groups << group
-      end
-    end
-    peer_groups
-  end
 
   def self.reassign_not_full_groups(group, outlyers)
     outlyers = outlyers.flatten
     while outlyers.length > 0
       current_peer = get_one_peer(outlyers)
       outlyers = remove_peer(outlyers, current_peer)
-      peer_groups = assign_group(group, current_peer, 4)
+      peer_groups = assign_group_no_cg(group, current_peer, 4)
     end
     peer_groups
   end
 
-  def self.create_groups(industry, stage_of_career, remainder)
-    group = get_peer_group(industry, stage_of_career) + remainder
-    peer_groups = []
-    while group.length > 0
-      current_peer = get_one_peer(group)
-      group = remove_peer(group, current_peer)
-      peer_groups = assign_group(peer_groups, current_peer, 3)
+  def self.assign_group_no_cg(peer_groups, peer, length)
+    peer_groups.each do |group|
+      if check_interests(group, peer) && group.length < length
+        group << peer
+        return peer_groups
+      end
     end
-    peer_groups
+    return peer_groups << [peer]
   end
+
+
 
   def self.get_one_peer(group)
     group.sample
