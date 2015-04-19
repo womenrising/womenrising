@@ -42,7 +42,6 @@ class Peer < ActiveRecord::Base
             remainder = new_outlyers
           end
         else
-          # binding.pry
           new_outlyers = get_not_full_groups(groups)
           groups -= new_outlyers
           groups = reassign_not_full_groups(groups, new_outlyers.flatten)
@@ -197,23 +196,5 @@ class Peer < ActiveRecord::Base
     end
     singles
   end 
-
-  # def self.check_valid_group(group)
-  #   is_valid = true
-  #   group.each do |user|
-  #     return is_valid = false if user.is_assigned_peer_group
-  #   end
-  #   is_valid
-  # end  
-
-  # def self.find_invalids(group)
-  #   is_valid = []
-  #   group.each do |user|
-  #     is_valid << user if user.is_assigned_peer_group
-  #   end
-  #   is_valid
-  # end
-
-  
 
 end
