@@ -15,15 +15,18 @@ describe Peer do
     expect(User.all.count).to eq(100)
   end 
 
+  context "#generate_groups" do
+    it "Should loop through all the users and make groups" do
+      start_group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: true)
+      Peer.generate_groups
+      remainder = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false)
+      expect(start_group.length > 0).to eq(true)
+      expect(remainder.length).to eq(0)
+      all_peers_in_groups = Peer.all.each {||}
+    end
+  end
+
   context "#automatially_create_groups" do
-    # it "Should loop through all the users and make groups" do
-    #   start_group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: true)
-    #   Peer.automatially_create_groups
-    #   remainder = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false)
-    #   expect(start_group.length > 0).to eq(true)
-    #   expect(remainder.length).to eq(0)
-    #   all_peers_in_groups = Peer.all.each {||}
-    # end
     it "should loop through and assign groups" do
       start_group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true)
       groups = Peer.automatially_create_groups

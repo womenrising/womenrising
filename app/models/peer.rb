@@ -16,6 +16,12 @@ class Peer < ActiveRecord::Base
     end
   end
 
+  def self.generate_groups
+    groups = automatially_create_groups
+    create_peer_groups(groups)
+  end
+
+
   def self.automatially_create_groups
     all_groups = []
     ["Technology","Business", "Startup"].each do |industry|
