@@ -148,18 +148,18 @@ class Peer < ActiveRecord::Base
   end
 
   def self.create_peer_groups(groups)
+    # binding.pry
     groups.each do |group|
+        update_user(group)
         if group.length == 3
           Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2])
-          change_user(group)
         elsif group.length == 4
           Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2],peer4:group[3])
-          change_user(group)
         end
     end
   end
 
-  def self.change_user(group)
+  def self.update_user(group)
     group.each do |indv|
       indv.update(is_assigned_peer_group: true)
     end
