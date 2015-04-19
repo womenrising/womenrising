@@ -22,6 +22,7 @@ describe Peer do
       remainder = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false)
       expect(start_group.length > 0).to eq(true)
       expect(remainder.length).to eq(0)
+      all_peers_in_groups = Peer.all.each {||}
     end
   end
 
@@ -90,7 +91,9 @@ describe Peer do
     end
 
     it "should return false if invalid interests" do
-      group = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Cats").sample(2)
+      group1_1 = User.create!(email: "hello2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Bats"])
+      group1_2 = User.create!(email: "hello3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"])
+      group = [group1_1, group1_2]
       peer = User.create(email: "hello@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Animals","Fruit"])
       expect(Peer.check_group(group, peer)).to be(false)
     end
@@ -253,5 +256,45 @@ describe Peer do
       expect(group[1]).to eq([1,2,5])
     end
   end
+
+  context "#check_valid_group(" do
+    it "should return true if all the groups' is_assigned_peer_group is false" do
+      group1_1 = User.create!(email: "hello2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Hiking","Bats"],is_assigned_peer_group:false)
+      group1_2 = User.create!(email: "hello3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"], is_assigned_peer_group:false)
+      group1_3 = User.create!(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Hiking","Beer"], is_assigned_peer_group:false)
+      group = [group1_1, group1_3, group1_2]
+      expect(Peer.check_valid_group(group)).to eq(true)
+    end
+
+    it "should return false if one of the groups' is_assigned_peer_group is true" do
+      group1_1 = User.create!(email: "hello2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Hiking","Bats"],is_assigned_peer_group:false)
+      group1_2 = User.create!(email: "hello3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"], is_assigned_peer_group:false)
+      group1_3 = User.create!(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Hiking","Beer"], is_assigned_peer_group:true)
+      group = [group1_1, group1_3, group1_2]
+      expect(Peer.check_valid_group(group)).to eq(false)
+    end
+    
+  end
+
+  context "#find_invalids" do
+    it "should an array of all unvalid people" do
+      group1_1 = User.create!(email: "hello2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Hiking","Bats"],is_assigned_peer_group:false)
+      group1_2 = User.create!(email: "hello3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"], is_assigned_peer_group:true)
+      group1_3 = User.create!(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Hiking","Beer"], is_assigned_peer_group:false)
+      group = [group1_1, group1_3, group1_2]
+      expect(Peer.find_invalids(group)).to eq([group1_2])
+    end
+
+    it "should return two if two invalid" do
+      group1_1 = User.create!(email: "hello2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Hiking","Bats"],is_assigned_peer_group:false)
+      group1_2 = User.create!(email: "hello3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"], is_assigned_peer_group:true)
+      group1_3 = User.create!(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Hiking","Beer"], is_assigned_peer_group:true)
+      group = [group1_1, group1_3, group1_2]
+      expect(Peer.find_invalids(group)).to eq([group1_3,group1_2])
+    end
+    
+  end
+
+
 
 end

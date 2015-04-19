@@ -21,13 +21,14 @@ class Peer < ActiveRecord::Base
     ["Technology","Business", "Startup"].each do |industry|
       (1..5).each do |stage_of_career|
         groups = create_groups(remainder, industry, stage_of_career)
+        remainder = []
         outlyers = get_not_full_groups(groups)
         groups -= outlyers
-        if outlyers.flatten.length > 0
+        if outlyers.length > 0
           groups = reassign_not_full_groups(groups, outlyers.flatten)
           new_outlyers = get_not_full_groups(groups)
           groups -= new_outlyers
-          if stage_of_career == 5 && new_outlyers.flatten.length > 0
+          if stage_of_career == 5
             groups = assign_group_no_checks(groups, new_outlyers.flatten)
           else
             remainder = new_outlyers
@@ -126,12 +127,14 @@ class Peer < ActiveRecord::Base
 
   def self.create_peer_groups(groups)
     groups.each do |group|
-      if group.length == 3
-        Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2])
-        change_user(group)
-      elsif group.length == 4
-        Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2],peer4:group[3])
-        change_user(group)
+      if check_valid_group(group)
+        if group.length == 3
+          Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2])
+          change_user(group)
+        elsif group.length == 4
+          Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2],peer4:group[3])
+          change_user(group)
+        end
       end
     end
   end
@@ -166,7 +169,21 @@ class Peer < ActiveRecord::Base
     end
   end
 
-  
+  def self.check_valid_group(group)
+    is_valid = true
+    group.each do |user|
+      return is_valid = false if user.is_assigned_peer_group
+    end
+    is_valid
+  end  
+
+  def self.find_invalids(group)
+    is_valid = []
+    group.each do |user|
+      is_valid << user if user.is_assigned_peer_group
+    end
+    is_valid
+  end
 
   
 
