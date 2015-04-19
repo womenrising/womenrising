@@ -16,6 +16,10 @@ class Peer < ActiveRecord::Base
     end
   end
 
+  # def self.automatially_create_groups
+    
+  # end
+
   def self.get_peers(industry, stage_of_career)
     User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
   end
@@ -92,6 +96,16 @@ class Peer < ActiveRecord::Base
     peer_groups
   end
 
+  def self.assign_group_no_cg(peer_groups, peer)
+    peer_groups.each do |group|
+      if check_interests(group, peer) && group.length < 4
+        group << peer
+        return peer_groups
+      end
+    end
+    return peer_groups << [peer]
+  end
+
   def self.create_peer_groups(groups)
     groups.each do |group|
       if group.length == 3
@@ -110,33 +124,28 @@ class Peer < ActiveRecord::Base
     end
   end
 
-  def self.assign_group_no_cg(peer_groups, peer)
-    peer_groups.each do |group|
-      if check_interests(group, peer) && group.length < 4
-        group << peer
-        return peer_groups
+  def self.assign_group_no_checks(peer_groups, peers)
+    while peers.length > 0
+      if peers.length % 3 == 0
+        peer_sample = peers.sample(3)
+        peer_groups << peer_sample
+        peers -= peer_sample
+      else
+        peer = get_one_peer(peers)
+        peers = remove_peer(peers, peer)
+        peer_groups = assign_to_group_of_three(peer_groups, peer)
       end
     end
-    return peer_groups << [peer]
+    peer_groups
   end
 
-  def self.assign_group_no_checks(peer_groups, peer)
+  def self.assign_to_group_of_three(peer_groups, peer)
     peer_groups.each do |group|
       if group.length < 4
         group << peer
         return peer_groups
       end
     end
-  end
-
-  def self.assign_groups_final(group, outlyers)
-    outlyers = outlyers.flatten
-    while outlyers.length > 0
-      current_peer = get_one_peer(outlyers)
-      outlyers = remove_peer(outlyers, current_peer)
-      peer_groups = assign_group_no_checks(group, current_peer)
-    end
-    peer_groups
   end
 
   
