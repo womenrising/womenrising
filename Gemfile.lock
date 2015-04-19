@@ -51,6 +51,7 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
+    database_cleaner (1.4.1)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -229,6 +230,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   coveralls
+  database_cleaner (~> 1.4.1)
   devise
   fabrication
   factory_girl_rails
