@@ -32,7 +32,7 @@ RSpec.describe Mentor, :type => :model do
  			mentee = User.where(is_participating_this_month:true, waitlist: false, primary_industry: "Technology").sample
  			mentor_session = Mentor.create(mentee_id: user.id, question: "Hello")
  			mentor = mentor_session.mentoring
- 			expect(mentor_session).to be_an_instance_of(Mentor)g
+ 			expect(mentor_session).to be_an_instance_of(Mentor)
  			expect(mentor).to be_an_instance_of(User)
  			expect(mentor).to eq(user2)
  		end
