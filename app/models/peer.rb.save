@@ -17,43 +17,26 @@ class Peer < ActiveRecord::Base
   end
 
   def self.automatially_create_groups
-    all_groups = []
+    remainder = []
     ["Technology","Business", "Startup"].each do |industry|
-      remainder = []
-      industry_groups = []
       (1..5).each do |stage_of_career|
         groups = create_groups(remainder, industry, stage_of_career)
-        outlyers = get_singles(groups)
-        groups -= outlyers
+        remainder = []
+        outlyers = get_not_full_groups(groups)
+        p groups -= outlyers
         if outlyers.length > 0
           groups = reassign_not_full_groups(groups, outlyers.flatten)
           new_outlyers = get_not_full_groups(groups)
           groups -= new_outlyers
-          industry_groups += groups
           if stage_of_career == 5
-            industry_groups = assign_group_no_checks(industry_groups, new_outlyers.flatten)
+            groups = assign_group_no_checks(groups, new_outlyers.flatten)
           else
             remainder = new_outlyers
           end
-        else
-          # binding.pry
-          new_outlyers = get_not_full_groups(groups)
-          groups -= new_outlyers
-          groups = reassign_not_full_groups(groups, new_outlyers.flatten)
-          if groups != nil
-            new_outlyers = get_not_full_groups(groups)
-            groups -= new_outlyers
-            industry_groups += groups
-            if new_outlyers.length > 0
-              industry_groups = assign_group_no_checks(industry_groups, new_outlyers.flatten)
-              remainder = []
-            end
-          end
         end
+        create_peer_groups(groups)
       end
-      all_groups += industry_groups
     end
-    all_groups
   end
 
   def self.get_peers(industry, stage_of_career)
@@ -183,14 +166,6 @@ class Peer < ActiveRecord::Base
       end
     end
   end
-
-  def self.get_singles(groups)
-    singles = []
-    groups.each do |group|
-      singles << group if group.length == 1
-    end
-    singles
-  end 
 
   # def self.check_valid_group(group)
   #   is_valid = true

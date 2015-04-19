@@ -1,0 +1,27 @@
+
+[1mFrom:[0m /home/d-chan42/Desktop/projects/womenrising/app/models/peer.rb @ line 27 Peer.automatially_create_groups:
+
+    [1;34m19[0m: [32mdef[0m [1;36mself[0m.[1;34mautomatially_create_groups[0m
+    [1;34m20[0m:   remainder = []
+    [1;34m21[0m:   [[31m[1;31m"[0m[31mTechnology[1;31m"[0m[31m[0m,[31m[1;31m"[0m[31mBusiness[1;31m"[0m[31m[0m, [31m[1;31m"[0m[31mStartup[1;31m"[0m[31m[0m].each [32mdo[0m |industry|
+    [1;34m22[0m:     ([1;34m1[0m..[1;34m5[0m).each [32mdo[0m |stage_of_career|
+    [1;34m23[0m:       groups = create_groups(remainder, industry, stage_of_career)
+    [1;34m24[0m:       remainder = []
+    [1;34m25[0m:       outlyers = get_not_full_groups(groups)
+    [1;34m26[0m:       p groups -= outlyers
+ => [1;34m27[0m:       binding.pry
+    [1;34m28[0m:       [32mif[0m outlyers.length > [1;34m0[0m
+    [1;34m29[0m:         groups = reassign_not_full_groups(groups, outlyers.flatten)
+    [1;34m30[0m:         new_outlyers = get_not_full_groups(groups)
+    [1;34m31[0m:         groups -= new_outlyers
+    [1;34m32[0m:         [32mif[0m stage_of_career == [1;34m5[0m
+    [1;34m33[0m:           groups = assign_group_no_checks(groups, new_outlyers.flatten)
+    [1;34m34[0m:         [32melse[0m
+    [1;34m35[0m:           remainder = new_outlyers
+    [1;34m36[0m:         [32mend[0m
+    [1;34m37[0m:       [32mend[0m
+    [1;34m38[0m:       create_peer_groups(groups)
+    [1;34m39[0m:     [32mend[0m
+    [1;34m40[0m:   [32mend[0m
+    [1;34m41[0m: [32mend[0m
+
