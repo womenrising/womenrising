@@ -16,9 +16,27 @@ class Peer < ActiveRecord::Base
     end
   end
 
-  # def self.automatially_create_groups
-    
-  # end
+  def self.automatially_create_groups
+    remainder = []
+    ["Technology","Business", "Startup"].each do |industry|
+      (1..5).each do |stage_of_career|
+        groups = create_groups(remainder, industry, stage_of_career)
+        outlyers = get_not_full_groups(groups)
+        groups -= outlyers
+        if outlyers.flatten.length > 0
+          groups = reassign_not_full_groups(groups, outlyers.flatten)
+          new_outlyers = get_not_full_groups(groups)
+          groups -= new_outlyers
+          if stage_of_career == 5 && new_outlyers.flatten.length > 0
+            groups = assign_group_no_checks(groups, new_outlyers.flatten)
+          else
+            remainder = new_outlyers
+          end
+        end
+        create_peer_groups(groups)
+      end
+    end
+  end
 
   def self.get_peers(industry, stage_of_career)
     User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
@@ -98,7 +116,7 @@ class Peer < ActiveRecord::Base
 
   def self.assign_group_no_cg(peer_groups, peer)
     peer_groups.each do |group|
-      if check_interests(group, peer) && group.length < 4
+      if check_interests(group, peer) && group.length < 3
         group << peer
         return peer_groups
       end
@@ -126,7 +144,7 @@ class Peer < ActiveRecord::Base
 
   def self.assign_group_no_checks(peer_groups, peers)
     while peers.length > 0
-      if peers.length % 3 == 0
+      if peers.length >= 3
         peer_sample = peers.sample(3)
         peer_groups << peer_sample
         peers -= peer_sample
