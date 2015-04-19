@@ -39,6 +39,7 @@ class Mentor < ActiveRecord::Base
 private
 
   def get_possible_mentors
+    # binding.pry
     if mentee.stage_of_career == 5
       User.where(is_participating_this_month: true, mentor: true, waitlist: false, stage_of_career: 5).where( "mentor_times > ?", 0).where(mentor_industry: mentee.primary_industry).where("id != ?", mentee.id)
     else
