@@ -51,6 +51,7 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'pry'
+  gem 'pry-nav'
 end
 
 gem 'rails_12factor', group: :production
