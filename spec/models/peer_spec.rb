@@ -278,8 +278,8 @@ RSpec.describe Peer, :type => :model do
   #   end
   # end
 
-  context "#" do
-    it "should do something" do
+  context "#outlyers" do
+    it "should send an email to someone if they can't be matched" do
       User.all.each do |user|
         user.update(is_participating_this_month: false)
       end
@@ -288,6 +288,22 @@ RSpec.describe Peer, :type => :model do
       group1_3 = User.create!(email: "hellq23r23o4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, primary_industry: "Technology", live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 3, current_goal: "Switching industries", top_3_interests: ["Music", "Cats","Beer"])
       group1_4 = User.create!(email: "987go243523486@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, primary_industry: "Technology", live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 5, current_goal: "Rising the ranks / breaking the glass ceiling", top_3_interests: ["Anime", "Dogs","Bats"])
       group1_5 = User.create!(email: "hell1341233o3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, primary_industry: "Technology", is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 2, current_goal: "Switching industries", top_3_interests: ["Mom", "Music","Hiking"])
+      participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
+      expect(participants.length).to eq(5)
+      groups = Peer.generate_groups
+      new_participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
+      expect(new_participants.length).to eq(0)
+    end
+
+  it "should make groups out of remainder if possible" do
+    User.all.each do |user|
+        user.update(is_participating_this_month: false)
+      end
+      group1_1 = User.create!(email: "987024234286@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", primary_industry: "Technology", stage_of_career: 2, current_goal: "Rising the ranks / breaking the glass ceiling", top_3_interests: ["Video Games", "Reading","Social issues / volunteering"])
+      group1_2 = User.create!(email: "hello23@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Beer","Video Games"], primary_industry: "Technology")
+      group1_3 = User.create!(email: "hellq23o4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, primary_industry: "Technology", live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Startup", stage_of_career: 3, current_goal: "Switching industries", top_3_interests: ["Music", "Cats","Beer"])
+      group1_4 = User.create!(email: "987go243486@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, primary_industry: "Technology", live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Startup", stage_of_career: 5, current_goal: "Rising the ranks / breaking the glass ceiling", top_3_interests: ["Anime", "Dogs","Bats"])
+      group1_5 = User.create!(email: "hello1333o3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, primary_industry: "Technology", is_assigned_peer_group: false, peer_industry: "Business", stage_of_career: 2, current_goal: "Switching industries", top_3_interests: ["Mom", "Music","Hiking"])
       participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
       expect(participants.length).to eq(5)
       groups = Peer.generate_groups
