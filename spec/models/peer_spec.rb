@@ -22,7 +22,6 @@ describe Peer do
       remainder = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false)
       expect(start_group.length > 0).to eq(true)
       expect(remainder.length).to eq(0)
-      all_peers_in_groups = Peer.all.each {||}
     end
   end
 
