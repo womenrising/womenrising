@@ -19,8 +19,22 @@ class Peer < ActiveRecord::Base
   def self.generate_groups
     groups = automatially_create_groups
     create_peer_groups(groups)
+    get_remainder = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
+    remainder_groups = []
+    if get_remainder != []
+      while get_remainder.length > 2
+        new_group = get_remainder.sample(3)
+        get_remainder -= new_group
+        remainder_groups << new_group
+      end
+      get_remainder.each do |indv|
+        indv.update(is_assigned_peer_group:true)
+        UserMailer.peer_unavalible_mail(indv).deliver
+      end
+      create_peer_groups(remainder_groups)
+    end
+    groups += remainder_groups
   end
-
 
   def self.automatially_create_groups
     all_groups = []
