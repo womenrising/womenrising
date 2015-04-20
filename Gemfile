@@ -52,7 +52,6 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'pry'
   gem 'pry-nav'
-  gem 'database_cleaner', '~> 1.4.1'
 end
 
 gem 'rails_12factor', group: :production
