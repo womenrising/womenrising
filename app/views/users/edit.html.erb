@@ -19,11 +19,11 @@
     <div class="interests">
       <% @interests.each_with_index do |interest,index| %>
         <% if (index + 1) % 3 == 0 %>
-          <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-          <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></br>
+          <div><%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
+          <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></div></br>
         <%else%>
-          <%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-          <%= f.label :interest, interest.humanize, :value => interest, class:"check"%>
+          <div><%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
+          <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></div>
         <%end%>
       <%end%></br>
     </div>

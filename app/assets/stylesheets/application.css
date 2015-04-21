@@ -202,6 +202,10 @@ input,select {
 	margin-bottom: 20px;
 }
 
+.interests div {
+	display: inline-block;
+}
+
 .check {
 	vertical-align: top;
 	margin-right:20px;
