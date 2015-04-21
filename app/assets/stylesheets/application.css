@@ -198,8 +198,12 @@ input,select {
 }
 
 .interests {
-	margin-left: 90px;
+	margin-left: 10%;
 	margin-bottom: 20px;
+}
+
+.interests div {
+	display: inline-block;
 }
 
 .check {
