@@ -230,7 +230,7 @@ input,select {
 
 .mentor {
 	text-align: center;
-	width: 38%;
+	width: 50%;
 	margin: 0 auto;
 	background-color: #1C4585;
 	color: #FFF;
@@ -238,6 +238,10 @@ input,select {
 	border-radius: 10px;
 	font-size: 1.3em;
 	margin-bottom: 120px;
+}
+
+.mentor li {
+	list-style-type: none;
 }
 
 /*footer*/
