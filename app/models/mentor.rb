@@ -1,9 +1,13 @@
 class Mentor < ActiveRecord::Base
   validates_presence_of :question
-  validate :not_on_waitlist, :have_avalible_mentors
+  validate :not_on_waitlist, :have_avalible_mentors, :is_question
 
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
   belongs_to :mentoring, class_name: "User", foreign_key: 'mentor_id'
+
+  def is_question
+    errors.add(:In_order_to_receive_a_mentor_match_you_must_submit_a_specific_question,' Some examples from last round include: "How do I ask for a raise?", "How can I make time for both my significant other while being so busy?" or "How can I get my first job as a developer?"') if self.question[-1] != "?"
+  end
 
   def not_on_waitlist
     errors.add(:waitlisted,"members cannot get mentors") if self.mentee.waitlist
