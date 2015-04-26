@@ -1,5 +1,5 @@
 class Mentor < ActiveRecord::Base
-  validate :not_on_waitlist, :have_avalible_mentors, :is_question, :is_question_empty
+  validate  :is_question_empty, :not_on_waitlist, :have_avalible_mentors, :is_question
 
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
   belongs_to :mentoring, class_name: "User", foreign_key: 'mentor_id'

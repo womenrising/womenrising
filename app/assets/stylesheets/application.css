@@ -240,6 +240,15 @@ input,select {
 	margin-bottom: 120px;
 }
 
+.mentor h4 {
+	font-weight: bold;
+	font-size: 22px;
+}
+
+.mentor p {
+	font-size: 16px;
+}
+
 .mentor li {
 	list-style-type: none;
 }
