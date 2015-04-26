@@ -5,8 +5,8 @@
 		<%= form_for @mentor do |f| %>
 		  <% if @mentor.errors.messages != {}%>
 		    <p>Error:</p>
-		    <% @mentor.errors.full_messages.each do |message|%>
-		      <li><%=message%></li>
+		    <% @mentor.errors.messages.each_with_index do |message,index|%>
+		      <li><h3><%=message[0]%></h3><p><%=message[1][0]%></p></li>
 		    <%end%>
 		  <%end%>
 		  <%= f.text_field :question  %>

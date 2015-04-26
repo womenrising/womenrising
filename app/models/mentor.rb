@@ -1,20 +1,23 @@
 class Mentor < ActiveRecord::Base
-  validates_presence_of :question
-  validate :not_on_waitlist, :have_avalible_mentors, :is_question
+  validate :not_on_waitlist, :have_avalible_mentors, :is_question, :is_question_empty
 
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
   belongs_to :mentoring, class_name: "User", foreign_key: 'mentor_id'
 
+  def is_question_empty
+    errors.add("You must submit a question" ,'In order to request a mentor you must not leave the question box blank.') if self.question.empty?
+  end
+
   def is_question
-    errors.add(:In_order_to_receive_a_mentor_match_you_must_submit_a_specific_question,' Some examples from last round include: "How do I ask for a raise?", "How can I make time for both my significant other while being so busy?" or "How can I get my first job as a developer?"') if self.question[-1] != "?"
+    errors.add("In order to receive a mentor match, you must submit a specific question! What is your question? " ,' Some examples from last round include: "How do I ask for a raise?", "How can I make time for both my significant other while being so busy?" or "How can I get my first job as a developer?"') if self.question[-1] != "?"
   end
 
   def not_on_waitlist
-    errors.add(:waitlisted,"members cannot get mentors") if self.mentee.waitlist
+    errors.add("You are currently Waitlisted","members who are waitlisted cannot get mentors") if self.mentee.waitlist
   end
 
   def have_avalible_mentors
-    errors.add(:mentors, "are not currently available for you!") if choose_mentor.nil?
+    errors.add("We currently do nt have mentors avalible for you at this time", "We are sorry for the inconvenience") if choose_mentor.nil?
   end
 
   before_save do
