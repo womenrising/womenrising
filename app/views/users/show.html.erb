@@ -31,14 +31,14 @@
       <%end%>
     </ol>
 
-    <p>Will you participate next month? <%= @user.is_participating_next_month ? "yes" : "no"%></p>
+    <p>Will you participate this month? <%= @user.is_participating_this_month ? "yes" : "no"%></p>
 </div>
 </div>
   <div class="blog-sidebar">
-    <% if !@user.is_participating_next_month %>
-      <%= link_to "Click to participate next month", participate_path(@user)%></br>
+    <% if !@user.is_participating_this_month %>
+      <%= link_to "Click to participate this month", participate_path(@user)%></br>
     <%else%>
-      <%= link_to "Click to not participate next month", not_participate_path(@user)%></br>
+      <%= link_to "Click to not participate this month", not_participate_path(@user)%></br>
     <%end%>
 
     <%= link_to "Request a Mentor", new_mentor_path%>

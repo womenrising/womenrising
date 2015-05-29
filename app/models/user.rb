@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
   def self.update_month
     User.all.each do |user|
-      user.update(mentor_times: user.mentor_limit,is_participating_this_month: user.is_participating_next_month, is_participating_next_month: false, is_assigned_peer_group: false)
+      user.update(is_participating_this_month: false, is_assigned_peer_group: false)
     end
     Peer.generate_groups
   end
