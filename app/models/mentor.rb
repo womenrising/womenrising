@@ -1,5 +1,5 @@
 class Mentor < ActiveRecord::Base
-  validate  :is_question_empty, :not_on_waitlist, :have_avalible_mentors, :is_question
+  validate  :is_question_empty, :not_on_waitlist, :have_available_mentors, :is_question
 
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
   belongs_to :mentoring, class_name: "User", foreign_key: 'mentor_id'
@@ -16,8 +16,8 @@ class Mentor < ActiveRecord::Base
     errors.add("You are currently Waitlisted","members who are waitlisted cannot get mentors") if self.mentee.waitlist
   end
 
-  def have_avalible_mentors
-    errors.add("We currently do nt have mentors avalible for you at this time", "We are sorry for the inconvenience") if choose_mentor.nil?
+  def have_available_mentors
+    errors.add("We currently do not have mentors available for you at this time", "We are sorry for the inconvenience") if choose_mentor.nil?
   end
 
   before_save do
