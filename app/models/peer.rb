@@ -29,7 +29,7 @@ class Peer < ActiveRecord::Base
       end
       get_remainder.each do |indv|
         indv.update(is_assigned_peer_group:true)
-        UserMailer.peer_unavalible_mail(indv).deliver
+        UserMailer.peer_unavailable_mail(indv).deliver
       end
       create_peer_groups(remainder_groups)
     end

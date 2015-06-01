@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update(first_name:params[:user][:first_name],last_name:params[:user][:last_name],mentor:params[:user][:mentor],primary_industry:params[:user][:primary_industry],stage_of_career:params[:user][:stage_of_career],mentor_industry:params[:user][:mentor_industry], peer_industry:params[:user][:peer_industry],current_goal:params[:user][:current_goal],top_3_interests:params[:user][:top_3_interests] || [],live_in_detroit:params[:user][:live_in_detroit])
+    if @user.update(first_name:params[:user][:first_name],last_name:params[:user][:last_name],mentor:params[:user][:mentor],mentor_limit:params[:user][:mentor_limit],primary_industry:params[:user][:primary_industry],stage_of_career:params[:user][:stage_of_career],mentor_industry:params[:user][:mentor_industry], peer_industry:params[:user][:peer_industry],current_goal:params[:user][:current_goal],top_3_interests:params[:user][:top_3_interests] || [],live_in_detroit:params[:user][:live_in_detroit])
       redirect_to user_path(current_user)
     else
       @industries = ["Business", "Technology", "Startup"]
@@ -28,13 +28,13 @@ class UsersController < ApplicationController
 
   def participate
     @user = current_user
-    @user.update(is_participating_next_month: true)
+    @user.update(is_participating_this_month: true)
     redirect_to user_path(current_user)
   end
 
   def not_participate
     @user = current_user
-    @user.update(is_participating_next_month: false)
+    @user.update(is_participating_this_month: false)
     redirect_to user_path(current_user)
   end
 

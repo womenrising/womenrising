@@ -35,7 +35,7 @@ class UserMailer < ActionMailer::Base
     mail(to:  [@peer1.email, @peer2.email, @peer3.email], subject: 'Your "Women Rising" matches for this month!')
   end
 
-  def peer_unavalible_mail(indv)
+  def peer_unavailable_mail(indv)
     @indv = indv
     mail(to: @indv.email, subject: '"Women Rising" could not match you this month :(')
   end
