@@ -37,8 +37,8 @@ Next under OAuth 2.0 add in the redirect URL for http://localhost:3000/users/aut
 In your Config folder create an application.yml file (his file should contain the appid and secret key that you created).  Once you have done that add in your config:
 
 ```ruby
-API_KEY: Your Client Key here
-API_SECRET: your Client Secret here
+API_KEY: <<your Client Key here>>
+API_SECRET: <<your Client Secret here>>
 ```
 
 ####Rails
@@ -63,4 +63,4 @@ Currently bug reporting is being worked on. If you have any Issues please send i
 
 ###Sources
 
-The choice of the code of conduct was inspired by the awesome [Coraline Ada Ehmke](https://github.com/CoralineAda) From her talk at [Geekfest](https://vimeo.com/101449990). If you want to look more into this you can find more at [contributor-covenant](http://contributor-covenant.org/).
+The choice of the code of conduct was inspired by the awesome [Coraline Ada Ehmke](https://github.com/CoralineAda) from her talk at [Geekfest](https://vimeo.com/101449990). If you want to look more into this you can find more at [contributor-covenant](http://contributor-covenant.org/).
