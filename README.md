@@ -34,12 +34,19 @@ Next under OAuth 2.0 add in the redirect URL for http://localhost:3000/users/aut
 
 #####Setting up With Oauth2.0
 
-In your Config folder create an application.yml file (his file should contain the appid and secret key that you created).  Once you have done that add in your config:
+In your Config folder create an application.yml file (this file should contain the appid and secret key that you created).  Once you have done that go into the file and add:
 
 ```ruby
-API_KEY: <<your Client Key here>>
-API_SECRET: <<your Client Secret here>>
+LINKEDIN_ID: <<your Client ID here>>
+LINKEDIN_SECRET: <<your Client Secret here>>
+
+gmail_username: <<your gmail email address>>
+gmail_password: <<your gmail password>>
 ```
+
+*note this file is in the .gitignore file so it will not be uploaded to the internet (hence why we are having you create the linkedin dev account). The use of the gmail username and password is only for sending emails and will not be seen by anyone else.
+
+This will give you access to Linkedin so that you will be able to sign-in.
 
 ####Rails
 
@@ -53,13 +60,14 @@ rake db:create
 rake db:migrate
 rake db:seed (this is the run the seed file that I created to simulate users for testing purposes)
 
-Once the database is set-up you can start working on changes or improvements that you are making.
+Once the database is set-up you can start working on changes or improvements that you are making. You can run rails s to start the server and should be able to login.
 
 
 ###Reporting Bugs
 
-Currently bug reporting is being worked on. If you have any Issues please send it to 
+Currently how to report bugs is being worked on. If you have any issues please send it to info@womenrising.co.
 
+Please make sure that you have your issues be as detailed as possible (screenshots are always helpful!!).
 
 ###Sources
 
