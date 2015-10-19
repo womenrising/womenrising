@@ -2,7 +2,7 @@
 
 ##Women supporting women in tech and business.
 
-Women Rising is an open source project to help with the advancement of women by assisting them in finding female peers and mentors in their respective fields. Our goal making this open source is to give mainly women but anyone who is looking to get into development, a place to display their awesome skills as well as try to give feedback to people on their code. All this is to be done in a respective way so any contributor should review our code of conduct at [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md). If you have any complaint please let us know by sending an email to info@womenrising.co and we will do our best to address them!
+Women Rising is an open source project to help with the advancement of women by assisting them in finding female peers and mentors in their respective fields. Our goal making this open source is to give mainly women but anyone who is looking to get into development, a place to display their awesome skills as well as try to give feedback to people on their code. All this is to be done in a respectable way so any contributor should review our code of conduct at [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md). If you have any complaint please let us know by sending an email to info@womenrising.co and we will do our best to address them!
 
 ###Versions
 
