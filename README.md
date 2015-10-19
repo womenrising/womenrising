@@ -2,7 +2,7 @@
 
 ##Women supporting women in tech and business.
 
-Women Rising is an open source project to help with the advancement of women by assisting them in finding female peers and mentors in their respective fields. Our goal making this open source is to give mainly women but anyone who is looking to get into development, a place to display their awesome skills as well as try to give feedback to people on their code. All this is to be done in a respective way so any contributor should review our code of conduct at [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md). If you have any complaint please let us know and we will do our best to address them!
+Women Rising is an open source project to help with the advancement of women by assisting them in finding female peers and mentors in their respective fields. Our goal making this open source is to give mainly women but anyone who is looking to get into development, a place to display their awesome skills as well as try to give feedback to people on their code. All this is to be done in a respective way so any contributor should review our code of conduct at [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md). If you have any complaint please let us know by sending an email to info@womenrising.co and we will do our best to address them!
 
 ###Versions
 
@@ -18,23 +18,25 @@ postgres
 
 ###Getting Started
 
-In order to get started with this project please fork the repo and clone it to put it locally on your computer
+In order to get started with this project please fork the repo and clone it to put it locally on your computer.
 
 ####setting up with Linkedin:
 
-Create your own dev profile on [linkedin developer site](https://developer.linkedin.com/) that way you can create a local testing enviroment which will allow you to login as yourself and view changes to your profile. (if you already have a linkedin account look on the bottom for the sign in)
+Create your own application on [linkedin developer site](https://developer.linkedin.com/) on this page click my Apps which will take you to a create an account screen. If you already have a linkedin account look to the bottom to find a sign in with linkedin.
+
+This personal application will allower you to create a testing enviroment which will allow you to login as yourself and view changes to your profile.
 
 #####Next create an application on Linkedin
 
-Fill in the information with temporary info using your personal email and phone for business.
+Fill in the information with temporary info using your personal email and phone for business. The application use will be networking and you can use the wemen rising logo and url for the logo and url and click submit after agreeing to the terms.
 
-Under Authentication, you will find your client ID and Secret (keep these secret!!). You will also see Default Applications persissions check off the r\_basicprofile r\_emailaddress and w\_messages (you will need those for the profile).
+Under Authentication, you will find your client ID and Secret (keep these secret!!). You will also see Default Applications persissionsi under that check off r\_basicprofile r\_emailaddress and w\_messages (you will need those for the profile).
 
 Next under OAuth 2.0 add in the redirect URL for http://localhost:3000/users/auth/linkedin/callback and https://localhost:3000/users/auth/linkedin/callback (this will allow linkedin to redirect back to your localhost also if your localhost is something other than 3000 you just need to change the number to the correct one).
 
 #####Setting up With Oauth2.0
 
-In your Config folder create an application.yml file (this file should contain the appid and secret key that you created).  Once you have done that go into the file and add:
+In your config folder create an application.yml file (this file should contain the appid and secret key that you created).  Once you have done that go into the file and add:
 
 ```ruby
 LINKEDIN_ID: <<your Client ID here>>
