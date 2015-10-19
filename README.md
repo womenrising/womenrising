@@ -54,16 +54,15 @@ This will give you access to Linkedin so that you will be able to sign-in.
 
 Once you have gotten all that set up
 
-bundle install to get the vendors
+bundle install to make sure everything is ready for this project.
 
-Then set-up the database with 
+Then set-up the database with: 
 
 rake db:create
 rake db:migrate
-rake db:seed (this is the run the seed file that I created to simulate users for testing purposes)
+rake db:seed (this is the seed file that I created to simulate users for testing purposes)
 
 Once the database is set-up you can start working on changes or improvements that you are making. You can run rails s to start the server and should be able to login.
-
 
 ###Reporting Bugs
 
