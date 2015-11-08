@@ -46,4 +46,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def mentor_times_change(new_mentor_limit)
+    mentor_diff = new_mentor_limit - self.mentor_limit
+    new_mentor_times = self.mentor_times + mentor_diff
+    if new_mentor_times < 0
+      return 0
+    else
+      return new_mentor_times
+    end
+  end
 end
