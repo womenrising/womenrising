@@ -17,10 +17,8 @@ RSpec.describe User, :type => :model do
  				mentor_times: 0, mentor_limit: 1, is_assigned_peer_group: true)
   		User.update_month
   		current_user = User.find(current_user.id)
-  		expect(current_user.is_participating_next_month).to eq(false)
   		expect(current_user.mentor_times).to eq(1)
-  		expect(current_user.is_participating_this_month).to eq(true)
-  		expect(current_user.is_participating_next_month).to eq(false)
+  		expect(current_user.is_participating_this_month).to eq(false)
   	end
   end
 
