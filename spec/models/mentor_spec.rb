@@ -20,9 +20,10 @@ RSpec.describe Mentor, :type => :model do
  			mentor = mentor_session.mentoring
  			expect(mentor_session).to be_an_instance_of(Mentor)
  			expect(mentor).to be_an_instance_of(User)
- 			expect(mentor.stage_of_career).to be(5)
- 			expect(mentor.mentor_industry).to eq("Technology")
+ 			expect(mentor.stage_of_career).to be(create.stage_of_career)
+ 			expect(mentor.mentor_industry).to eq(create.mentor_industry)
  			expect(mentor.waitlist).to be(false)
+      expect(mentor.mentor_times).to eq(create.mentor_times-1)
  		end
 
  		it "Should give a mentor of 5 if the user is 5 and is not themselves" do

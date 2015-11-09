@@ -12,14 +12,26 @@ RSpec.describe User, :type => :model do
 
   before{10.times{FactoryGirl.create(:user)}}
   context "#update_month" do
-  	it "should update the users is_participating_this_month, is_participating_next_month, mentor_times, is_assigned_peer_group " do
-  		current_user = User.create!(email: "hellowerd2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 5, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: ["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), live_in_detroit: %w(true false).sample, is_participating_next_month: true, is_participating_this_month: false,
+  	it "should update the users is_participating_this_month, mentor_times, is_assigned_peer_group if the user is paricipating this month" do
+  		current_user = User.create!(email: "hellowerd2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 5, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: ["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), live_in_detroit: %w(true false).sample, is_participating_next_month: true, is_participating_this_month: true,
  				mentor_times: 0, mentor_limit: 1, is_assigned_peer_group: true)
   		User.update_month
   		current_user = User.find(current_user.id)
   		expect(current_user.mentor_times).to eq(1)
   		expect(current_user.is_participating_this_month).to eq(false)
+  		expect(current_user.is_assigned_peer_group).to eq(false)
   	end
+
+  	it "should update the user if the user is not participating this month and they have mentor_times" do
+  		current_user = User.create!(email: "hellowerd2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 5, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: ["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), live_in_detroit: %w(true false).sample, is_participating_next_month: true, is_participating_this_month: false,
+ 				mentor_times: 2, mentor_limit: 1, is_assigned_peer_group: false)
+  		User.update_month
+  		current_user = User.find(current_user.id)
+  		expect(current_user.mentor_times).to eq(0)
+  		expect(current_user.is_participating_this_month).to eq(false)
+  		expect(current_user.is_assigned_peer_group).to eq(false)
+  	end
+
   end
 
   context "#check_industry" do
