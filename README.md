@@ -8,7 +8,7 @@ The website for women rising has become an open source project. Our goal in maki
 
 ###Versions
 
-Ruby 4.1.4
+Rails 4.1.4
 
 ####Authentication
 devise
@@ -40,7 +40,7 @@ Next under OAuth 2.0 add in the redirect URL for http://localhost:3000/users/aut
 
 In your config folder create an application.yml file (this file should contain the appid and secret key that you created).  Once you have done that go into the file and add:
 
-```ruby
+```yaml
 LINKEDIN_ID: <<your Client ID here>>
 LINKEDIN_SECRET: <<your Client Secret here>>
 
@@ -48,7 +48,7 @@ gmail_username: <<your gmail email address>>
 gmail_password: <<your gmail password>>
 ```
 
-*note this file is in the .gitignore file so it will not be uploaded to the internet (hence why we are having you create the linkedin dev account). The use of the gmail username and password is only for sending emails and will not be seen by anyone else.
+*note this file is in the .gitignore file so it will not be uploaded to the internet (hence why we are having you create the linkedin dev account). The use of the gmail username and password is only for sending emails and will not be seen by anyone else.*
 
 This will give you access to Linkedin so that you will be able to sign-in.
 
@@ -58,11 +58,13 @@ Once you have gotten all that set up
 
 bundle install to make sure everything is ready for this project.
 
-Then set-up the database with: 
+Then set-up the database with:
 
+```sh
 rake db:create
 rake db:migrate
-rake db:seed (this is the seed file that I created to simulate users for testing purposes)
+rake db:seed  # this is the seed file that I created to simulate users for testing purposes
+```
 
 Once the database is set-up you can start working on changes or improvements that you are making. You can run rails s to start the server and should be able to login.
 
