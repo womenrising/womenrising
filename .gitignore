@@ -8,6 +8,10 @@
 
 # file with all the application secrets
 # apart of the Figaro gem
-/config/application.yml
+config/application.yml
 
+# ! means that we want to add this file to git
+#
+# make sure we provide an example application.yml file
+!config/application.example.yml
 
