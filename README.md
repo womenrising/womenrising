@@ -26,11 +26,11 @@ In order to get started with this project please fork the repo and clone it to p
 
 Create your own application on [linkedin developer site](https://developer.linkedin.com/) on this page click my Apps which will take you to a create an account screen. If you already have a linkedin account look to the bottom to find a sign in with linkedin.
 
-This personal application will allower you to create a testing enviroment which will allow you to login as yourself and view changes to your profile.
+This personal application will allow you to create a testing enviroment which will allow you to login as yourself and view changes to your profile.
 
 #####Next create an application on Linkedin
 
-Fill in the information with temporary info using your personal email and phone for business. The application use will be networking and you can use the wemen rising logo and url for the logo and url and click submit after agreeing to the terms.
+Fill in the information with temporary info using your personal email and phone for business. The application use will be networking and you can use the women rising logo and url for the logo and url and click submit after agreeing to the terms.
 
 Under Authentication, you will find your client ID and Secret (keep these secret!!). You will also see Default Applications persissionsi under that check off r\_basicprofile r\_emailaddress and w\_messages (you will need those for the profile).
 
