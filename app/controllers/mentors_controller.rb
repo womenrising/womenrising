@@ -4,7 +4,7 @@ class MentorsController < ApplicationController
   def auth_user
     redirect_to root_path unless user_signed_in?
   end
-  
+
   def new
     @user = current_user
     @mentor = Mentor.new()

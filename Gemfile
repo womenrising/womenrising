@@ -4,11 +4,12 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.4'
 
 # rails stuff
-gem 'pg'
+gem 'activeadmin', '~> 1.0.0.pre2'
 gem 'devise'
+gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-linkedin-oauth2'
-gem 'figaro'
+gem 'pg'
 
 # asset gems
 gem 'uglifier'
@@ -31,6 +32,7 @@ group :development, :test do
   gem 'launchy'
   gem 'pry'
   gem 'pry-nav'
+  gem 'quiet_assets'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 end
