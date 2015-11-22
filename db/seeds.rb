@@ -26,3 +26,4 @@ end
 150.times { Fabricate(:user)}
 
 
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
