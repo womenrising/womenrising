@@ -146,22 +146,39 @@ nav {
 .unit {
 	margin-left: 1.5rem;
 	margin-right: 1.5rem;
+
+	&.light {
+		background-color: #FFF;
+	}
 }
 
 .thumbnail {
+	border: 0;
+	box-shadow: none;
+
 	&.dark {
 		background-color: transparent;
-		border: 0;
 
 		.caption {
 			color: #fff;
 		}
-
-		h3 {
-			text-align: center;
-		}
 	}
 
+	img {
+		
+		max-height:300px;
+	}
+
+	h3 {
+		font-size: 3rem;	
+		letter-spacing: .3rem;
+		padding: 0 2rem;
+	}
+
+	p {
+		font-size: 1.6rem;
+		padding: 0 2rem;
+	}
 
 }
 
@@ -197,6 +214,12 @@ nav {
 			padding: 10rem 10% 5rem;
 		}
 	}
+
+	.thumbnail {
+		h3 {
+			font-size: 3rem;
+		}
+	}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -205,6 +228,12 @@ nav {
 		p {
 			font-size: 6.4rem;
 			padding: 15rem 10% 10rem;
+		}
+	}
+
+	.thumbnail {
+		h3 {
+			font-size: 4rem;
 		}
 	}
  }

@@ -98,14 +98,25 @@ nav {
 .unit {
   margin-left: 1.5rem;
   margin-right: 1.5rem; }
+  .unit.light {
+    background-color: #FFF; }
 
-.thumbnail.dark {
-  background-color: transparent;
-  border: 0; }
-  .thumbnail.dark .caption {
-    color: #fff; }
-  .thumbnail.dark h3 {
-    text-align: center; }
+.thumbnail {
+  border: 0;
+  box-shadow: none; }
+  .thumbnail.dark {
+    background-color: transparent; }
+    .thumbnail.dark .caption {
+      color: #fff; }
+  .thumbnail img {
+    max-height: 300px; }
+  .thumbnail h3 {
+    font-size: 3rem;
+    letter-spacing: .3rem;
+    padding: 0 2rem; }
+  .thumbnail p {
+    font-size: 1.6rem;
+    padding: 0 2rem; }
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 850px) {
@@ -118,13 +129,17 @@ nav {
     font-size: 2.4rem; }
   .hero p {
     font-size: 4rem;
-    padding: 10rem 10% 5rem; } }
+    padding: 10rem 10% 5rem; }
+  .thumbnail h3 {
+    font-size: 3rem; } }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .hero p {
     font-size: 6.4rem;
-    padding: 15rem 10% 10rem; } }
+    padding: 15rem 10% 10rem; }
+  .thumbnail h3 {
+    font-size: 4rem; } }
 
 /* Large devices (large desktops, 1200px and up) */
 /*# sourceMappingURL=styles.css.map */
