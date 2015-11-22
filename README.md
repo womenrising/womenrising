@@ -1,5 +1,7 @@
 #Women Rising
 
+[![Build Status](https://travis-ci.org/womenrising/womenrising.svg?branch=master)](https://travis-ci.org/womenrising/womenrising)
+
 ##Women supporting women in tech and business.
 
 Women Rising is a website that helps to permote women by assisting them in finding female peers and mentors in their field.
