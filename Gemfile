@@ -19,6 +19,9 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'sass-rails', '>= 3.2'
 
 group :development do
+  gem 'quiet_assets'
+  gem 'pry'
+  gem 'pry-nav'
   gem 'spring'
 end
 
@@ -30,9 +33,6 @@ group :development, :test do
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'launchy'
-  gem 'pry'
-  gem 'pry-nav'
-  gem 'quiet_assets'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 end
