@@ -7,29 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="header">
-    <nav class="navbar center">
-        <ul class="nav nav-pills pull-right">
-          <% if user_signed_in? %>
-            <li><%= link_to "Edit Profile", edit_user_path(@user)%></li>
-            <li><%= link_to "View Profile", user_path(@user)%></li>
-            <li><%= link_to "Request a Mentor", new_mentor_path%></li>
-            <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %><li>
-          <%else%>
-            <li><%= link_to "Sign In with LinkedIn", user_omniauth_authorize_path('linkedin') %></li>
-          <%end%>
-        </ul>
-      <div class="title center header">
-        <%= link_to "Women Rising", root_path, :class => "h1 text-muted" %>
-        <p>Women supporting women in tech and business.</p>
-     </div>
-    </nav>
+  <div class="container-fluid">
+    <%= render partial: '/shared/header' %>
+    <%= yield %>
+    <%= render partial: '/shared/footer' %>
   </div>
-
-<%= yield %>
-  <footer>
-    <h5>Tweet @ us: <%= link_to "@TheWomenRising", "https://twitter.com/TheWomenRising"%> | Email us: <%= mail_to "info@womenrising.co"%></h5>
-    <p>&copy; Women Rising, 2015</p>
-  </footer>
 </body>
 </html>
