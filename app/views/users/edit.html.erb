@@ -45,7 +45,7 @@
     <%end%></h4>
     <%= f.label :Stage_of_Career%>
     <p><span>NOTE TO THOSE WORKING IN STARTUPS:</span> Rate your stage of career more on experience level than position title. For example, if you're just starting out in your new company, being a CEO is probably equivalent to management level, not CEO level.</p>
-    <%= f.select :stage_of_career, options_for_select(User::STAGE_OF_CAREER.each_with_index {|item, element| [element, index+1]}, @user.stage_of_career) %> </br>
+    <%= f.select :stage_of_career, options_for_select(User::STAGE_OF_CAREER.each_with_index {|item, index| [item, index+1]}, @user.stage_of_career) %> </br>
   </div>
   <div class="context">
     Would you like to <%= f.label :Mentor%>?
@@ -65,4 +65,3 @@
     <%= f.submit "Submit", class:"btn"%>
   </div>
 <%end%>
-  
