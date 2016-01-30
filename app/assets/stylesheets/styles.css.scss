@@ -9,9 +9,8 @@ body {
 	font-size: 10px;
 	font-family: Helvetica Neue, Helvetica, San Serif;
 	min-height: 100vh;
-	background-color: $bodyBackground;
+	background-color: white;
 }
-
 .row {
 	margin: 0;
 }
@@ -120,7 +119,6 @@ nav {
 }
 
 .hero {
-	margin-top: 10rem;
 	background: asset-url('splash_filtered.jpg') no-repeat top center;
 	background-size: cover;
 	padding-bottom: 12rem;
@@ -479,4 +477,6 @@ nav {
 		}
 	}
 }
-
+.welcomePageContainer{
+  background-color: #2D3E5D;
+}

@@ -9,7 +9,11 @@
 <body>
   <div class="container-fluid">
     <%= render partial: '/shared/header' %>
-    <%= yield %>
+
+    <div style="margin-top: 100px;">
+      <%= yield %>
+    </div>
+
     <%= render partial: '/shared/footer' %>
   </div>
 </body>
