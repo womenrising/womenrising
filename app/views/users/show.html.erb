@@ -7,6 +7,9 @@
         <p>Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile</p>
     </div>
   <%end%>
+
+  <%= link_to "Edit My Profile", edit_user_path(@user) %>
+
   <div class="context">
     <h4>Name: <%= @user.first_name%> <%= @user.last_name%></h4>
     <h4>Primary Industry: <%= @user.primary_industry%></h4>
