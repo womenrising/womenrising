@@ -16,3 +16,66 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+@media (min-width: 1224px) {
+  .profile-block {
+    border-left: 1px solid #AEAEAE;
+  }
+  .image-block {
+    height: 500px;
+  }
+}
+
+.request {
+  border-bottom: 1px solid #AEAEAE;
+}
+
+p, li {
+  font-size: 13px;
+  font-style: Regular;
+}
+.orange-button {
+  background-image: linear-gradient(-180deg, #F7C879 0%, #EFA936 100%);
+  box-shadow: inset 0px 1px 8px 0px #EFA936;
+  border-radius: 8px;
+  color: white;
+  font-size: 20px;
+  font-style: Medium;
+}
+
+.pink-button {
+  background-image: linear-gradient(-180deg, #F685A3 0%, #E63966 100%);
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.50), inset 0px 1px 8px 0px #E63966;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  font-style: Medium;
+}
+
+h2  {
+  font-size: 29px;
+  font-style: Bold;
+  line-height: 33px;
+  color:#1BC49B;
+}
+
+p.info {
+  font-size: 16px;
+  font-style: Regular;
+  line-height: 23;
+}
+
+h4 {
+  font-size: 18px;
+  font-style: Medium;
+  color: #2D3E5D;
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+  -webkit-border-radius: 150px;
+  -moz-border-radius: 150px;
+}

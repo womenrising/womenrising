@@ -1,49 +1,48 @@
-<div class="row">
-  <div class="blog-main">
-  <h1 class="subject">Your Profile:</h1>
- <% if @user.waitlist%>
-    <div class="waitlist">
-        <h2>Waitlisted</h2>
-        <p>Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 image-block" style="text-align:center;">
+      <%= image_tag("default-avatar.jpg", class: 'profile-avatar', style: 'margin-top:10px;')  %>
+      <h4><%= @user.first_name%> <%= @user.last_name%></h4>
     </div>
-  <%end%>
+    <div class="col-lg-8 request profile-block">
+      <h2>This Week's Mentor</h2>
+      <button type="button" name="button" class="orange-button btn">Request A Mentor</button>
 
-  <%= link_to "Edit My Profile", edit_user_path(@user) %>
-
-  <div class="context">
-    <h4>Name: <%= @user.first_name%> <%= @user.last_name%></h4>
-    <h4>Primary Industry: <%= @user.primary_industry%></h4>
-    <h4>Stage Of Career: <% case @user.stage_of_career
-          when 1%><%= "Intern/Apprentice/Aspiring"%>
-        <%when 2%><%= "Gaining a foothold"%>
-        <%when 3%><%= "Management / Senior"%>
-        <%when 4%><%= "Director/VP/Chief Architect"%>
-        <%when 5%><%= "C-Level/Founder"%>
-      <%end%>
-    </h4>
-    <h4>Goal Right Now: <%= @user.current_goal%></h4>
-    <% if @user.mentor == true %>
-      <h4>I will mentor for: <%= @user.mentor_industry %></h4>
-      <h4> I want to mentor <%= @user.mentor_limit%> time a month and I have left <%= @user.mentor_times %> this month</h4>
+      <h5> Will you participate in peer matches this month?</h5>
+      <p><%= @user.is_participating_this_month ? "Yes" : "No" %></p>
+      <p><%= link_to "Change My Answer", "#" %></p>
+    </div>
+    <% if @user.waitlist%>
+      <div class="col-lg-8 profile-block">
+         <h2>Status: Waitlisted</h2>
+         <p>Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile.</p>
+      </div>
     <%end%>
-    <h4>I want to be a peer with: <%= @user.peer_industry%></h4>
-    <h4>My Top 3 non-career interests are: </h4>
-    <ol>
-      <% @user.top_3_interests.each do |interest|%>
-      <li><%= interest%></li>
+    <div class="col-lg-8 profile-block">
+      <h2>Info</h2>
+      <h4>Primary Industry<%= @user.primary_industry%></h4>
+      <h4>Stage Of Career<% case @user.stage_of_career
+            when 1%><%= "Intern/Apprentice/Aspiring"%>
+          <%when 2%><%= "Gaining a foothold"%>
+          <%when 3%><%= "Management / Senior"%>
+          <%when 4%><%= "Director/VP/Chief Architect"%>
+          <%when 5%><%= "C-Level/Founder"%>
+        <%end%>
+      </h4>
+      <h4>Goal Right Now:</h4>
+        <p><%= @user.current_goal%></p>
+      <% if @user.mentor == true %>
+        <h4>I will mentor for: <%= @user.mentor_industry %></h4>
+        <h4> I want to mentor <%= @user.mentor_limit%> time a month and I have left <%= @user.mentor_times %> this month</h4>
       <%end%>
-    </ol>
-
-    <p>Will you participate this month? <%= @user.is_participating_this_month ? "yes" : "no"%></p>
-</div>
-</div>
-  <div class="blog-sidebar">
-    <% if !@user.is_participating_this_month %>
-      <%= link_to "Click to participate this month", participate_path(@user)%></br>
-    <%else%>
-      <%= link_to "Click to not participate this month", not_participate_path(@user)%></br>
-    <%end%>
-
-    <%= link_to "Request a Mentor", new_mentor_path%>
+      <h4>I want to be a peer with: <%= @user.peer_industry%></h4>
+      <h4>My Top 3 non-career interests are: </h4>
+      <ol>
+        <% @user.top_3_interests.each do |interest|%>
+        <li><%= interest%></li>
+        <%end%>
+      </ol>
+      <%= link_to "Edit My Profile", edit_user_path(@user), class: 'pink-button btn' %>
+    </div>
   </div>
 </div>
