@@ -20,25 +20,15 @@ class UserMailer < ActionMailer::Base
     mail(to: @mentee.email, subject: "You have requested to be mentored by #{@mentor.first_name}")
   end
 
-  def four_peer_mail(peers)
-    @peer1 = peers.peer1
-    @peer2 = peers.peer2
-    @peer3 = peers.peer3
-    @peer4 = peers.peer4
-    mail(to:  [@peer1.email, @peer2.email, @peer3.email, @peer4.email], subject: 'Your "Women Rising" matches for this month!')
-  end
-
-  def three_peer_mail(peers)
-    @peer1 = peers.peer1
-    @peer2 = peers.peer2
-    @peer3 = peers.peer3
-    mail(to:  [@peer1.email, @peer2.email, @peer3.email], subject: 'Your "Women Rising" matches for this month!')
+  def peer_mail(peer_group)
+    @peers = peer_group.users
+    mail(to: @peers.map(&:email), subject: 'Your "Women Rising" matches for this month!')
   end
 
   def peer_unavailable_mail(indv)
     @indv = indv
     mail(to: @indv.email, subject: '"Women Rising" could not match you this month :(')
   end
-   
+
 
 end
