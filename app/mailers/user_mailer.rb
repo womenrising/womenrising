@@ -22,6 +22,7 @@ class UserMailer < ActionMailer::Base
 
   def peer_mail(peer_group)
     @peers = peer_group.users
+    return if @peers.empty?
     mail(to: @peers.map(&:email), subject: 'Your "Women Rising" matches for this month!')
   end
 
