@@ -2,35 +2,26 @@
 
 [![Build Status](https://travis-ci.org/womenrising/womenrising.svg?branch=master)](https://travis-ci.org/womenrising/womenrising)
 
-##Women supporting women in tech and business.
+## Women supporting women in tech and business.
 
 Women Rising is a website that helps to permote women by assisting them in finding female peers and mentors in their field.
 
 The website for women rising has become an open source project. Our goal in making this open source is to give mainly women but anyone who is looking to get into development or someone who is just looking for a project to help out with, a place to display their awesome skills as well as try to give feedback to people on their code. All this is to be done in a respectable way, any contributor should review our code of conduct at [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md). If you have any complaint please let us know by sending an email to info@womenrising.co and we will do our best to address them!
 
-###Versions
-
-Rails 4.1.4
-
-####Authentication
-devise
-omniauth
-omniauth-linkedin-oauth2
-
-####Database
+#### Database
 postgres
 
-###Getting Started
+### Getting Started
+In order to get started with this project please fork the repo and clone it to
+put it locally on your computer.
 
-In order to get started with this project please fork the repo and clone it to put it locally on your computer.
-
-####setting up with Linkedin:
+#### Setting up with Linkedin:
 
 Create your own application on [linkedin developer site](https://developer.linkedin.com/) on this page click my Apps which will take you to a create an account screen. If you already have a linkedin account look to the bottom to find a sign in with linkedin.
 
 This personal application will allow you to create a testing enviroment which will allow you to login as yourself and view changes to your profile.
 
-#####Next create an application on Linkedin
+##### Next create an application on Linkedin
 
 Fill in the information with temporary info using your personal email and phone for business. The application use will be networking and you can use the women rising logo and url for the logo and url and click submit after agreeing to the terms.
 
@@ -38,7 +29,7 @@ Under Authentication, you will find your client ID and Secret (keep these secret
 
 Next under OAuth 2.0 add in the redirect URL for http://localhost:3000/users/auth/linkedin/callback and https://localhost:3000/users/auth/linkedin/callback (this will allow linkedin to redirect back to your localhost also if your localhost is something other than 3000 you just need to change the number to the correct one).
 
-#####Setting up With Oauth2.0
+##### Setting up With Oauth2.0
 
 In your config folder create an application.yml file (this file should contain the appid and secret key that you created).  Once you have done that go into the file and add:
 
@@ -54,7 +45,7 @@ gmail_password: <<your gmail password>>
 
 This will give you access to Linkedin so that you will be able to sign-in.
 
-####Rails
+#### Rails
 
 Once you have gotten all that set up
 
@@ -82,6 +73,6 @@ Currently the how to report bugs is being worked on. If you have any issues plea
 
 Please make sure that you have your issues be as detailed as possible (screenshots are always helpful!!).
 
-###Sources
+### Sources
 
 The choice of the code of conduct was inspired by the awesome [Coraline Ada Ehmke](https://github.com/CoralineAda) from her talk at [Geekfest](https://vimeo.com/101449990). If you want to look more into this you can find more at [contributor-covenant](http://contributor-covenant.org/).
