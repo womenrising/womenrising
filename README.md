@@ -70,7 +70,13 @@ rake db:seed  # this is the seed file that I created to simulate users for testi
 
 Once the database is set-up you can start working on changes or improvements that you are making. You can run rails s to start the server and should be able to login.
 
-###Reporting Bugs
+### Importing the Staging or Production DB
+
+```sh
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -d womenrising_development ./db/backup-2016-01-14.dump
+```
+
+### Reporting Bugs
 
 Currently the how to report bugs is being worked on. If you have any issues please send it to info@womenrising.co.
 
