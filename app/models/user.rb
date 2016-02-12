@@ -6,12 +6,11 @@ class User < ActiveRecord::Base
 
   has_many :mentors, class_name: "Mentor", foreign_key: "mentor_id"
   has_many :mentees, class_name: "Mentor", foreign_key: "mentee_id"
-  has_many :peer1, class_name: "Peer", foreign_key: "peer1_id"
-  has_many :peer2, class_name: "Peer", foreign_key: "peer2_id"
-  has_many :peer3, class_name: "Peer", foreign_key: "peer3_id"
-  has_many :peer4, class_name: "Peer", foreign_key: "peer4_id"
 
-  validates :top_3_interests, length: {maximum: 3, too_long: " is limited to %{count} interests"}
+  has_many :peer_group_users
+  has_many :peer_groups, through: :peer_group_users
+
+  validates :top_3_interests, length: { maximum: 3, too_long: " is limited to %{count} interests" }
   validates_presence_of :first_name, :last_name
   validates_presence_of :mentor_industry, if: :mentor
   after_validation :check_industry
@@ -47,7 +46,7 @@ class User < ActiveRecord::Base
   end
 
   def self.update_month
-    Peer.generate_groups
+    PeerGroup.generate_groups
     User.all.each do |user|
       if user.is_participating_this_month
         user.update(is_participating_this_month: false, is_assigned_peer_group: false, mentor_times: user.mentor_limit)

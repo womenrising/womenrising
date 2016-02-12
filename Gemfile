@@ -22,7 +22,7 @@ group :development do
   gem 'quiet_assets'
   gem 'pry'
   gem 'pry-nav'
-  gem 'spring'
+  gem 'spring', '1.4.4'
 end
 
 group :development, :test do
