@@ -1,4 +1,4 @@
-#Women Rising
+# Women Rising
 
 [![Build Status](https://travis-ci.org/womenrising/womenrising.svg?branch=master)](https://travis-ci.org/womenrising/womenrising)
 
@@ -8,12 +8,9 @@ Women Rising is a website that helps to permote women by assisting them in findi
 
 The website for women rising has become an open source project. Our goal in making this open source is to give mainly women but anyone who is looking to get into development or someone who is just looking for a project to help out with, a place to display their awesome skills as well as try to give feedback to people on their code. All this is to be done in a respectable way, any contributor should review our code of conduct at [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md). If you have any complaint please let us know by sending an email to info@womenrising.co and we will do our best to address them!
 
-#### Database
-postgres
-
 ### Getting Started
 In order to get started with this project please fork the repo and clone it to
-put it locally on your computer.
+have it locally on your computer.
 
 #### Setting up with Linkedin:
 
@@ -45,21 +42,51 @@ gmail_password: <<your gmail password>>
 
 This will give you access to Linkedin so that you will be able to sign-in.
 
-#### Rails
+#### Development Environment
 
-Once you have gotten all that set up
+##### Mac OSX
 
-bundle install to make sure everything is ready for this project.
+1. Install `homebrew`. See instructions on their website, [http://brew.sh/](http://brew.sh/).
 
-Then set-up the database with:
+2. Install `postgres`.
 
-```sh
-rake db:create
-rake db:migrate
-rake db:seed  # this is the seed file that I created to simulate users for testing purposes
-```
+  ```sh
+  brew install postgresql
+  ```
 
-Once the database is set-up you can start working on changes or improvements that you are making. You can run rails s to start the server and should be able to login.
+3. Install `rvm`. See intructions on their website, [https://rvm.io/](https://rvm.io/).
+
+4. Use `rvm` to install the current ruby version.
+
+  ```sh
+  rvm install ruby-2.3.0
+  ```
+
+5. Install `bundler`.
+
+  ```sh
+  gem install bundler
+  ```
+
+6. cd (change directory) into the womenrising rails app and install the gems.
+
+  ```sh
+  bundle install
+  ```
+
+7. Set up the database:
+
+  ```sh
+  rake db:create
+  rake db:migrate
+  rake db:seed  # this is the seed file that I created to simulate users for testing purposes
+  ```
+
+8. Fire up the app, and open your web browser to [localhost:3000](http://localhost:3000).
+
+  ```sh
+  rails server
+  ```
 
 ### Importing the Staging or Production DB
 
