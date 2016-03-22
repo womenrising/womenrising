@@ -1,19 +1,14 @@
-class Peer < ActiveRecord::Base
-  belongs_to :peer1, class_name: "User", foreign_key: 'peer1_id'
-  belongs_to :peer2, class_name: "User", foreign_key: 'peer2_id'
-  belongs_to :peer3, class_name: "User", foreign_key: 'peer3_id'
-  belongs_to :peer4, class_name: "User", foreign_key: 'peer4_id'
+class PeerGroup < ActiveRecord::Base
+
+  has_many :peer_group_users
+  has_many :users, through: :peer_group_users
 
   after_save do
     self.send_mail
   end
 
   def send_mail
-    if self.peer4 == nil
-      UserMailer.three_peer_mail(self).deliver
-    else
-      UserMailer.four_peer_mail(self).deliver
-    end
+    UserMailer.peer_mail(self).deliver
   end
 
   def self.generate_groups
@@ -162,14 +157,10 @@ class Peer < ActiveRecord::Base
   end
 
   def self.create_peer_groups(groups)
-    # binding.pry
     groups.each do |group|
-        update_user(group)
-        if group.length == 3
-          Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2])
-        elsif group.length == 4
-          Peer.create!(peer1:group[0],peer2:group[1],peer3:group[2],peer4:group[3])
-        end
+      update_user(group)
+      peer_group = PeerGroup.create
+      group.each{ |p| peer_group.users << p }
     end
   end
 
@@ -209,6 +200,6 @@ class Peer < ActiveRecord::Base
       singles << group if group.length == 1
     end
     singles
-  end 
+  end
 
 end
