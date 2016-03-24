@@ -10,6 +10,7 @@ gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-linkedin-oauth2'
 gem 'pg'
+gem 'rollbar'
 
 # asset gems
 gem 'uglifier'
