@@ -31,14 +31,17 @@ class User < ActiveRecord::Base
 
   def self.connect_to_linkedin(auth, signed_in_resource =nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    image_url = auth.extra.raw_info.pictureUrls.values[1][0]
     if user
+      user.update_attributes(image_url: image_url)
       return user
     else
       registered_user = User.where(:email => auth.info.email).first
       if registered_user
+        registered_user.update_attributes(image_url: image_url)
         return registered_user
       else
-        user = User.create(first_name:auth.info.first_name, last_name:auth.info.last_name, provider:auth.provider, uid:auth.uid, email:auth.info.email, password:Devise.friendly_token[0,20] )
+        user = User.create(first_name:auth.info.first_name, last_name:auth.info.last_name, provider:auth.provider, uid:auth.uid, email:auth.info.email, image_url:image_url,  password:Devise.friendly_token[0,20] )
         UserMailer.welcome_mail(user).deliver
         return user
       end
