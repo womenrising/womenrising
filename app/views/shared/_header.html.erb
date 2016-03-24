@@ -7,6 +7,17 @@
     <li><a href="#featured">Featured</a></li>
     <li><a href="#howitworks">How It Works</a></li>
     <li><a href="#partners">Partners</a></li>
-    <li><%= link_to "Login", user_omniauth_authorize_path('linkedin') %></li>
+    <li>
+      <% if user_signed_in? %>
+        
+        <a href=<%=user_path%> class="avatar">
+          <%= image_tag @user.get_image_url, class:"img-circle img-responsive" %>
+          <%= @user.full_name %>
+        </a>
+        <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+      <% else %>
+        <%= link_to "Sign in", user_omniauth_authorize_path('linkedin'), class:"with-border" %>
+      <% end %>
+    </li>
   </ul>	
 </nav>

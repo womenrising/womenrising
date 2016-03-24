@@ -76,48 +76,6 @@ nav {
 	}
 }
 
-.headerNav,
-.headerNav li {
-	padding: 0;
-	margin: 0;
-	list-style-type: none;
-}
-
-.headerNav {
-	float:right;
-
-	li {
-		display: inline-block;
-
-		a {
-			display: block;
-			margin: 1.9rem 0;
-			padding: 1.8rem 1.2rem 1.7rem;
-			font-size: 1.2rem;
-			color: $headerNavColor;
-			font-weight: 500;
-
-			&.active {
-				color: $activeColor;
-			}
-
-			&:hover {
-				text-decoration: none;
-			}
-		}
-
-		&:last-child {
-				a {
-					border-left: 1px solid $headerNavColor;
-					color: $highLighted;
-					font-size: 1.4rem;
-					padding: 1rem 2rem;
-					font-weight: 600;
-				}
-			}
-	}
-}
-
 .hero {
 	background: asset-url('splash_filtered.jpg') no-repeat top center;
 	background-size: cover;

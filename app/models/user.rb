@@ -76,4 +76,12 @@ class User < ActiveRecord::Base
       return new_mentor_times
     end
   end
+
+  def get_image_url
+    self.image_url ? self.image_url : "icons/yello_person.png"
+  end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 end
