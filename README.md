@@ -68,9 +68,10 @@ This will give you access to Linkedin so that you will be able to sign-in.
   gem install bundler
   ```
 
-6. cd (change directory) into the womenrising rails app and install the gems.
+6. Clone the repo and cd (change directory) into the womenrising rails app and install the gems.
 
   ```sh
+  git clone git@github.com:womenrising/womenrising.git
   bundle install
   ```
 
