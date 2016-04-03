@@ -88,7 +88,5 @@ RSpec.describe User, :type => :model do
  				mentor_times: 2, mentor_limit: 3, is_assigned_peer_group: true)
       expect(user.mentor_times_change(3)).to eq(2)
     end
-
   end
-
 end
