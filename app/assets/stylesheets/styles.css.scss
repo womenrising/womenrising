@@ -286,8 +286,8 @@ nav {
 	}
 
 	input[type='submit'] {
-		background-image: linear-gradient(-180deg, #F685A3 0%, #E63966 100%); 
-		box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.50), inset 0px 1px 8px 0px #E63966; 
+		background-image: linear-gradient(-180deg, #F685A3 0%, #E63966 100%);
+		box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.50), inset 0px 1px 8px 0px #E63966;
 		border: 0;
 	    font-size: 1.95rem;
 	    border-radius: 0 5px 5px 0;
@@ -354,7 +354,7 @@ nav {
 
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: 850px) { 
+@media (min-width: 850px) {
 	.logo {
 		img {
 			width: auto;
@@ -367,7 +367,7 @@ nav {
 				font-size: 1.6rem;
 			}
 
-			&:last-child {	
+			&:last-child {
 				a {
 					font-size: 2.4rem;
 				}
@@ -397,7 +397,7 @@ nav {
 }
 
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
 	.hero {
 		p {
 			font-size: 6.4rem;
@@ -437,4 +437,120 @@ nav {
 }
 .welcomePageContainer{
   background-color: #2D3E5D;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#container {
+	font-family: Helvetica Neue, Helvetica, Sans Serif;
+	color: #9B9B9B;
+	margin: 60px;
+}
+
+#container h1,#container h2 {
+	color:#1BC49B;
+	font-size: 23px;
+}
+
+a.btn:hover {
+	color: white;
+}
+
+.flush {
+	padding-left: 0px !important;
+	margin-left: 0px !important;
+}
+
+.large-frame {
+	margin: 40px 0px !important;
+}
+
+.medium-frame {
+	margin: 20px 0px !important;
+}
+
+.tiny-frame {
+	margin: 3px 0px !important;
+}
+
+.no-frame {
+	margin: 0px !important;
+}
+
+.side-frame {
+	padding: 0px 80px !important;
+}
+
+.divider {
+	border-bottom: 1px solid #AEAEAE;
+}
+
+.side-divider {
+	border-right: 1px solid #AEAEAE;
+	height: inherit;
+}
+
+/*Profile Picture Section*/
+
+.profile {
+	height: 250px;
+	width: 250px;
+}
+
+/*Mentor Section*/
+
+.mentor .btn {
+	background-color: #EFA936;
+	color: white;
+	font-weight: bold;
+}
+
+/*Waitlist section*/
+
+.waitlist h2 span {
+	color: #9B9b9b;
+}
+
+/*Profile Info Section*/
+
+.context h4 {
+	color: #2D3E5D;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.context h4 div {
+	color: #9B9B9B;
+	font-weight: 400;
+}
+
+/*Edit profile section*/
+
+.edit .btn {
+	background-color: #2D3E5D;
+	color: white;
+	font-weight: bold;
 }
