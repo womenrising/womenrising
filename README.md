@@ -1,5 +1,4 @@
 # Women Rising
-
 [![Build Status](https://travis-ci.org/womenrising/womenrising.svg?branch=master)](https://travis-ci.org/womenrising/womenrising)
 
 ## Women supporting women in tech and business.
