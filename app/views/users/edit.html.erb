@@ -100,14 +100,6 @@
                 <%= f.number_field :mentor_limit, in: 0..10%></br>
               </div>
             </h4>
-            <h4 class="medium-frame">
-              <p>Will you participate this month? <%= @user.is_participating_this_month ? "yes" : "no"%></p>
-              <% if !@user.is_participating_this_month %>
-                <%= link_to "Click to participate this month", participate_path(@user)%></br>
-              <%else%>
-                <%= link_to "Click to not participate this month", not_participate_path(@user)%></br>
-              <%end%>
-            </h4>
           </div>
           <div class="col-md-6">
             <div class="medium-frame">

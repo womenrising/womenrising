@@ -36,7 +36,14 @@
               <%end%>
             </ol>
           </div>
-          <h4 class="medium-frame">Will you participate in peer matches this month? <div><%= @user.is_participating_this_month ? "yes" : "no"%></div></h4>
+          <h4 class="medium-frame">
+            <p>Will you participate in peer matches this month? <div><%= @user.is_participating_this_month ? "yes" : "no"%></div></p>
+            <% if !@user.is_participating_this_month %>
+              <%= link_to "Click to participate this month", participate_path(@user)%></br>
+            <%else%>
+              <%= link_to "Click to not participate this month", not_participate_path(@user)%></br>
+            <%end%>
+          </h4>
         </div>
         <div class="col-md-6">
           <h4 class="medium-frame">Email: <div><%= @user.email%></div></h4>
