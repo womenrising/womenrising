@@ -9,8 +9,8 @@
     <li><a href="#partners">Partners</a></li>
     <li>
       <% if user_signed_in? %>
-        
-        <a href=<%=user_path%> class="avatar">
+
+        <a href=<%=user_path(@user)%> class="avatar">
           <%= image_tag @user.get_image_url, class:"img-circle img-responsive" %>
           <%= @user.full_name %>
         </a>
@@ -19,5 +19,5 @@
         <%= link_to "Sign in", user_omniauth_authorize_path('linkedin'), class:"with-border" %>
       <% end %>
     </li>
-  </ul>	
+  </ul>
 </nav>
