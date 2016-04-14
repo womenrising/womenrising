@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def get_image_url
-    self.image_url ? self.image_url : "icons/yello_person.png"
+    self.image_url ? self.image_url : ""
   end
 
   def full_name
