@@ -50,8 +50,7 @@
           </h4>
           <h4 class="medium-frame">I want to be a peer with: <div><%= @user.peer_industry%></div></h4>
           <% if @user.mentor == true %>
-          <h4 class="medium-frame">I will mentor for: <div><%= @user.mentor_industry %></div></h4>
-          <h4 class="medium-frame">Will you participate as a mentor this month? <div><%= @user.is_participating_this_month ? "yes" : "no"%></div></h4>
+            <h4 class="medium-frame">I will mentor women in this industry: <div><%= @user.mentor_industry %></div></h4>
           <%end%>
         </div>
       </div>
