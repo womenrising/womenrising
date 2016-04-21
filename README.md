@@ -88,6 +88,18 @@ This will give you access to Linkedin so that you will be able to sign-in.
   rails server
   ```
 
+
+#### Docker
+
+1. Install docker-machine locally
+
+2. Run these commands,
+  ```sh
+  docker-compose build
+  docker-compose run web rake db:create db:migrate -e WOMENRISING_DOCKER=true
+  docker-compose up -e WOMENRISING_DOCKER=true
+  ```
+
 ### Importing the Staging or Production DB
 
 ```sh

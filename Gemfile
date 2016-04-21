@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.1.4'
 
 # rails stuff
@@ -23,7 +22,7 @@ group :development do
   gem 'quiet_assets'
   gem 'pry'
   gem 'pry-nav'
-  gem 'spring', '1.4.4'
+  # gem 'spring', '1.4.4'
 end
 
 group :development, :test do

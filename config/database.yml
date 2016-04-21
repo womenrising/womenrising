@@ -6,10 +6,21 @@ default: &default
 development:
   <<: *default
   database: womenrising_development
+  <% if ENV['WOMENRISING_DOCKER'] %>
+  username: postgres
+  password:
+  host: db
+  <% end %>
 
 test:
   <<: *default
-  database: womenrising_test
+  database: womenrising_development
+  <% if ENV['WOMENRISING_DOCKER'] %>
+  username: postgres
+  password:
+  host: db
+  <% end %>
+
 
 production:
   <<: *default

@@ -4,6 +4,8 @@ db:
 web:
   build: .
   command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  environment:
+    - WOMENRISING_DOCKER=true
   volumes:
     - .:/app
   ports:
