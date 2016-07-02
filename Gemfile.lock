@@ -236,6 +236,7 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    slack-notifier (1.5.1)
     slop (3.6.0)
     spring (1.4.4)
     sprockets (2.12.3)
@@ -295,6 +296,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (>= 3.2)
   shoulda-matchers
+  slack-notifier
   spring (= 1.4.4)
   uglifier
 
