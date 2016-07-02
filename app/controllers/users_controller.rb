@@ -29,6 +29,11 @@ class UsersController < ApplicationController
   def participate
     @user = current_user
     @user.update(is_participating_this_month: true)
+
+    action = :user_participating
+    message  = "#{@user.email} is participating"
+    SlackNotification.notify(action, message)
+
     redirect_to user_path(current_user)
   end
 

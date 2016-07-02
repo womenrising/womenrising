@@ -42,6 +42,11 @@ class User < ActiveRecord::Base
         return registered_user
       else
         user = User.create(first_name:auth.info.first_name, last_name:auth.info.last_name, provider:auth.provider, uid:auth.uid, email:auth.info.email, image_url:image_url,  password:Devise.friendly_token[0,20] )
+
+        action = :new_user
+        message  = "#{@user.email} is a new user"
+        SlackNotification.notify(action, message)
+
         UserMailer.welcome_mail(user).deliver
         return user
       end

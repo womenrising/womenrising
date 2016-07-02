@@ -16,6 +16,11 @@ class MentorsController < ApplicationController
     @mentor = Mentor.new(mentee_id: current_user.id, question: params[:mentor][:question])
     if @mentor.save
       @mentor.send_mail
+
+      action = :new_mentor
+      message  = "#{@user.email} is a new mentor"
+      SlackNotification.notify(action, message)
+
       redirect_to user_path(current_user)
     else
       p @mentor.errors.full_messages

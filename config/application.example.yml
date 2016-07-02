@@ -4,3 +4,6 @@ LINKEDIN_SECRET: linkedin_secret
 gmail_username: gmail_username
 gmail_password: gmail_password
 
+SLACK_URL: https://hooks.slack.com/services/ABC/123/abc123
+SLACK_USERNAME: 'website-bot'
+SLACK_CHANNEL: '#website'
