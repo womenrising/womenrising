@@ -12,6 +12,8 @@ public/assets
 # file with all the application secrets
 # apart of the Figaro gem
 config/application.yml
+config/application.staging.yml
+config/application.production.yml
 
 # ! means that we want to add this file to git
 #
