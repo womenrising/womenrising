@@ -1,4 +1,4 @@
-FROM westonplatter/ruby-nodejs-postgres:2.3.0
+FROM westonplatter/ruby-nodejs-postgres:2.3.1
 
 RUN apt-get update -qq \
   && apt-get install -y \
