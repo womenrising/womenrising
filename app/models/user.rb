@@ -54,14 +54,29 @@ class User < ActiveRecord::Base
   end
 
   def self.update_month
+    # start
+    action = :update_month_start
+    message  = "started update month"
+    SlackNotification.notify(action, message)
+
     PeerGroup.generate_groups
-    User.all.each do |user|
+
+    User.find_each do |user|
       if user.is_participating_this_month
-        user.update(is_participating_this_month: false, is_assigned_peer_group: false, mentor_times: user.mentor_limit)
+        user.update(
+          is_participating_this_month: false,
+          is_assigned_peer_group: false,
+          mentor_times: user.mentor_limit
+        )
       else
         user.update(mentor_times: 0)
       end
     end
+
+    # finish
+    action = :update_month_finish
+    message  = "finished update month"
+    SlackNotification.notify(action, message)
   end
 
   def check_industry
