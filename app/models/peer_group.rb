@@ -14,7 +14,12 @@ class PeerGroup < ActiveRecord::Base
   def self.generate_groups
     groups = automatially_create_groups
     create_peer_groups(groups)
-    get_remainder = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
+
+    get_remainder = User.where(is_participating_this_month: true).
+        where(waitlist: false).
+        where(live_in_detroit: true).
+        where(is_assigned_peer_group: false)
+
     remainder_groups = []
     if get_remainder != []
       while get_remainder.length > 2
