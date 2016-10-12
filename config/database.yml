@@ -9,7 +9,7 @@ development:
   <% if ENV['WOMENRISING_DOCKER'] %>
   username: postgres
   password:
-  host: db
+  host: postgres
   <% end %>
 
 test:
@@ -18,7 +18,7 @@ test:
   <% if ENV['WOMENRISING_DOCKER'] %>
   username: postgres
   password:
-  host: db
+  host: postgres
   <% end %>
 
 
