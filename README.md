@@ -3,7 +3,7 @@
 
 ## Women supporting women in tech and business.
 
-Women Rising is a website that helps to permote women by assisting them in
+Women Rising is a website that helps to promote women by assisting them in
 finding female peers and mentors in their field.
 
 The website for women rising has become an open source project. Our goal in
