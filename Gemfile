@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.4'
 
-# rails stuff
-gem 'activeadmin', '~> 1.0.0.pre2'
+gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'devise'
 gem 'figaro'
 gem 'omniauth'
@@ -27,6 +26,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'better_errors'
   gem 'capybara'
   gem 'coveralls', require: false
   gem 'database_cleaner'
