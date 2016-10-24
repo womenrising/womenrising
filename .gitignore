@@ -9,6 +9,9 @@
 # don't git track the compile assets
 public/assets
 
+# data dumps
+/data
+
 # file with all the application secrets
 # apart of the Figaro gem
 config/application.yml
