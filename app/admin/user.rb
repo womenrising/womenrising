@@ -72,6 +72,15 @@ ActiveAdmin.register User do
     link_to 'Login In As', login_as_admin_user_path(user), method: :put
   end
 
+  collection_action :run_matches, method: :post do
+    User.update_month
+    redirect_to admin_users_path, notice: "Ran Monthly Matches"
+  end
+
+  action_item :view, only: :index do
+    link_to "Run Monthly Matching", run_matches_admin_users_path, method: :post
+  end
+
   controller do
     def permitted_params
       params.permit!
