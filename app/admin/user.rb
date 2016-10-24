@@ -45,10 +45,10 @@ ActiveAdmin.register User do
       row :email
       row :mentor
       row :primary_industry
-      row :stage_of_career do |user|
-        # stage_of_career -1 because the array of neames starts at 1
-        User::STAGE_OF_CAREER[user.stage_of_career-1]
-      end
+      # row :stage_of_career do |user|
+      #   # stage_of_career -1 because the array of neames starts at 1
+      #   User::STAGE_OF_CAREER[user.stage_of_career-1]
+      # end
       row :mentor_industry
       row :peer_industry
       row :current_goal
@@ -60,6 +60,16 @@ ActiveAdmin.register User do
       row :mentor_limit
       row :is_participating_this_month
     end
+  end
+
+  member_action :login_as, method: :put do
+    user = resource
+    sign_in(:user, user)
+    redirect_to user
+  end
+
+  action_item :view, only: :show do
+    link_to 'Login In As', login_as_admin_user_path(user), method: :put
   end
 
   controller do
