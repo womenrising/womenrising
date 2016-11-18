@@ -62,7 +62,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#check_industry" do
+  describe '#check_industry' do
     # check industry is a callback that triggers waitlisting
     ## TODO: can these be validations? Why waitlist?
     context 'if user has no goal' do
@@ -115,35 +115,44 @@ RSpec.describe User, type: :model do
   end
 
   describe '#mentor_times_change' do
-    # this is a method called in users#update that updates a user's mentor_times
+    # sets a new value for mentor_times
     # based on a new mentor limit submitted by the user in a form.
     # If a user decides midway through the month to change their mentor_limit,
     # this method makes sure that, based on any mentoring they have done already,
     # their mentor_times get set appropriately.
-
-    it "should 0 if the change makes it negative" do
-      user = FactoryGirl.create(:skinny_user, mentor_times: 0, mentor_limit: 1)
-      expect(user.mentor_times_change(0)).to eq(0)
+    context 'when the new mentor_limit would make mentor_times negative' do
+      it 'returns 0 as the new value for mentor_times' do
+        user = FactoryGirl.create(:skinny_user, mentor_times: 0, mentor_limit: 1)
+        expect(user.mentor_times_change(0)).to eq(0)
+      end
     end
 
-    it "should return higher but not the full limit if the change is greater than the limit but one of the mentor times is gone" do
-      user = FactoryGirl.create(:skinny_user, mentor_times: 0, mentor_limit: 1)
-      expect(user.mentor_times_change(4)).to eq(3)
+    context 'when the new mentor_limit is higher than old mentor_limit' do
+      it 'returns a higher value for mentor_times' do
+        user = FactoryGirl.create(:skinny_user, mentor_times: 1, mentor_limit: 1)
+        expect(user.mentor_times_change(4)).to eq(4)
+      end
     end
 
-    it "should return higher if the change is greater than the limit" do
-      user = FactoryGirl.create(:skinny_user, mentor_times: 1, mentor_limit: 1)
-      expect(user.mentor_times_change(4)).to eq(4)
+    context 'when the new mentor_limit is higher than old mentor_limit but the mentor has mentored already' do
+      it 'subtracts the number of mentor meetings from the new mentor_times' do
+        user = FactoryGirl.create(:skinny_user, mentor_times: 0, mentor_limit: 1)
+        expect(user.mentor_times_change(4)).to eq(3)
+      end
     end
 
-    it "should return lower if there is still mentor times" do
-      user = FactoryGirl.create(:skinny_user, mentor_times: 3, mentor_limit: 3)
-      expect(user.mentor_times_change(2)).to eq(2)
+    context 'when the new mentor_limit is lower than the old mentor_limit and less than the old mentor_times' do
+      it 'should set the new value for mentor_times as the new mentor_limit' do
+        user = FactoryGirl.create(:skinny_user, mentor_times: 3, mentor_limit: 3)
+        expect(user.mentor_times_change(2)).to eq(2)
+      end
     end
 
-    it "should return the same amount if nothing changes" do
-      user = FactoryGirl.create(:skinny_user, mentor_times: 2, mentor_limit: 3)
-      expect(user.mentor_times_change(3)).to eq(2)
+    context 'when the new mentor limit is the same as the old' do
+      it 'does not change the mentor_times value' do
+        user = FactoryGirl.create(:skinny_user, mentor_times: 2, mentor_limit: 3)
+        expect(user.mentor_times_change(3)).to eq(2)
+      end
     end
   end
 end
