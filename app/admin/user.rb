@@ -29,7 +29,6 @@ ActiveAdmin.register User do
       input :top_3_interests
       input :live_in_detroit
       input :waitlist
-      input :is_participating_next_month
       input :is_assigned_peer_group
       input :mentor_times
       input :mentor_limit
@@ -55,7 +54,6 @@ ActiveAdmin.register User do
       row :top_3_interests
       row :live_in_detroit
       row :waitlist
-      row :is_participating_next_month
       row :mentor_times
       row :mentor_limit
       row :is_participating_this_month
@@ -87,4 +85,3 @@ ActiveAdmin.register User do
     end
   end
 end
-
