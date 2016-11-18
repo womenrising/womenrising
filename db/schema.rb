@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324172132) do
+ActiveRecord::Schema.define(version: 20161118143441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,7 +99,6 @@ ActiveRecord::Schema.define(version: 20160324172132) do
     t.text     "top_3_interests",             default: [],                 array: true
     t.boolean  "live_in_detroit",             default: true
     t.boolean  "waitlist",                    default: true
-    t.boolean  "is_participating_next_month", default: false
     t.boolean  "is_assigned_peer_group",      default: false
     t.integer  "mentor_times",                default: 1
     t.integer  "mentor_limit",                default: 1
