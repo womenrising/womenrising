@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  before do
+    allow(SlackNotification).to receive(:notify)
+  end
   let(:user) { FactoryGirl.create(:skinny_user) }
 
   describe 'validations' do
