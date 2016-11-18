@@ -20,4 +20,26 @@ FactoryGirl.define do
     is_participating_next_month {[true, false].sample}
     is_participating_this_month {true}
   end
+
+  factory :skinny_user, class: User do
+    email { generate(:email) }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+
+    trait :mentor do
+      mentor true
+    end
+
+    trait :with_goal do
+      current_goal 'Rising the ranks'
+    end
+
+    trait :technology_primary_industry do
+      primary_industry 'Technology'
+    end
+
+    trait :with_interests do
+      top_3_interests ['Yoga', 'Hiking', 'Robotics']
+    end
+  end
 end
