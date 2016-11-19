@@ -1,6 +1,8 @@
 # Women Rising
 [![Build Status](https://travis-ci.org/womenrising/womenrising.svg?branch=master)](https://travis-ci.org/womenrising/womenrising)
 
+[![Code Climate](https://codeclimate.com/github/womenrising/womenrising/badges/gpa.svg)](https://codeclimate.com/github/womenrising/womenrising)
+
 ## Women supporting women in tech and business.
 
 Women Rising is a website that helps to promote women by assisting them in
