@@ -137,6 +137,7 @@ install the gems.
 
   ```sh
   git clone git@github.com:your-username/womenrising.git
+  cd womenrising
   bundle install
   ```
 
@@ -148,17 +149,17 @@ install the gems.
   rake db:seed  # seed file containing test users
   ```
 
-8. Fire up the app, and open your web browser to
+8. Copy `config/application.example.yml` to `config/application.yml`. Then run the test suite to ensure everything is passing.
+
+  ```sh
+  bundle exec rspec spec/
+  ```
+
+9. Fire up the app, and open your web browser to
 [localhost:3000](http://localhost:3000).
 
   ```sh
   rails server
-  ```
-
-9. Copy `config/application.example.yml` to `config/application.yml`. Then run the test suite to ensure everything is passing.
-
-  ```sh
-  bundle exec rspec spec/
   ```
 
 
