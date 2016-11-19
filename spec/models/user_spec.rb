@@ -23,7 +23,6 @@ RSpec.describe User, :type => :model do
   		expect(current_user.is_participating_this_month).to eq(false)
   		expect(current_user.is_assigned_peer_group).to eq(false)
   	end
-
   end
 
   context "#check_industry" do
@@ -87,6 +86,15 @@ RSpec.describe User, :type => :model do
   		user = User.create!(email: "hellowerd2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 5, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: nil,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), live_in_detroit: %w(true false).sample, is_participating_next_month: true, is_participating_this_month: false,
  				mentor_times: 2, mentor_limit: 3, is_assigned_peer_group: true)
       expect(user.mentor_times_change(3)).to eq(2)
+    end
+  end
+
+  context 'assigns location' do
+    let!(:location) {Location.create(city:'Boulder')}
+    let!(:user) {FactoryGirl.create(:user, location_id: location.id)}
+
+    scenario 'user has a location' do
+      expect(user.location_id).to_not be_nil
     end
   end
 end

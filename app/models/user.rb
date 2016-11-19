@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :peer_group_users
   has_many :peer_groups, through: :peer_group_users
+  belongs_to :location
 
   validates :top_3_interests, length: { maximum: 3, too_long: " is limited to %{count} interests" }
   validates_presence_of :first_name, :last_name
