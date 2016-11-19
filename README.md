@@ -8,14 +8,14 @@
 Women Rising is a website that helps to promote women by assisting them in
 finding female peers and mentors in their field.
 
-The website for women rising has become an open source project. Our goal in
+The website for Women Rising has become an open source project. Our goal in
 making this open source is to give mainly women but anyone who is looking to
 get into development or someone who is just looking for a project to help out
 with, a place to display their awesome skills as well as try to give feedback
 to people on their code. All this is to be done in a respectful way, any
 contributor should review our code of conduct at
 [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md).
-If you have any complaint please let us know by sending an email to
+If you have any complaints please let us know by sending an email to
 info@womenrising.co and we will do our best to address them!
 
 ### Getting Started
