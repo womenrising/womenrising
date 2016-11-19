@@ -10,7 +10,7 @@ The website for women rising has become an open source project. Our goal in
 making this open source is to give mainly women but anyone who is looking to
 get into development or someone who is just looking for a project to help out
 with, a place to display their awesome skills as well as try to give feedback
-to people on their code. All this is to be done in a respectable way, any
+to people on their code. All this is to be done in a respectful way, any
 contributor should review our code of conduct at
 [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md).
 If you have any complaint please let us know by sending an email to
@@ -136,7 +136,7 @@ heorku run rake womenrising:peer_group_monthly_match c -a womenrising
 install the gems.
 
   ```sh
-  git clone git@github.com:womenrising/womenrising.git
+  git clone git@github.com:your-username/womenrising.git
   bundle install
   ```
 
