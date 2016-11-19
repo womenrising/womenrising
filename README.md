@@ -10,7 +10,7 @@ The website for women rising has become an open source project. Our goal in
 making this open source is to give mainly women but anyone who is looking to
 get into development or someone who is just looking for a project to help out
 with, a place to display their awesome skills as well as try to give feedback
-to people on their code. All this is to be done in a respectable way, any
+to people on their code. All this is to be done in a respectful way, any
 contributor should review our code of conduct at
 [Code Of Conduct](https://github.com/kma3a/womenrising/blob/master/CODE_OF_CONDUCT.md).
 If you have any complaint please let us know by sending an email to
@@ -19,6 +19,12 @@ info@womenrising.co and we will do our best to address them!
 ### Getting Started
 In order to get started with this project please fork the repo and clone it to
 have it locally on your computer.
+
+#### Development Environment
+
+If you have a mac and already have ruby set up, follow [these directions.](https://github.com/womenrising/womenrising#mac-osx)
+
+Otherwise, set up Docker with [these directions](https://github.com/womenrising/womenrising#docker)
 
 #### Setting up with Linkedin:
 
@@ -69,7 +75,36 @@ seen by anyone else.*
 
 This will give you access to Linkedin so that you will be able to sign-in.
 
-#### Development Environment
+
+### Importing the Staging or Production DB
+
+```sh
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -d womenrising_development ./db/backup-2016-01-14.dump
+```
+
+### Reporting Bugs
+
+To report a bug, please create an issue with [Github Issues](https://github.com/womenrising/womenrising/issues/new)
+
+Please make sure that you have your issues be as detailed as possible
+(screenshots are always helpful!!).
+
+### Sources
+
+The choice of the code of conduct was inspired by the awesome
+[Coraline Ada Ehmke](https://github.com/CoralineAda) from her talk at
+[Geekfest](https://vimeo.com/101449990). If you want to look more into this you
+can find more at [contributor-covenant](http://contributor-covenant.org/).
+
+
+### Monthly Matches
+
+```sh
+# open a heroku rails shell
+heorku run rake womenrising:peer_group_monthly_match c -a womenrising
+```
+
+### Setup Options
 
 ##### Mac OSX
 
@@ -88,7 +123,7 @@ This will give you access to Linkedin so that you will be able to sign-in.
 4. Use `rvm` to install the current ruby version.
 
   ```sh
-  rvm install ruby-2.3.0
+  rvm install ruby-2.3.1
   ```
 
 5. Install `bundler`.
@@ -101,7 +136,8 @@ This will give you access to Linkedin so that you will be able to sign-in.
 install the gems.
 
   ```sh
-  git clone git@github.com:womenrising/womenrising.git
+  git clone git@github.com:your-username/womenrising.git
+  cd womenrising
   bundle install
   ```
 
@@ -113,7 +149,13 @@ install the gems.
   rake db:seed  # seed file containing test users
   ```
 
-8. Fire up the app, and open your web browser to
+8. Copy `config/application.example.yml` to `config/application.yml`. Then run the test suite to ensure everything is passing.
+
+  ```sh
+  bundle exec rspec spec/
+  ```
+
+9. Fire up the app, and open your web browser to
 [localhost:3000](http://localhost:3000).
 
   ```sh
@@ -138,32 +180,3 @@ install the gems.
   docker-compose run web rake db:create db:migrate
   docker-compose up
   ```
-
-### Importing the Staging or Production DB
-
-```sh
-pg_restore --verbose --clean --no-acl --no-owner -h localhost -d womenrising_development ./db/backup-2016-01-14.dump
-```
-
-### Reporting Bugs
-
-Currently the how to report bugs is being worked on. If you have any issues
-please send it to info@womenrising.co.
-
-Please make sure that you have your issues be as detailed as possible
-(screenshots are always helpful!!).
-
-### Sources
-
-The choice of the code of conduct was inspired by the awesome
-[Coraline Ada Ehmke](https://github.com/CoralineAda) from her talk at
-[Geekfest](https://vimeo.com/101449990). If you want to look more into this you
-can find more at [contributor-covenant](http://contributor-covenant.org/).
-
-
-### Monthly Matches
-
-```sh
-# open a heroku rails shell
-heorku run rake womenrising:peer_group_monthly_match c -a womenrising
-```
