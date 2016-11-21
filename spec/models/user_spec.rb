@@ -17,10 +17,10 @@ RSpec.describe User, type: :model do
     context 'if user is participating this month' do
       let!(:participating_user) do
         create(:skinny_user,
-                           is_participating_this_month: true,
-                           is_assigned_peer_group: true,
-                           mentor_times: 3,
-                           mentor_limit: 4)
+               is_participating_this_month: true,
+               is_assigned_peer_group: true,
+               mentor_times: 3,
+               mentor_limit: 4)
       end
 
       before do
@@ -49,8 +49,8 @@ RSpec.describe User, type: :model do
     context 'if user is not participating this month' do
       let!(:opted_out_user) do
         create(:skinny_user,
-                           is_participating_this_month: false,
-                           mentor_times: 10)
+               is_participating_this_month: false,
+               mentor_times: 10)
       end
 
       it 'sets the user\'s mentor times to 0 so they will not be matched' do
@@ -105,10 +105,10 @@ RSpec.describe User, type: :model do
     context 'with all necessary values' do
       it 'does not waitlist the user' do
         user = create(:skinny_user,
-                                  :with_interests,
-                                  :with_goal,
-                                  :technology_primary_industry,
-                                  peer_industry: "Business")
+                      :with_interests,
+                      :with_goal,
+                      :technology_primary_industry,
+                      peer_industry: "Business")
         expect(user.waitlist).to eq(false)
       end
     end
