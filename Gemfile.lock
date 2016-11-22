@@ -42,6 +42,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    annotate (2.7.1)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 12.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (5.0.1.20140414130214)
@@ -275,6 +278,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin (~> 1.0.0.pre4)
+  annotate
   better_errors
   bootstrap-sass (~> 3.3.5)
   capybara

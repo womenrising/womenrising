@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: mentors
+#
+#  id         :integer          not null, primary key
+#  mentor_id  :integer
+#  mentee_id  :integer
+#  question   :text
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Mentor < ActiveRecord::Base
   validate  :is_question_empty, :not_on_waitlist, :have_available_mentors, :is_question
 

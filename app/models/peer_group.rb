@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: peer_groups
+#
+#  id         :integer          not null, primary key
+#  peer1_id   :integer
+#  peer2_id   :integer
+#  peer3_id   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  peer4_id   :integer
+#
+
 class PeerGroup < ActiveRecord::Base
 
   has_many :peer_group_users
@@ -15,10 +28,11 @@ class PeerGroup < ActiveRecord::Base
     groups = automatially_create_groups
     create_peer_groups(groups)
 
-    get_remainder = User.where(is_participating_this_month: true).
-        where(waitlist: false).
-        where(live_in_detroit: true).
-        where(is_assigned_peer_group: false)
+    get_remainder = User.
+      where(is_participating_this_month: true).
+      where(waitlist: false).
+      where(live_in_detroit: true).
+      where(is_assigned_peer_group: false)
 
     remainder_groups = []
     if get_remainder != []
@@ -28,7 +42,7 @@ class PeerGroup < ActiveRecord::Base
         remainder_groups << new_group
       end
       get_remainder.each do |indv|
-        indv.update(is_assigned_peer_group:true)
+        indv.update(is_assigned_peer_group: true)
         UserMailer.peer_unavailable_mail(indv).deliver
       end
       create_peer_groups(remainder_groups)
@@ -76,7 +90,10 @@ class PeerGroup < ActiveRecord::Base
   end
 
   def self.get_peers(industry, stage_of_career)
-    User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
+    User.where(
+      is_participating_this_month: true,
+      waitlist: false,
+      live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
   end
 
   def self.get_one_peer(group)

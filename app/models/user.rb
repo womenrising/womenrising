@@ -1,3 +1,41 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                          :integer          not null, primary key
+#  email                       :string(255)      default(""), not null
+#  encrypted_password          :string(255)      default(""), not null
+#  reset_password_token        :string(255)
+#  reset_password_sent_at      :datetime
+#  remember_created_at         :datetime
+#  sign_in_count               :integer          default(0), not null
+#  current_sign_in_at          :datetime
+#  last_sign_in_at             :datetime
+#  current_sign_in_ip          :inet
+#  last_sign_in_ip             :inet
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#  provider                    :string(255)
+#  uid                         :string(255)
+#  first_name                  :string(255)
+#  last_name                   :string(255)
+#  mentor                      :boolean          default(FALSE)
+#  primary_industry            :string(255)
+#  stage_of_career             :integer
+#  mentor_industry             :string(255)
+#  peer_industry               :string(255)
+#  current_goal                :string(255)
+#  top_3_interests             :text             default([]), is an Array
+#  live_in_detroit             :boolean          default(TRUE)
+#  waitlist                    :boolean          default(TRUE)
+#  is_participating_next_month :boolean          default(FALSE)
+#  is_assigned_peer_group      :boolean          default(FALSE)
+#  mentor_times                :integer          default(1)
+#  mentor_limit                :integer          default(1)
+#  is_participating_this_month :boolean
+#  image_url                   :string(255)
+#
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

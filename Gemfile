@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.4'
 
 gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'annotate'
 gem 'devise'
 gem 'figaro'
 gem 'omniauth'
