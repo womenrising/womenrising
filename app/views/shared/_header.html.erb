@@ -8,7 +8,7 @@
     <li><a href="/#howitworks">How It Works</a></li>
     <li><a href="/#partners">Partners</a></li>
     <li>
-      <% if user_signed_in? %>
+      <% if current and user_signed_in? %>
 
         <a href=<%=user_path(@user)%> class="avatar">
           <%= image_tag @user.get_image_url, class:"img-circle img-responsive" %>
