@@ -17,3 +17,22 @@
 @import "bootstrap";
 @import "styles";
 @import "header";
+
+
+.col-x {
+    width: 200px;
+}
+
+.wr-location {
+
+    .hero-img {
+        @extend .center-block;
+
+        max-width: 100%;
+        max-height: 200px;
+    }
+}
+
+.wr-maxwidth {
+    max-width: 100%;
+}

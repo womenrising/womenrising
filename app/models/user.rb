@@ -35,6 +35,11 @@
 #  is_participating_this_month :boolean
 #  image_url                   :string(255)
 #
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:

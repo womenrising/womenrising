@@ -1,0 +1,34 @@
+<div class='container'>
+    <h2>Locations</h2>
+
+    <% @locations.in_groups(3).each do |group| %>
+        <div class='row'>
+            <% group.each do |location| %>
+                <% next if location.nil? %>
+
+                <%= link_to location do %>
+
+                    <div class='col-md-4'>
+                        <div class="panel panel-default">
+
+                          <div class="panel-body">
+                              <%= image_tag location.hero_url, class: 'wr-maxwidth' %>
+                          </div>
+
+                          <div class="panel-footer">
+                              <h5>
+                                <%= location.name %>
+                                <% if (location.id % 2) == 0 %>
+                                    &nbsp;&nbsp;(launching sooon)
+                                <% end %>
+                            </h5>
+
+                          </div>
+                        </div>
+                    </div>
+
+                <% end %>
+            <% end %>
+        </div>
+    <% end %>
+</div>
