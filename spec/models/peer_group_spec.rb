@@ -18,7 +18,7 @@ describe PeerGroup do
     end
   end
 
-  context "#self.get_peers" do
+  context "with many users" do
     let!(:peers) do
       create_list(:skinny_user, 10,
         :groupable,
@@ -37,11 +37,28 @@ describe PeerGroup do
         :groupable,
         peer_industry: 'Business')
     end
+    context "#self.get_peers" do
+      it "should get a group of peers in the same industry and stage of career" do
+        group = PeerGroup.get_peers("Technology",1)
+        expect(group).not_to be_empty
+        expect(group.length).to eq(10)
+      end
+    end
 
-    it "should get a group of peers in the same industry and stage of career" do
-      group = PeerGroup.get_peers("Technology",1)
-      expect(group).not_to be_empty
-      expect(group.length).to eq 10
+    context "#self.get_one_peer" do
+      it "should get a single" do
+        peer = PeerGroup.get_one_peer(PeerGroup.get_peers("Technology",1))
+        expect(peers).to include(peer)
+      end
+    end
+
+    context "#self.remove_peer(group, peer)" do
+      it "should get a single" do
+        group = PeerGroup.get_peers("Technology",1)
+        peer = PeerGroup.get_one_peer(group)
+        expect(PeerGroup.remove_peer(group, peer).count).to eq(group.length - 1)
+        expect(PeerGroup.remove_peer(group, peer)).to_not include(peer)
+      end
     end
   end
 
@@ -59,22 +76,6 @@ describe PeerGroup do
         end
         expect(groups.flatten.length).to eq(start_group.length)
         expect(groups.is_a?(Array)).to be(true)
-      end
-    end
-
-    context "#self.get_one_peer" do
-      it "should get a single " do
-        peer = PeerGroup.get_one_peer(PeerGroup.get_peers("Technology",1))
-        expect(peer).to be_an_instance_of(User)
-      end
-    end
-
-    context "#self.remove_peer(group, peer)" do
-      it "should get a single " do
-        group = PeerGroup.get_peers("Technology",1)
-        peer = PeerGroup.get_one_peer(group)
-        expect(PeerGroup.remove_peer(group, peer).count).to eq(group.length - 1)
-         expect(PeerGroup.remove_peer(group, peer).include?(peer)).to eq(false)
       end
     end
 
