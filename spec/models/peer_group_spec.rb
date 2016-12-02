@@ -3,10 +3,10 @@ require 'rails_helper'
 describe PeerGroup do
   context "#generate_groups" do
     let!(:users_already_grouped) do
-      create_list :user, 2, :groupable, is_assigned_peer_group: true
+      create_list(:skinny_user, 2, :groupable, is_assigned_peer_group: true)
     end
     let!(:users_to_be_grouped) do
-      create_list :user, 5, :groupable, is_assigned_peer_group: false
+      create_list(:skinny_user, 5, :groupable, is_assigned_peer_group: false)
     end
 
     it "Should loop through all the users and make groups" do
@@ -15,6 +15,33 @@ describe PeerGroup do
       expect(User.where(is_assigned_peer_group: true).length).to eq(7)
       expect(User.where(is_assigned_peer_group: false).length).to eq(0)
       expect(PeerGroup.all.length).to be(1)
+    end
+  end
+
+  context "#self.get_peers" do
+    let!(:peers) do
+      create_list(:skinny_user, 10,
+        :groupable,
+        peer_industry: 'Technology',
+        stage_of_career: 1)
+    end
+
+    let!(:different_stage) do
+      create_list(:skinny_user, 50,
+        :groupable,
+        stage_of_career: 2)
+    end
+
+    let!(:different_industry) do
+      create_list(:skinny_user, 50,
+        :groupable,
+        peer_industry: 'Business')
+    end
+
+    it "should get a group of peers in the same industry and stage of career" do
+      group = PeerGroup.get_peers("Technology",1)
+      expect(group).not_to be_empty
+      expect(group.length).to eq 10
     end
   end
 
@@ -32,13 +59,6 @@ describe PeerGroup do
         end
         expect(groups.flatten.length).to eq(start_group.length)
         expect(groups.is_a?(Array)).to be(true)
-      end
-    end
-
-    context "#self.get_peers" do
-      it "should get a group of peers for the industry and stage of career passed in" do
-        group = PeerGroup.get_peers("Technology",1)
-        expect(group).not_to be_empty
       end
     end
 

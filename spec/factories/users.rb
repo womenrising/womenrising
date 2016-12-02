@@ -19,19 +19,14 @@ FactoryGirl.define do
     live_in_detroit {%w(true false).sample}
     is_participating_this_month { true }
     waitlist { [true, false].sample }
-
-    trait :groupable do
-      primary_industry { ['Business', 'Technology', 'Startup'].sample }
-      is_participating_this_month true
-      waitlist false
-      live_in_detroit true
-    end
   end
 
   factory :skinny_user, class: User do
     email { generate(:email) }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
+    password {"testtingstuff"}
+    password_confirmation {|attrs| attrs[:password]}
 
     trait :mentor do
       mentor true
@@ -47,6 +42,20 @@ FactoryGirl.define do
 
     trait :with_interests do
       top_3_interests ['Yoga', 'Hiking', 'Robotics']
+    end
+
+    trait :not_on_waitlist do
+      primary_industry {["Business", "Technology", "Startup"].sample}
+      peer_industry {["Business", "Technology", "Startup"].sample}
+      top_3_interests {["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3)}
+      current_goal {["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample}
+      live_in_detroit 'true'
+    end
+
+    trait :groupable do
+      not_on_waitlist
+      is_participating_this_month 'true'
+      is_assigned_peer_group 'false'
     end
   end
 end
