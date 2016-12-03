@@ -44,6 +44,15 @@ describe PeerGroup do
       top_3_interests: ["Cats"] + ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer", "Wine", "Traveling", "Local events", "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie", "Social issues / volunteering", "Video Games"].sample(2)
       )
     end
+
+    let!(:wine_group) do
+      create_list(:skinny_user, 2,
+      :groupable,
+      current_goal: "Finding work/life balance",
+      top_3_interests: ["Wine"] + ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer", "Cats", "Traveling", "Local events", "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie", "Social issues / volunteering", "Video Games"].sample(2)
+      )
+    end
+
     context "#self.get_peers" do
       it "should get a group of peers in the same industry and stage of career" do
         group = PeerGroup.get_peers("Technology",1)
@@ -146,13 +155,24 @@ describe PeerGroup do
     end
 
     context "#assign_group" do
+      it "It will add a person to a group that they will fit in with", focus: true do
+        group1 = create_list(:skinny_user, 2,
+                             :groupable,
+                             :new_to_technology_and_wants_balance,
+                             top_3_interests: ["Beatles", "Birds","Bacon"])
+        group1.last.update top_3_interests: ["Anime", "Birds","Bats"]
 
-      it "It will add a person to a group that they will fit in with" do
-        group1 = [User.new(email: "8y687g@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Beatles", "Birds","Bacon"]), User.new(email: "hello122@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Birds","Bats"])]
-        group2 = [User.new(email: "hello234@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Bubbles", "Yoga","Bacon"])]
-        group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Wine").sample(2)
-        peer = User.new(email: "hello23403432@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Yoga","Bats"])
-        groups = [group1,group2,group3]
+        group2 = create_list(:skinny_user, 1,
+                             :groupable,
+                             :new_to_technology_and_wants_balance,
+                             top_3_interests: ["Bubbles", "Yoga", "Bacon"])
+
+        peer = create(:skinny_user,
+                      :groupable,
+                      :new_to_technology_and_wants_balance,
+                      top_3_interests: ["Anime", "Yoga","Bats"])
+
+        groups = [group1, group2, wine_group]
         new_groups = PeerGroup.assign_group(groups, peer)
         expect(new_groups[1].length).to eq(2)
         expect(new_groups[1][1]).to be(peer)
@@ -186,6 +206,7 @@ describe PeerGroup do
         expect(new_groups.length).to eq(4)
       end
     end
+  end
 
   context "with 100 random users" do
     before do
@@ -203,6 +224,48 @@ describe PeerGroup do
         expect(groups.is_a?(Array)).to be(true)
       end
     end
+
+    # context "#assign_group" do
+    #   it "It will add a person to a group that they will fit in with" do
+    #     group1 = [User.new(email: "8y687g@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Beatles", "Birds","Bacon"]), User.new(email: "hello122@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Birds","Bats"])]
+    #     group2 = [User.new(email: "hello234@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Bubbles", "Yoga","Bacon"])]
+    #     group3 = User.where(current_goal: "Finding work/life balance").where("? = ANY(top_3_interests)", "Wine").sample(2)
+    #     peer = User.new(email: "hello23403432@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Yoga","Bats"])
+    #     groups = [group1,group2,group3]
+    #     new_groups = PeerGroup.assign_group(groups, peer)
+    #     expect(new_groups[1].length).to eq(2)
+    #     expect(new_groups[1][1]).to be(peer)
+    #   end
+    #
+    #   it "should not add the person to a group that is already full" do
+    #     group1_1 = User.new(email: "987go86@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Bats"])
+    #     group1_2 = User.new(email: "hello234123423@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"])
+    #     group1_3 = User.new(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Cats","Beer"])
+    #     group1 = [group1_1, group1_2, group1_3]
+    #     group2 = [User.new(email: "hello563 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["puppies", "yoga","bats"])]
+    #     group3 = [User.new(email: "hello234123423@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"]), User.new(email: "hewrq234@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Cats","Beer"])]
+    #     peer = User.create(email: "helwr2343 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Fruit"])
+    #     groups = [group1,group2,group3]
+    #     new_groups = PeerGroup.assign_group(groups, peer)
+    #     expect(new_groups[0].length).to eq(3)
+    #     expect(new_groups[2].length).to eq(3)
+    #     expect(new_groups[2][2]).to be(peer)
+    #   end
+    #
+    #   it "should add a group at the end if non of the other groups match" do
+    #     group1_1 = User.new(email: "546sy54s6r@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Bats"])
+    #     group1_2 = User.new(email: "hel1234234lo3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"])
+    #     group1_3 = User.new(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Cats","Beer"])
+    #     group1 = [group1_1, group1_2, group1_3]
+    #     group2 = [User.new(email: "helqrafwelo@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Bubbles", "Props","Secrets"])]
+    #     group3 = [User.new(email: "hel1224afwelo@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Secrets", "Cats","Fruit"]), User.new(email: "helqpo2234afwelo@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Bubbles","Cats"])]
+    #     peer = User.new(email: "helqrafwefawlo@gmail.com", password_confirmation: "Howearesese12", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Animals","Fruit"])
+    #     groups = [group1,group2,group3]
+    #     new_groups = PeerGroup.assign_group(groups, peer)
+    #     expect(new_groups.length).to eq(4)
+    #   end
+    # end
+
     context "#create_groups" do
       it "Should loop through all the users for Tech and 1 and assign them all tp groups" do
         possible_peers = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1)
