@@ -58,9 +58,13 @@ FactoryGirl.define do
       is_assigned_peer_group 'false'
     end
 
-    trait :new_to_technology_and_wants_balance do
+    trait :new_to_technology do
       peer_industry 'Technology'
       stage_of_career 1
+    end
+
+    trait :new_to_technology_and_wants_balance do
+      new_to_technology
       current_goal 'Finding work/life balance'
     end
   end
