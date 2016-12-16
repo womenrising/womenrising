@@ -3,10 +3,12 @@ require 'rails_helper'
 RSpec.describe PeerGroup, :type => :model do
 
   it "can get users" do
-    FactoryGirl.create(:user).should be_valid
+    expect(FactoryGirl.create(:user)).to be_valid
   end
 
-  before{100.times{FactoryGirl.create(:user)}}
+  before :all do
+    100.times{ FactoryGirl.create(:user) }
+  end
 
   context "#generate_groups" do
     it "Should loop through all the users and make groups" do
