@@ -93,7 +93,10 @@ class PeerGroup < ActiveRecord::Base
     User.where(
       is_participating_this_month: true,
       waitlist: false,
-      live_in_detroit: true, is_assigned_peer_group: false, peer_industry: industry, stage_of_career: stage_of_career)
+      live_in_detroit: true,
+      is_assigned_peer_group: false,
+      peer_industry: industry,
+      stage_of_career: stage_of_career)
   end
 
   def self.get_one_peer(group)

@@ -19,23 +19,46 @@ describe PeerGroup do
   end
 
   context "with industry and stage of career defined" do
-    let!(:startup_peers) do
+    let!(:startup_peers_stage_1) do
       create_list(:skinny_user, 10,
         :groupable,
         peer_industry: 'Startup',
         stage_of_career: 1)
     end
 
-    let!(:different_stage) do
-      create_list(:skinny_user, 50,
+    let!(:startup_peers_stage_2) do
+      create_list(:skinny_user, 15,
         :groupable,
+        peer_industry: 'Startup',
         stage_of_career: 2)
     end
 
-    let!(:different_industry) do
-      create_list(:skinny_user, 50,
+    let!(:business_peers_stage_1) do
+      create_list(:skinny_user, 20,
+      :groupable,
+      peer_industry: 'Business',
+      stage_of_career: 1)
+    end
+
+    let!(:business_peers_stage_2) do
+      create_list(:skinny_user, 25,
+      :groupable,
+      peer_industry: 'Business',
+      stage_of_career: 2)
+    end
+
+    let!(:technology_peers_stage_1) do
+      create_list(:skinny_user, 30,
+      :groupable,
+      peer_industry: 'Technology',
+      stage_of_career: 1)
+    end
+
+    let!(:technology_peers_stage_2) do
+      create_list(:skinny_user, 35,
         :groupable,
-        peer_industry: 'Business')
+        peer_industry: 'Technology',
+        stage_of_career: 2)
     end
 
     context "#self.get_peers" do
@@ -49,7 +72,7 @@ describe PeerGroup do
     context "#self.get_one_peer" do
       it "should get a single" do
         peer = PeerGroup.get_one_peer(PeerGroup.get_peers("Startup",1))
-        expect(startup_peers).to include(peer)
+        expect(startup_peers_stage_1).to include(peer)
       end
     end
 
@@ -62,6 +85,13 @@ describe PeerGroup do
         expect(new_group.count).to eq(group.length - 1)
 
         expect(new_group).to_not include(peer)
+      end
+    end
+
+    context "#create_groups" do
+      it "Should assign all users with Tech and stage 1 careers to groups" do
+        peer_groups = PeerGroup.create_groups([],"Technology", 1)
+        expect(peer_groups.flatten.length).to eq(30)
       end
     end
   end
@@ -82,46 +112,46 @@ describe PeerGroup do
       )
     end
 
-    let!(:cats_user_1) do
+    let(:cats_user_1) do
       create(:skinny_user,
         :groupable,
         :new_to_technology_and_wants_balance,
-        top_3_interests: ["Anime", "Cats","Mom"])
+        top_3_interests: ["Anime", "Cats", "Mom"])
     end
 
-    let!(:cats_user_2) do
+    let(:cats_user_2) do
       create(:skinny_user,
         :groupable,
         :new_to_technology_and_wants_balance,
-        top_3_interests: ["Mom", "Cats","Hiking"])
+        top_3_interests: ["Mom", "Cats", "Hiking"])
     end
 
-    let!(:cats_user_3) do
+    let(:cats_user_3) do
       create(:skinny_user,
         :groupable,
         :new_to_technology_and_wants_balance,
-        top_3_interests: ["Frogs", "Cats","Beer"])
+        top_3_interests: ["Frogs", "Cats", "Beer"])
     end
 
     let(:cat_peer) do
       create(:skinny_user,
         :groupable,
         current_goal: "Finding work/life balance",
-        top_3_interests: ["Anime", "Cats","Fruit"])
+        top_3_interests: ["Anime", "Cats", "Fruit"])
     end
 
     let(:cat_user_with_different_goal) do
       create(:skinny_user,
         :groupable,
         current_goal: "Switching Industries",
-        top_3_interests: ["Anime", "Cats","Fruit"])
+        top_3_interests: ["Anime", "Cats", "Fruit"])
     end
 
     let(:user_doesnt_like_cats) do
       create(:skinny_user,
         :groupable,
         current_goal: "Finding work/life balance",
-        top_3_interests: ["Anime", "Animals","Fruit"])
+        top_3_interests: ["Anime", "Animals", "Fruit"])
     end
 
     let(:yoga_user) do
@@ -228,14 +258,6 @@ describe PeerGroup do
         end
         expect(groups.flatten.length).to eq(start_group.length)
         expect(groups.is_a?(Array)).to be(true)
-      end
-    end
-
-    context "#create_groups" do
-      it "Should loop through all the users for Tech and 1 and assign them all tp groups" do
-        possible_peers = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1)
-        peer_groups = PeerGroup.create_groups([],"Technology", 1)
-        expect(peer_groups.flatten.length).to eq(possible_peers.length)
       end
     end
 
