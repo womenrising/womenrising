@@ -18,11 +18,11 @@ describe PeerGroup do
     end
   end
 
-  context "with many users" do
-    let!(:peers) do
+  context "with industry and stage of career defined" do
+    let!(:startup_peers) do
       create_list(:skinny_user, 10,
         :groupable,
-        peer_industry: 'Technology',
+        peer_industry: 'Startup',
         stage_of_career: 1)
     end
 
@@ -38,17 +38,9 @@ describe PeerGroup do
         peer_industry: 'Business')
     end
 
-    let!(:wine_group) do
-      create_list(:skinny_user, 2,
-        :groupable,
-        current_goal: "Finding work/life balance",
-        top_3_interests: ["Wine"] + ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer", "Cats", "Traveling", "Local events", "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie", "Social issues / volunteering", "Video Games"].sample(2)
-      )
-    end
-
     context "#self.get_peers" do
       it "should get a group of peers in the same industry and stage of career" do
-        group = PeerGroup.get_peers("Technology",1)
+        group = PeerGroup.get_peers("Startup",1)
         expect(group).not_to be_empty
         expect(group.length).to eq(10)
       end
@@ -56,33 +48,99 @@ describe PeerGroup do
 
     context "#self.get_one_peer" do
       it "should get a single" do
-        peer = PeerGroup.get_one_peer(PeerGroup.get_peers("Technology",1))
-        expect(peers).to include(peer)
+        peer = PeerGroup.get_one_peer(PeerGroup.get_peers("Startup",1))
+        expect(startup_peers).to include(peer)
       end
     end
 
     context "#self.remove_peer(group, peer)" do
       it "should get a single" do
-        group = PeerGroup.get_peers("Technology",1)
+        group = PeerGroup.get_peers("Startup",1)
         peer = PeerGroup.get_one_peer(group)
-        expect(PeerGroup.remove_peer(group, peer).count).to eq(group.length - 1)
-        expect(PeerGroup.remove_peer(group, peer)).to_not include(peer)
+
+        new_group = PeerGroup.remove_peer(group, peer)
+        expect(new_group.count).to eq(group.length - 1)
+
+        expect(new_group).to_not include(peer)
       end
+    end
+  end
+
+  context "with specific users" do
+    let(:wine_group) do
+      create_list(:skinny_user, 2,
+        :groupable,
+        current_goal: "Finding work/life balance",
+        top_3_interests: ["Wine"] + ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer", "Cats", "Traveling", "Local events", "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie", "Social issues / volunteering", "Video Games"].sample(2)
+      )
+    end
+
+    let(:cats_group) do
+      create_list(:skinny_user, 5,
+        :groupable,
+        top_3_interests: ["Cats"] + ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer", "Wine", "Traveling", "Local events", "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie", "Social issues / volunteering", "Video Games"].sample(2)
+      )
+    end
+
+    let!(:cats_user_1) do
+      create(:skinny_user,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Anime", "Cats","Mom"])
+    end
+
+    let!(:cats_user_2) do
+      create(:skinny_user,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Mom", "Cats","Hiking"])
+    end
+
+    let!(:cats_user_3) do
+      create(:skinny_user,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Frogs", "Cats","Beer"])
+    end
+
+    let(:cat_peer) do
+      create(:skinny_user,
+        :groupable,
+        current_goal: "Finding work/life balance",
+        top_3_interests: ["Anime", "Cats","Fruit"])
+    end
+
+    let(:cat_user_with_different_goal) do
+      create(:skinny_user,
+        :groupable,
+        current_goal: "Switching Industries",
+        top_3_interests: ["Anime", "Cats","Fruit"])
+    end
+
+    let(:user_doesnt_like_cats) do
+      create(:skinny_user,
+        :groupable,
+        current_goal: "Finding work/life balance",
+        top_3_interests: ["Anime", "Animals","Fruit"])
+    end
+
+    let(:yoga_user) do
+      create(:skinny_user,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Puppies", "Yoga", "Bats"])
+    end
+
+    let(:yoga_user_2) do
+      create(:skinny_user,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Anime", "Yoga", "Bats"])
     end
 
     context "#check_interests" do
-      let!(:cats_group) do
-        create_list(:skinny_user, 5,
-        :groupable,
-        top_3_interests: ["Cats"] + ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer", "Wine", "Traveling", "Local events", "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie", "Social issues / volunteering", "Video Games"].sample(2)
-        )
-      end
-
       it "Should return false if there is not a common interest" do
-        peer = create(:skinny_user,
-                      :groupable,
-                      top_3_interests: ["Anime", "Animals","Fruit"])
-        expect(PeerGroup.check_interests(cats_group, peer)).to eq(false)
+        expect(PeerGroup.check_interests(cats_group, user_doesnt_like_cats)).to eq(false)
       end
 
       it "Should return true if there is a common interest" do
@@ -92,146 +150,65 @@ describe PeerGroup do
     end
 
     context "#get_group_interests" do
-      let!(:user_1) do
-        create(:skinny_user,
-               :groupable,
-               top_3_interests: ["Anime", "Cats", "Bats"])
-      end
-
-      let!(:user_2) do
-        create(:skinny_user,
-               :groupable,
-               top_3_interests: ["Bats", "Cats","Beer"])
-      end
-
       it "should return an array of common interests" do
-        group = [user_1, user_2]
+        group = [cats_user_1, cats_user_2]
         expect(PeerGroup.get_group_interests(group)).not_to be_empty
-        expect(PeerGroup.get_group_interests(group)).to eq(["Cats","Bats"])
+        expect(PeerGroup.get_group_interests(group)).to eq(["Cats","Mom"])
        end
     end
 
     context "#check_group" do
-      let!(:user_1) do
-        create(:skinny_user,
-               :groupable,
-               current_goal: "Finding work/life balance",
-               top_3_interests: ["Anime", "Cats", "Bats"])
-      end
-
-      let!(:user_2) do
-        create(:skinny_user,
-               :groupable,
-               current_goal: "Finding work/life balance",
-               top_3_interests: ["Mom", "Cats", "Hiking"])
-      end
-
       it "should return true if valid" do
-        group = [user_1, user_2]
-        peer = create(:skinny_user,
-                      :groupable,
-                      current_goal: "Finding work/life balance",
-                      top_3_interests: ["Anime", "Cats","Fruit"])
-        expect(PeerGroup.check_group(group, peer)).to eq(true)
+        group = [cats_user_1, cats_user_2]
+        expect(PeerGroup.check_group(group, cat_peer)).to eq(true)
       end
 
       it "should return false if they don't have the same current_goal" do
-        group = [user_1, user_2]
-        peer = create(:skinny_user,
-                      :groupable,
-                      current_goal: "Switching Industries",
-                      top_3_interests: ["Anime", "Cats","Fruit"])
-        expect(PeerGroup.check_group(group, peer)).to be(false)
+        group = [cats_user_1, cats_user_2]
+        expect(PeerGroup.check_group(group, cat_user_with_different_goal)).to be(false)
       end
 
       it "should return false if invalid interests" do
-        group = [user_1, user_2]
-        peer = create(:skinny_user,
-                      :groupable,
-                      current_goal: "Finding work/life balance",
-                      top_3_interests: ["Anime", "Animals","Fruit"])
-        expect(PeerGroup.check_group(group, peer)).to be(false)
+        group = [cats_user_1, cats_user_2]
+        expect(PeerGroup.check_group(group, user_doesnt_like_cats)).to be(false)
       end
     end
 
     context "#assign_group" do
-      let(:user_1) do
-        create(:skinny_user,
-          :groupable,
-          :new_to_technology_and_wants_balance,
-          top_3_interests: ["Anime", "Cats","Bats"])
-      end
+      let(:full_cats_group) { [cats_user_1, cats_user_2, cats_user_3] }
 
-      let(:user_2) do
-        create(:skinny_user,
-          :groupable,
-          :new_to_technology_and_wants_balance,
-          top_3_interests: ["Mom", "Cats","Hiking"])
-      end
-
-      let(:user_3) do
-        create(:skinny_user,
-          :groupable,
-          :new_to_technology_and_wants_balance,
-          top_3_interests: ["Frogs", "Cats","Beer"])
-      end
-
-      let(:full_cats_group) { [user_1, user_2, user_3] }
-
-      let(:cats_group) { [user_1, user_2] }
-
-      let(:yoga_user) do
-        create(:skinny_user,
-          :groupable,
-          :new_to_technology_and_wants_balance,
-          top_3_interests: ["Puppies", "Yoga", "Bats"])
-      end
+      let(:cats_group) { [cats_user_1, cats_user_2] }
 
       let(:other_group) do
         [yoga_user]
       end
 
       it "It will add a person to a group that they will fit in with" do
-        peer = create(:skinny_user,
-                      :groupable,
-                      :new_to_technology_and_wants_balance,
-                      top_3_interests: ["Anime", "Yoga", "Bats"])
-
         groups = [cats_group, other_group, wine_group]
 
-        new_groups = PeerGroup.assign_group(groups, peer)
+        new_groups = PeerGroup.assign_group(groups, yoga_user_2)
         yoga_group = new_groups.select{|g| g.include?(yoga_user)}.first
 
         expect(yoga_group.length).to eq(2)
-        expect(yoga_group).to include(peer)
+        expect(yoga_group).to include(yoga_user_2)
       end
 
       it "should not add the person to a group that is already full"  do
-        peer = create(:skinny_user,
-                      :groupable,
-                      :new_to_technology_and_wants_balance,
-                      top_3_interests: ["Anime", "Cats","Fruit"])
-
         groups = [full_cats_group, cats_group, other_group]
 
-        new_groups = PeerGroup.assign_group(groups, peer)
+        new_groups = PeerGroup.assign_group(groups, cat_peer)
 
         expect(new_groups.count).to eq(3)
         expect(new_groups[0].length).to eq(3)
         expect(new_groups[1].length).to eq(3)
-        expect(new_groups[1][2]).to be(peer)
+        expect(new_groups[1][2]).to be(cat_peer)
         expect(new_groups[2].length).to eq(1)
       end
 
       it "should add a group at the end if none of the other groups match" do
-        peer = create(:skinny_user,
-                      :groupable,
-                      :new_to_technology_and_wants_balance,
-                      top_3_interests: ["Anime", "Animals","Fruit"])
-
         groups = [full_cats_group, cats_group, other_group]
 
-        new_groups = PeerGroup.assign_group(groups, peer)
+        new_groups = PeerGroup.assign_group(groups, user_doesnt_like_cats)
         expect(new_groups.length).to eq(4)
       end
     end
