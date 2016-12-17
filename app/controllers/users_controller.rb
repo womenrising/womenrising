@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     @user.update(is_participating_this_month: true)
 
     action = :user_participating
-    message  = "#{@user.email} is participating"
+    message  = "User id #{@user.id} is participating"
     SlackNotification.notify(action, message)
 
     redirect_to user_path(current_user)

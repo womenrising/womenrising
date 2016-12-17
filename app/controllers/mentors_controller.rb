@@ -18,7 +18,7 @@ class MentorsController < ApplicationController
       @mentor.send_mail
 
       action = :new_mentor
-      message  = "#{@user.email} is a new mentor"
+      message  = "User id #{@user.id} is a new mentor"
       SlackNotification.notify(action, message)
 
       redirect_to user_path(current_user)
