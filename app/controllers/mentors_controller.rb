@@ -23,7 +23,6 @@ class MentorsController < ApplicationController
 
       redirect_to user_path(current_user)
     else
-      p @mentor.errors.full_messages
       render 'new'
     end
   end
