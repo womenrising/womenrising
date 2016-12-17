@@ -226,5 +226,4 @@ class PeerGroup < ActiveRecord::Base
     end
     singles
   end
-
 end

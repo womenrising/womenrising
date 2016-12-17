@@ -355,27 +355,42 @@ describe PeerGroup do
         top_3_interests: ["Biking", "Watching Sports", "Exercise"])
     end
 
+    let(:all_groups) do
+      [cats_users, yoga_users, hiking_users, art_users, [other_peer],
+      [art_user_with_different_goal], [exercise_user]]
+    end
+
+    let(:full_groups) {[cats_users, yoga_users]}
+
+    let(:outliers) do
+      [hiking_users, art_users, [other_peer], [art_user_with_different_goal], [exercise_user]]
+    end
+
     context "#get_singles" do
       it "should get all groups with just one person in it" do
-        groups = cats_users,yoga_users,hiking_users,art_users,[other_peer],
-                 [art_user_with_different_goal],[exercise_user]
-        single_groups = PeerGroup.get_singles(groups)
+        single_groups = PeerGroup.get_singles(all_groups)
         expect(single_groups.length).to eq(3)
         expect(single_groups).to eq([[other_peer],[art_user_with_different_goal],[exercise_user]])
       end
     end
 
+    context "#get_not_full_groups" do
+      it "Should return a array of the groups that were are not complete" do
+        not_full_groups = PeerGroup.get_not_full_groups(all_groups)
+        expect(not_full_groups.length).to eq(5)
+        expect(not_full_groups).to eq(outliers)
+      end
+
+      it "Should return an empty array if nothing is found" do
+        full_groups = cats_users, yoga_users
+        peer_groups = PeerGroup.get_not_full_groups(full_groups)
+        expect(peer_groups.length).to eq(0)
+        expect(peer_groups).to eq([])
+      end
+    end
+
     context "#reassign_not_full_groups" do
       it "removes a user from outliers and assigns them to a group" do
-        groups = PeerGroup.create_groups([],"Technology", 1)
-        expect(groups.length).to eq(7)
-
-        outliers = PeerGroup.get_not_full_groups(groups)
-        expect(outliers.length).to eq(5)
-        full_groups = groups - outliers
-
-        expect(outliers.select{|g| g.include?(art_user_with_different_goal)}.first).to_not be_nil
-
         peer_groups = PeerGroup.reassign_not_full_groups(full_groups, outliers)
         expect(peer_groups.length).to eq(6)
 
@@ -385,6 +400,28 @@ describe PeerGroup do
         new_outliers = PeerGroup.get_not_full_groups(peer_groups)
         expect(new_outliers.length).to eq(3)
         expect(new_outliers.select{|g| g.include?(art_user_with_different_goal)}.first).to be_nil
+      end
+    end
+
+    context "#assign_to_group_of_three" do
+      it "should assign a peer to a group of three" do
+        groups = cats_users, art_users
+        new_groups = PeerGroup.assign_to_group_of_three(groups, other_peer)
+
+        expect(new_groups.length).to eq(2)
+        expect(new_groups[0].length).to eq(4)
+        expect(new_groups[0]).to eq([
+          cats_users.first, cats_users.second, cats_users.third, other_peer
+        ])
+      end
+
+      it "should not assign the peer to a group of 4" do
+        groups = cats_users + [exercise_user], art_users
+        new_groups = PeerGroup.assign_to_group_of_three(groups, other_peer)
+
+        expect(new_groups.length).to eq(2)
+        expect(new_groups[0].length).to eq(4)
+        expect(new_groups[1]).to eq([art_users.first, art_users.second, other_peer])
       end
     end
 
@@ -419,19 +456,6 @@ describe PeerGroup do
       end
     end
 
-    context "#get_not_full_groups" do
-      it "Should return a array of the groups that were are not complete" do
-        peer_groups = PeerGroup.get_not_full_groups([[1,2,3],[1,2],[1],[2,3,4]])
-        expect(peer_groups.length).to eq(2)
-        expect(peer_groups).to eq([[1,2],[1]])
-      end
-      it "Should return an empty array if nothing is found" do
-        peer_groups = PeerGroup.get_not_full_groups([[1,2,3],[1,2,3],[1,3,4],[2,3,4]])
-        expect(peer_groups.length).to eq(0)
-        expect(peer_groups).to eq([])
-      end
-    end
-
     context "#assign_group_no_checks" do
       it 'should create groups if there is more than 4' do
         group = [[1,2,3],[1,2,3,4],[1,2,3]]
@@ -456,20 +480,6 @@ describe PeerGroup do
         expect(new_groups[2].length).to eq(4)
         expect(new_groups[0].length).to eq(4)
         expect(new_groups[-1].length).to eq(3)
-      end
-    end
-
-    context "#assign_to_group_of_three" do
-      it "should assign a peer to a group of three" do
-        group = PeerGroup.assign_to_group_of_three([[1,2,3],[1,2]], 5)
-        expect(group[0].length).to eq(4)
-        expect(group[0]).to eq([1,2,3,5])
-      end
-
-      it "should not assign the peer to a group of 4" do
-        group = PeerGroup.assign_to_group_of_three([[1,2,3,4],[1,2]], 5)
-        expect(group[0].length).to eq(4)
-        expect(group[1]).to eq([1,2,5])
       end
     end
 
