@@ -101,14 +101,26 @@ describe PeerGroup do
       create_list(:skinny_user, 2,
         :groupable,
         current_goal: "Finding work/life balance",
-        top_3_interests: ["Wine"] + ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer", "Traveling", "Local events", "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie", "Social issues / volunteering", "Video Games"].sample(2)
+        top_3_interests: ["Wine"] + [
+          "Arts", "Music", "Crafting", "Home improvement / Decorating",
+          "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise",
+          "Biking", "Yoga", "Running", "Beer", "Traveling", "Local events",
+          "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie",
+          "Social issues / volunteering", "Video Games"
+        ].sample(2)
       )
     end
 
     let(:cats_group) do
       create_list(:skinny_user, 5,
         :groupable,
-        top_3_interests: ["Cats"] + ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer", "Wine", "Traveling", "Local events", "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie", "Social issues / volunteering", "Video Games"].sample(2)
+        top_3_interests: ["Cats"] + [
+          "Arts", "Music", "Crafting", "Home improvement / Decorating",
+          "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise",
+          "Biking", "Yoga", "Running", "Beer", "Wine", "Traveling", "Local events",
+          "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie",
+          "Social issues / volunteering", "Video Games"
+        ].sample(2)
       )
     end
 
@@ -290,8 +302,6 @@ describe PeerGroup do
         expect(new_group.length).to eq(1)
       end
     end
-
-
   end
 
   context "outlyers" do
@@ -347,10 +357,11 @@ describe PeerGroup do
 
     context "#get_singles" do
       it "should get all groups with just one person in it" do
-        group = [[1,2,3],[1],[1,2],[1,2,3],[1],[1],[1,2]]
-        single_groups = PeerGroup.get_singles(group)
+        groups = cats_users,yoga_users,hiking_users,art_users,[other_peer],
+                 [art_user_with_different_goal],[exercise_user]
+        single_groups = PeerGroup.get_singles(groups)
         expect(single_groups.length).to eq(3)
-        expect(single_groups).to eq([[1],[1],[1]])
+        expect(single_groups).to eq([[other_peer],[art_user_with_different_goal],[exercise_user]])
       end
     end
 
@@ -377,12 +388,17 @@ describe PeerGroup do
       end
     end
 
-    it "should make groups out of remainder if possible" do
-      participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
-      expect(participants.length).to eq(13)
-      groups = PeerGroup.generate_groups
-      new_participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
-      expect(new_participants.length).to eq(0)
+    it "should make groups out of remainder" do
+      ungrouped_users = User.where(is_participating_this_month: true,
+                                   waitlist: false, live_in_detroit: true,
+                                   is_assigned_peer_group: false)
+      expect(ungrouped_users.length).to eq(13)
+      PeerGroup.generate_groups
+      new_ungrouped_users = User.where(is_participating_this_month: true,
+                                       waitlist: false,
+                                       live_in_detroit: true,
+                                       is_assigned_peer_group: false)
+      expect(new_ungrouped_users.length).to eq(0)
     end
   end
 
