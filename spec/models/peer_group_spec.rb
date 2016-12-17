@@ -290,10 +290,61 @@ describe PeerGroup do
         expect(new_group.length).to eq(1)
       end
     end
+
+
   end
 
-
   context "outlyers" do
+    let!(:cats_users) do
+      create_list(:skinny_user, 3,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Anime", "Cats", "Mom"])
+    end
+
+    let!(:yoga_users) do
+      create_list(:skinny_user, 3,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Puppies", "Yoga", "Bats"])
+    end
+
+    let!(:hiking_users) do
+      create_list(:skinny_user, 2,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Hiking", "Fruit", "Puppies"])
+    end
+
+    let!(:art_users) do
+      create_list(:skinny_user, 2,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Arts", "Music", "Crafting"])
+    end
+
+    let!(:other_peer) do
+      create(:skinny_user,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Home improvement / Decorating", "Being a mom", "Dogs"])
+    end
+
+    let!(:art_user_with_different_goal) do
+      create(:skinny_user,
+        :groupable,
+        :new_to_technology,
+        current_goal: "Switching Industries",
+        top_3_interests: ["Arts", "Music", "Crafting"])
+    end
+
+    let!(:exercise_user) do
+      create(:skinny_user,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Biking", "Watching Sports", "Exercise"])
+    end
+
     context "#get_singles" do
       it "should get all groups with just one person in it" do
         group = [[1,2,3],[1],[1,2],[1,2,3],[1],[1],[1,2]]
@@ -303,49 +354,32 @@ describe PeerGroup do
       end
     end
 
+    context "#reassign_not_full_groups" do
+      it "removes a user from outliers and assigns them to a group" do
+        groups = PeerGroup.create_groups([],"Technology", 1)
+        expect(groups.length).to eq(7)
+
+        outliers = PeerGroup.get_not_full_groups(groups)
+        expect(outliers.length).to eq(5)
+        full_groups = groups - outliers
+
+        expect(outliers.select{|g| g.include?(art_user_with_different_goal)}.first).to_not be_nil
+
+        peer_groups = PeerGroup.reassign_not_full_groups(full_groups, outliers)
+        expect(peer_groups.length).to eq(6)
+
+        new_art_group = peer_groups.select{|g| g.include?(art_user_with_different_goal)}.first
+        expect(new_art_group.length).to eq(3)
+
+        new_outliers = PeerGroup.get_not_full_groups(peer_groups)
+        expect(new_outliers.length).to eq(3)
+        expect(new_outliers.select{|g| g.include?(art_user_with_different_goal)}.first).to be_nil
+      end
+    end
+
     it "should make groups out of remainder if possible" do
-      user_1 = create(:skinny_user,
-                        :groupable,
-                        :technology_primary_industry,
-                        peer_industry: "Technology",
-                        stage_of_career: 2,
-                        current_goal: "Rising the ranks / breaking the glass ceiling",
-                        top_3_interests: ["Video Games", "Reading","Social issues / volunteering"])
-
-      user_2 = create(:skinny_user,
-                        :groupable,
-                        :technology_primary_industry,
-                        peer_industry: "Technology",
-                        stage_of_career: 1,
-                        current_goal: "Finding work/life balance",
-                        top_3_interests: ["Mom", "Beer","Video Games"])
-
-      user_3 = create(:skinny_user,
-                        :groupable,
-                        :technology_primary_industry,
-                        peer_industry: "Startup",
-                        stage_of_career: 3,
-                        current_goal: "Switching industries",
-                        top_3_interests: ["Music", "Cats", "Beer"])
-
-      user_4 = create(:skinny_user,
-                        :groupable,
-                        :technology_primary_industry,
-                        peer_industry: "Startup",
-                        stage_of_career: 5,
-                        current_goal: "Rising the ranks / breaking the glass ceiling",
-                        top_3_interests: ["Anime", "Dogs", "Bats"])
-
-      user_5 = create(:skinny_user,
-                        :groupable,
-                        :technology_primary_industry,
-                        peer_industry: "Business",
-                        stage_of_career: 2,
-                        current_goal: "Switching industries",
-                        top_3_interests: ["Mom", "Music", "Hiking"])
-
       participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
-      expect(participants.length).to eq(5)
+      expect(participants.length).to eq(13)
       groups = PeerGroup.generate_groups
       new_participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
       expect(new_participants.length).to eq(0)
@@ -366,16 +400,6 @@ describe PeerGroup do
         end
         expect(groups.flatten.length).to eq(start_group.length)
         expect(groups.is_a?(Array)).to be(true)
-      end
-    end
-
-    context "#reassign_not_full_groups" do
-      it "Should loop through all the users for Tech and 1 and assign them all to groups if possible" do
-        groups = PeerGroup.create_groups([],"Technology", 1)
-        outlyers = PeerGroup.get_not_full_groups(groups)
-        peer_groups = PeerGroup.reassign_not_full_groups(groups, outlyers)
-        new_outlyers = PeerGroup.get_not_full_groups(peer_groups)
-        expect(new_outlyers.length <= outlyers.length).to be(true)
       end
     end
 
@@ -430,6 +454,24 @@ describe PeerGroup do
         group = PeerGroup.assign_to_group_of_three([[1,2,3,4],[1,2]], 5)
         expect(group[0].length).to eq(4)
         expect(group[1]).to eq([1,2,5])
+      end
+    end
+
+    context "#outlyers" do
+      it "should send an email to someone if they can't be matched" do
+        User.all.each do |user|
+          user.update(is_participating_this_month: false)
+        end
+        group1_1 = User.create!(email: "987024234286@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", primary_industry: "Technology", stage_of_career: 2, current_goal: "Rising the ranks / breaking the glass ceiling", top_3_interests: ["Video Games", "Reading","Social issues / volunteering"])
+        group1_2 = User.create!(email: "hello272033@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Beer","Video Games"], primary_industry: "Technology")
+        group1_3 = User.create!(email: "hellq23r23o4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, primary_industry: "Technology", live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 3, current_goal: "Switching industries", top_3_interests: ["Music", "Cats","Beer"])
+        group1_4 = User.create!(email: "987go243523486@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, primary_industry: "Technology", live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 5, current_goal: "Rising the ranks / breaking the glass ceiling", top_3_interests: ["Anime", "Dogs","Bats"])
+        group1_5 = User.create!(email: "hell1341233o3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, primary_industry: "Technology", is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 2, current_goal: "Switching industries", top_3_interests: ["Mom", "Music","Hiking"])
+        participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
+        expect(participants.length).to eq(5)
+        groups = PeerGroup.generate_groups
+        new_participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
+        expect(new_participants.length).to eq(0)
       end
     end
   end
