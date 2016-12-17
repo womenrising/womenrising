@@ -51,9 +51,20 @@ class PeerGroup < ActiveRecord::Base
     end
     groups += remainder_groups
 
+    #
+    # hacky-hack
+    # @weston created this. I'll come back and fix it, or happy for someone to fix it before me
+    #
     groups.each do |group|
-      group.send_mail
+      if group.is_a?(Array)
+        group.each do |each_group|
+          each_group.send_mail
+        end
+      else
+        group.send_mail
+      end
     end
+
   end
 
   def self.automatially_create_groups
