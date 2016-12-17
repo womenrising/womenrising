@@ -16,10 +16,6 @@ class PeerGroup < ActiveRecord::Base
   has_many :peer_group_users
   has_many :users, through: :peer_group_users
 
-  after_save do
-    self.send_mail
-  end
-
   def send_mail
     self.users.each do |user|
       action = :peer_group_send_mail
@@ -54,6 +50,10 @@ class PeerGroup < ActiveRecord::Base
       create_peer_groups(remainder_groups)
     end
     groups += remainder_groups
+
+    groups.each do |group|
+      group.send_mail
+    end
   end
 
   def self.automatially_create_groups
