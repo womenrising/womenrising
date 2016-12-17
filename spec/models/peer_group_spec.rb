@@ -305,6 +305,13 @@ describe PeerGroup do
   end
 
   context "outlyers" do
+    let(:group_of_4) do
+      create_list(:skinny_user, 4,
+        :groupable,
+        :new_to_technology_and_wants_balance,
+        top_3_interests: ["Anime", "Cats", "Mom"])
+    end
+
     let!(:cats_users) do
       create_list(:skinny_user, 3,
         :groupable,
@@ -416,12 +423,53 @@ describe PeerGroup do
       end
 
       it "should not assign the peer to a group of 4" do
-        groups = cats_users + [exercise_user], art_users
+        groups = group_of_4, art_users
         new_groups = PeerGroup.assign_to_group_of_three(groups, other_peer)
 
         expect(new_groups.length).to eq(2)
         expect(new_groups[0].length).to eq(4)
         expect(new_groups[1]).to eq([art_users.first, art_users.second, other_peer])
+      end
+    end
+
+    context "#assign_group_no_checks" do
+      let!(:groups) {[cats_users, group_of_4, yoga_users]}
+
+      let(:peer_1) do
+        create(:skinny_user,
+          :groupable,
+          :new_to_technology_and_wants_balance,
+          top_3_interests: ["Anime", "Hiking", "Bats"])
+      end
+
+      let(:peer_2) do
+        create(:skinny_user,
+          :groupable,
+          :new_to_technology_and_wants_balance,
+          top_3_interests: ["Mom", "Cats", "Hiking"])
+      end
+
+      it 'should create new group if there are at least 3 peers' do
+        peer_3 = create(:skinny_user,
+                        :groupable,
+                        :new_to_technology_and_wants_balance,
+                        top_3_interests: ["Frogs", "Hiking", "Beer"])
+
+        peer_4 = create(:skinny_user,
+                        :groupable,
+                        :new_to_technology_and_wants_balance,
+                        top_3_interests: ["puppies", "yoga", "bats"])
+
+        peers = [peer_1, peer_2, peer_3, peer_4]
+        new_groups = PeerGroup.assign_group_no_checks(groups, peers)
+        expect(new_groups.length).to eq(4)
+      end
+
+      it 'should not create new groups if there are less than 3 peers' do
+        peers = [peer_1, peer_2]
+        new_groups = PeerGroup.assign_group_no_checks(groups, peers)
+
+        expect(new_groups.length).to eq(3)
       end
     end
 
@@ -453,33 +501,6 @@ describe PeerGroup do
         end
         expect(groups.flatten.length).to eq(start_group.length)
         expect(groups.is_a?(Array)).to be(true)
-      end
-    end
-
-    context "#assign_group_no_checks" do
-      it 'should create groups if there is more than 4' do
-        group = [[1,2,3],[1,2,3,4],[1,2,3]]
-        group1_1 = User.new(email: "98pyho8y8h9@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Hiking","Bats"])
-        group1_2 = User.new(email: "he234123llo3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"])
-        group1_3 = User.new(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Hiking","Beer"])
-        group1 = [group1_1, group1_2, group1_3]
-        new_groups = PeerGroup.assign_group_no_checks(group, group1)
-        expect(new_groups.length).to eq(4)
-      end
-
-      it 'should create groups if there is more than 4' do
-        group = [[1,2,3],[1,2,3,4],[1,2,3]]
-        group1_1 = User.new(email: "helyuog87glo2@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Hiking","Bats"])
-        group1_2 = User.new(email: "hell13412433o3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Cats","Hiking"])
-        group1_3 = User.new(email: "hello4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Frogs", "Hiking","Beer"])
-        group1_4 = User.new(email: "hello563 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["puppies", "yoga","bats"])
-        peer = User.new(email: "hello52343 @gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Anime", "Cats","Fruit"])
-        group1 = [group1_1, group1_2, group1_3, group1_4, peer]
-        new_groups = PeerGroup.assign_group_no_checks(group, group1)
-        expect(new_groups.length).to eq(4)
-        expect(new_groups[2].length).to eq(4)
-        expect(new_groups[0].length).to eq(4)
-        expect(new_groups[-1].length).to eq(3)
       end
     end
 
