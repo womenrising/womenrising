@@ -487,38 +487,40 @@ describe PeerGroup do
     end
   end
 
-  context "with 100 random users" do
+  context "with 200 random users that can be grouped" do
     before do
-      create_list(:user, 100)
+      create_list(:skinny_user, 200, :groupable, :any_stage_of_career)
     end
 
     context "#automatially_create_groups" do
+      before do
+        @start_group = User.all
+        @groups = PeerGroup.automatially_create_groups
+      end
+
       it "should loop through and assign groups" do
-        start_group = User.where(is_participating_this_month: true, waitlist: false, live_in_detroit: true)
-        groups = PeerGroup.automatially_create_groups
-        groups.each do |group|
+        @groups.each do |group|
           expect(group.length < 3).to be(false)
         end
-        expect(groups.flatten.length).to eq(start_group.length)
-        expect(groups.is_a?(Array)).to be(true)
+        expect(@groups.flatten.length).to eq(@start_group.length)
+        expect(@groups.is_a?(Array)).to be(true)
       end
-    end
 
-    context "#outlyers" do
-      it "should send an email to someone if they can't be matched" do
-        User.all.each do |user|
-          user.update(is_participating_this_month: false)
+      it "should create groups with the same industry" do
+        @groups.each do |group|
+          expect(group.map(&:peer_industry).uniq.count).to eq(1)
         end
-        group1_1 = User.create!(email: "987024234286@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", primary_industry: "Technology", stage_of_career: 2, current_goal: "Rising the ranks / breaking the glass ceiling", top_3_interests: ["Video Games", "Reading","Social issues / volunteering"])
-        group1_2 = User.create!(email: "hello272033@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 1, current_goal: "Finding work/life balance", top_3_interests: ["Mom", "Beer","Video Games"], primary_industry: "Technology")
-        group1_3 = User.create!(email: "hellq23r23o4@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, primary_industry: "Technology", live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 3, current_goal: "Switching industries", top_3_interests: ["Music", "Cats","Beer"])
-        group1_4 = User.create!(email: "987go243523486@gmail.com", password_confirmation: "Howearesese12", first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, primary_industry: "Technology", live_in_detroit: true, is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 5, current_goal: "Rising the ranks / breaking the glass ceiling", top_3_interests: ["Anime", "Dogs","Bats"])
-        group1_5 = User.create!(email: "hell1341233o3@gmail.com", password_confirmation: "Howearesese12",  first_name: "John", last_name: "Smith", is_participating_this_month: true, waitlist: false, live_in_detroit: true, primary_industry: "Technology", is_assigned_peer_group: false, peer_industry: "Technology", stage_of_career: 2, current_goal: "Switching industries", top_3_interests: ["Mom", "Music","Hiking"])
-        participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
-        expect(participants.length).to eq(5)
-        groups = PeerGroup.generate_groups
-        new_participants = User.where(is_participating_this_month:true, waitlist: false, live_in_detroit: true, is_assigned_peer_group:false)
-        expect(new_participants.length).to eq(0)
+      end
+
+      it "should create groups that mostly have the same stage of career" do
+        deviations = @groups.map do |group|
+          stages = group.map &:stage_of_career
+          mean = stages.reduce(&:+).to_f / stages.count.to_f
+          variances = stages.map {|n| (n - mean)**2 }
+          std_dev = Math.sqrt(variances.reduce(&:+) / stages.count.to_f)
+        end
+        groups_with_poor_distribution = deviations.count { |n| n >= 1.0 }
+        expect(groups_with_poor_distribution.to_f / @groups.count).to be < 0.25
       end
     end
   end

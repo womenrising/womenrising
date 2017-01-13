@@ -63,9 +63,18 @@ FactoryGirl.define do
       stage_of_career 1
     end
 
+    trait :likes_tech do
+      primary_industry 'Technology'
+      peer_industry 'Technology'
+    end
+
     trait :new_to_technology_and_wants_balance do
       new_to_technology
       current_goal 'Finding work/life balance'
+    end
+
+    trait :any_stage_of_career do
+      stage_of_career {Random.rand(1..5)}
     end
   end
 end
