@@ -10,7 +10,8 @@ describe PeerGroup do
     end
 
     it "Should loop through all the users and make groups" do
-      PeerGroup.generate_groups
+      expect(UserMailer).to receive(:peer_unavailable_mail).at_least(:once).and_call_original
+      groups = PeerGroup.generate_groups
 
       expect(User.where(is_assigned_peer_group: true).length).to eq(7)
       expect(User.where(is_assigned_peer_group: false).length).to eq(0)
