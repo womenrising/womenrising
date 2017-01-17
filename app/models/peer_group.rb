@@ -16,11 +16,13 @@ class PeerGroup < ActiveRecord::Base
   has_many :peer_group_users
   has_many :users, through: :peer_group_users
 
-  after_save do
-    self.send_mail
-  end
-
   def send_mail
+    self.users.each do |user|
+      action = :peer_group_send_mail
+      message = "User # #{user.id}"
+      SlackNotification.notify(action, message)
+    end
+
     UserMailer.peer_mail(self).deliver
   end
 
@@ -186,6 +188,7 @@ class PeerGroup < ActiveRecord::Base
       update_user(group)
       peer_group = PeerGroup.create
       group.each{ |p| peer_group.users << p }
+      peer_group.send_mail
     end
   end
 

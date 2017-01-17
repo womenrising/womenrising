@@ -5,9 +5,9 @@ RSpec.describe Mentor, :type => :model do
  	it{should belong_to(:mentoring).class_name('User').with_foreign_key('mentor_id')}
  	before{100.times{FactoryGirl.create(:user)}}
 
- 	it "can get users" do
-	    FactoryGirl.create(:user).should be_valid
-  	end
+  it "can get users" do
+    expect(FactoryGirl.create(:user)).to be_valid
+  end
 
  	context "#choose_mentor" do
 

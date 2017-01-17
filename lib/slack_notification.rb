@@ -1,7 +1,8 @@
 class SlackNotification
 
     def self.notify(action, message)
-        str = "#{action} -- #{message}"
+        app_name = ENV['APP_NAME'] || "dev"
+        str = "#{action} -- (#{app_name}) #{message}"
         self.transmit(str)
     end
 

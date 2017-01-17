@@ -14,7 +14,7 @@
 
 		<h4>Your mini-meetup for this month: </h4>
 		<ul>
-      <%= @peers.each do |peer| %>
+      <% @peers.each do |peer| %>
         <li><%= peer.first_name%> <%= peer.last_name%> <%= mail_to( peer.email)%> (Ask me about: <% peer.top_3_interests.join(", ") %>)</li>
       <% end %>
 		</ul>
