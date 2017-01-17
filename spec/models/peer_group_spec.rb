@@ -22,44 +22,44 @@ describe PeerGroup do
   context "with industry and stage of career defined" do
     let!(:startup_peers_stage_1) do
       create_list(:skinny_user, 10,
-        :groupable,
-        peer_industry: 'Startup',
-        stage_of_career: 1)
+                  :groupable,
+                  peer_industry: 'Startup',
+                  stage_of_career: 1)
     end
 
     let!(:startup_peers_stage_2) do
       create_list(:skinny_user, 15,
-        :groupable,
-        peer_industry: 'Startup',
-        stage_of_career: 2)
+                  :groupable,
+                  peer_industry: 'Startup',
+                  stage_of_career: 2)
     end
 
     let!(:business_peers_stage_1) do
       create_list(:skinny_user, 20,
-      :groupable,
-      peer_industry: 'Business',
-      stage_of_career: 1)
+                  :groupable,
+                  peer_industry: 'Business',
+                  stage_of_career: 1)
     end
 
     let!(:business_peers_stage_2) do
       create_list(:skinny_user, 25,
-      :groupable,
-      peer_industry: 'Business',
-      stage_of_career: 2)
+                  :groupable,
+                  peer_industry: 'Business',
+                  stage_of_career: 2)
     end
 
     let!(:technology_peers_stage_1) do
       create_list(:skinny_user, 30,
-      :groupable,
-      peer_industry: 'Technology',
-      stage_of_career: 1)
+                  :groupable,
+                  peer_industry: 'Technology',
+                  stage_of_career: 1)
     end
 
     let!(:technology_peers_stage_2) do
       create_list(:skinny_user, 35,
-        :groupable,
-        peer_industry: 'Technology',
-        stage_of_career: 2)
+                  :groupable,
+                  peer_industry: 'Technology',
+                  stage_of_career: 2)
     end
 
     context "#get_peers" do
@@ -100,96 +100,94 @@ describe PeerGroup do
   context "with specific users" do
     let(:wine_group) do
       create_list(:skinny_user, 2,
-        :groupable,
-        current_goal: "Finding work/life balance",
-        top_3_interests: ["Wine"] + [
-          "Arts", "Music", "Crafting", "Home improvement / Decorating",
-          "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise",
-          "Biking", "Yoga", "Running", "Beer", "Traveling", "Local events",
-          "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie",
-          "Social issues / volunteering", "Video Games"
-        ].sample(2)
-      )
+                  :groupable,
+                  current_goal: "Finding work/life balance",
+                  top_3_interests: ["Wine"] + [
+                    "Arts", "Music", "Crafting", "Home improvement / Decorating",
+                    "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise",
+                    "Biking", "Yoga", "Running", "Beer", "Traveling", "Local events",
+                    "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie",
+                    "Social issues / volunteering", "Video Games"
+                  ].sample(2))
     end
 
     let(:cats_group) do
       create_list(:skinny_user, 5,
-        :groupable,
-        top_3_interests: ["Cats"] + [
-          "Arts", "Music", "Crafting", "Home improvement / Decorating",
-          "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise",
-          "Biking", "Yoga", "Running", "Beer", "Wine", "Traveling", "Local events",
-          "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie",
-          "Social issues / volunteering", "Video Games"
-        ].sample(2)
-      )
+                  :groupable,
+                  top_3_interests: ["Cats"] + [
+                    "Arts", "Music", "Crafting", "Home improvement / Decorating",
+                    "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise",
+                    "Biking", "Yoga", "Running", "Beer", "Wine", "Traveling", "Local events",
+                    "Reading", "Photography", "Movies", "Cooking / Eating / Being a foodie",
+                    "Social issues / volunteering", "Video Games"
+                  ].sample(2))
     end
 
     let(:cats_user_1) do
       create(:skinny_user,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Anime", "Cats", "Mom"])
+            :groupable,
+            :new_to_technology_and_wants_balance,
+            top_3_interests: ["Anime", "Cats", "Mom"])
     end
 
     let(:cats_user_2) do
       create(:skinny_user,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Mom", "Cats", "Hiking"])
+            :groupable,
+            :new_to_technology_and_wants_balance,
+            top_3_interests: ["Mom", "Cats", "Hiking"])
     end
 
     let(:cats_user_3) do
       create(:skinny_user,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Frogs", "Cats", "Beer"])
+            :groupable,
+            :new_to_technology_and_wants_balance,
+            top_3_interests: ["Frogs", "Cats", "Beer"])
     end
 
     let(:full_cats_group) { [cats_user_1, cats_user_2, cats_user_3] }
 
     let(:cats_user_4) do
       create(:skinny_user,
-      :groupable,
-      :new_to_technology_and_wants_balance,
-      top_3_interests: ["puppies", "Cats", "bats"])
+            :groupable,
+            :new_to_technology_and_wants_balance,
+            top_3_interests: ["puppies", "Cats", "bats"])
     end
 
     let(:cat_peer) do
       create(:skinny_user,
-        :groupable,
-        current_goal: "Finding work/life balance",
-        top_3_interests: ["Anime", "Cats", "Fruit"])
+            :groupable,
+            current_goal: "Finding work/life balance",
+            top_3_interests: ["Anime", "Cats", "Fruit"])
     end
 
     let(:cat_user_with_different_goal) do
       create(:skinny_user,
-        :groupable,
-        current_goal: "Switching Industries",
-        top_3_interests: ["Anime", "Cats", "Fruit"])
+            :groupable,
+            current_goal: "Switching Industries",
+            top_3_interests: ["Anime", "Cats", "Fruit"])
     end
 
     let(:user_doesnt_like_cats) do
       create(:skinny_user,
-        :groupable,
-        current_goal: "Finding work/life balance",
-        top_3_interests: ["Anime", "Animals", "Fruit"])
+            :groupable,
+            current_goal: "Finding work/life balance",
+            top_3_interests: ["Anime", "Animals", "Fruit"])
     end
 
     let(:yoga_user) do
       create(:skinny_user,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Puppies", "Yoga", "Bats"])
+            :groupable,
+            :new_to_technology_and_wants_balance,
+            top_3_interests: ["Puppies", "Yoga", "Bats"])
     end
 
     let(:yoga_group) { [yoga_user] }
 
     let(:yoga_user_2) do
       create(:skinny_user,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Anime", "Yoga", "Bats"])
+            :groupable,
+            :new_to_technology_and_wants_balance,
+            top_3_interests: ["Anime", "Yoga", "Bats"])
     end
 
     context "#check_interests" do
@@ -308,59 +306,59 @@ describe PeerGroup do
   context "outlyers" do
     let(:group_of_4) do
       create_list(:skinny_user, 4,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Anime", "Cats", "Mom"])
+                  :groupable,
+                  :new_to_technology_and_wants_balance,
+                  top_3_interests: ["Anime", "Cats", "Mom"])
     end
 
     let!(:cats_users) do
       create_list(:skinny_user, 3,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Anime", "Cats", "Mom"])
+                  :groupable,
+                  :new_to_technology_and_wants_balance,
+                  top_3_interests: ["Anime", "Cats", "Mom"])
     end
 
     let!(:yoga_users) do
       create_list(:skinny_user, 3,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Puppies", "Yoga", "Bats"])
+                  :groupable,
+                  :new_to_technology_and_wants_balance,
+                  top_3_interests: ["Puppies", "Yoga", "Bats"])
     end
 
     let!(:hiking_users) do
       create_list(:skinny_user, 2,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Hiking", "Fruit", "Puppies"])
+                  :groupable,
+                  :new_to_technology_and_wants_balance,
+                  top_3_interests: ["Hiking", "Fruit", "Puppies"])
     end
 
     let!(:art_users) do
       create_list(:skinny_user, 2,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Arts", "Music", "Crafting"])
+                  :groupable,
+                  :new_to_technology_and_wants_balance,
+                  top_3_interests: ["Arts", "Music", "Crafting"])
     end
 
     let!(:other_peer) do
       create(:skinny_user,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Home improvement / Decorating", "Being a mom", "Dogs"])
+            :groupable,
+            :new_to_technology_and_wants_balance,
+            top_3_interests: ["Home improvement / Decorating", "Being a mom", "Dogs"])
     end
 
     let!(:art_user_with_different_goal) do
       create(:skinny_user,
-        :groupable,
-        :new_to_technology,
-        current_goal: "Switching Industries",
-        top_3_interests: ["Arts", "Music", "Crafting"])
+            :groupable,
+            :new_to_technology,
+            current_goal: "Switching Industries",
+            top_3_interests: ["Arts", "Music", "Crafting"])
     end
 
     let!(:exercise_user) do
       create(:skinny_user,
-        :groupable,
-        :new_to_technology_and_wants_balance,
-        top_3_interests: ["Biking", "Watching Sports", "Exercise"])
+            :groupable,
+            :new_to_technology_and_wants_balance,
+            top_3_interests: ["Biking", "Watching Sports", "Exercise"])
     end
 
     let(:all_groups) do
@@ -438,16 +436,16 @@ describe PeerGroup do
 
       let(:peer_1) do
         create(:skinny_user,
-          :groupable,
-          :new_to_technology_and_wants_balance,
-          top_3_interests: ["Anime", "Hiking", "Bats"])
+              :groupable,
+              :new_to_technology_and_wants_balance,
+              top_3_interests: ["Anime", "Hiking", "Bats"])
       end
 
       let(:peer_2) do
         create(:skinny_user,
-          :groupable,
-          :new_to_technology_and_wants_balance,
-          top_3_interests: ["Mom", "Cats", "Hiking"])
+              :groupable,
+              :new_to_technology_and_wants_balance,
+              top_3_interests: ["Mom", "Cats", "Hiking"])
       end
 
       it 'should create new group if there are at least 3 peers' do
