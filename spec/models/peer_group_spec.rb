@@ -487,7 +487,7 @@ describe PeerGroup do
   end
 
   context "with 200 random users that can be grouped" do
-    before :all do
+    before do
       create_list(:skinny_user, 200, :groupable, :any_stage_of_career)
     end
 
