@@ -11,6 +11,15 @@ RSpec.describe User, type: :model do
     it { expect(user).to validate_presence_of(:last_name) }
   end
 
+  describe 'assigns location' do
+    let!(:location) { Location.create(city: 'Detroit', state: 'MI')}
+    let(:user) { create(:skinny_user, location_id: location.id) }
+
+    scenario 'user has a location', focus: true do
+      expect(user.location_id).to_not be_nil
+    end
+  end
+
   describe '.update_month' do
     #update_month 'refreshes' user settings for next month
 
