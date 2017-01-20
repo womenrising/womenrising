@@ -157,7 +157,7 @@ class PeerGroup < ActiveRecord::Base
     while outlyers.length > 0
       current_peer = get_one_peer(outlyers)
       outlyers = remove_peer(outlyers, current_peer)
-      peer_groups = assign_group_no_cg(group, current_peer)
+      peer_groups = assign_group_no_common_current_goal(group, current_peer)
     end
     peer_groups
   end
@@ -173,7 +173,7 @@ class PeerGroup < ActiveRecord::Base
     peer_groups
   end
 
-  def self.assign_group_no_cg(peer_groups, peer)
+  def self.assign_group_no_common_current_goal(peer_groups, peer)
     peer_groups.each do |group|
       if check_interests(group, peer) && group.length < 3
         group << peer
@@ -229,5 +229,4 @@ class PeerGroup < ActiveRecord::Base
     end
     singles
   end
-
 end

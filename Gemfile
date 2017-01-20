@@ -21,12 +21,12 @@ gem 'sass-rails', '>= 3.2'
 
 group :development do
   gem 'quiet_assets'
-  gem 'pry'
-  gem 'pry-nav'
   gem 'spring', '1.4.4'
 end
 
 group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
   gem 'better_errors'
   gem 'capybara'
   gem 'coveralls', require: false
@@ -42,4 +42,3 @@ end
 group :production do
   gem 'rails_12factor'
 end
-
