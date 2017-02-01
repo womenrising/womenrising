@@ -12,4 +12,8 @@
 
 class Location < ActiveRecord::Base
   has_many :users
+
+  def city_state
+    city + ', ' + state
+  end
 end

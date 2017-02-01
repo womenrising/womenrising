@@ -55,6 +55,10 @@
                   </p>
                 </div>
               </div>
+              <h4 class="medium-frame">Location:
+                <div class="form-group">
+                  <%= f.collection_select(:location_id, Location.all, :id, :city_state) %></br>
+                </div>
             </h4>
             <h4 class="medium-frame">Primary Industry:
               <div class="form-group">
