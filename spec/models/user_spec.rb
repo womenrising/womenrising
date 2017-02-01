@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
     let!(:location) { Location.create(city: 'Detroit', state: 'MI')}
     let(:user) { create(:skinny_user, location_id: location.id) }
 
-    scenario 'user has a location', focus: true do
+    scenario 'user has a location' do
       expect(user.location_id).to_not be_nil
     end
   end
