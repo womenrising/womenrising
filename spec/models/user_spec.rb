@@ -123,7 +123,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#mentor_times_change' do
+  describe '#mentor_limit=' do
     # sets a new value for mentor_times
     # based on a new mentor limit submitted by the user in a form.
     # If a user decides midway through the month to change their mentor_limit,
@@ -132,7 +132,8 @@ RSpec.describe User, type: :model do
     context 'when the new mentor_limit would make mentor_times negative' do
       it 'returns 0 as the new value for mentor_times' do
         user = create(:skinny_user, mentor_times: 0, mentor_limit: 1)
-        expect(user.mentor_times_change(0)).to eq(0)
+        user.mentor_limit = 0
+        expect(user.mentor_times).to eq(0)
       end
     end
 
@@ -140,14 +141,17 @@ RSpec.describe User, type: :model do
       context 'but user has not yet mentored this month' do
         it 'returns a higher value for mentor_times' do
           user = create(:skinny_user, mentor_times: 1, mentor_limit: 1)
-          expect(user.mentor_times_change(4)).to eq(4)
+          user.mentor_limit = 4
+          expect(user.mentor_times).to eq(4)
+          expect(user.mentor_limit).to eq(4)
         end
       end
 
       context 'but the mentor has mentored already' do
         it 'subtracts the number of mentor meetings from the new mentor_times' do
           user = create(:skinny_user, mentor_times: 0, mentor_limit: 1)
-          expect(user.mentor_times_change(4)).to eq(3)
+          user.mentor_limit = 4
+          expect(user.mentor_times).to eq(3)
         end
       end
     end
@@ -155,16 +159,20 @@ RSpec.describe User, type: :model do
     context 'when the new mentor_limit is lower than the old mentor_limit' do
       context 'and less than the old mentor_times' do
         it 'should set the new value for mentor_times as the new mentor_limit' do
-          user = create(:skinny_user, mentor_times: 3, mentor_limit: 3)
-          expect(user.mentor_times_change(2)).to eq(2)
+          user = create(:skinny_user, mentor_limit: 3)
+          user.update(mentor_times: 3)
+          user.mentor_limit = 2
+          expect(user.mentor_times).to eq(2)
         end
       end
     end
 
     context 'when the new mentor limit is the same as the old' do
       it 'does not change the mentor_times value' do
-        user = create(:skinny_user, mentor_times: 2, mentor_limit: 3)
-        expect(user.mentor_times_change(3)).to eq(2)
+        user = create(:skinny_user, mentor_limit: 3)
+        user.update(mentor_times: 2)
+        user.mentor_limit = 3
+        expect(user.mentor_times).to eq(2)
       end
     end
   end

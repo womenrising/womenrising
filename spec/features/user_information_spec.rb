@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'User can edit information' do
-  let!(:user) { create :skinny_user, :not_on_waitlist }
+  let!(:user) { create :skinny_user }
   let!(:boulder) { create :location }
   let!(:detroit) { create :location, city: 'Detroit', state: 'MI' }
 
