@@ -18,5 +18,6 @@ feature 'User can edit information' do
     select 'Boulder, CO'
     click_on 'Submit'
     expect(user.reload.location).to_not be_nil
+    expect(page).to have_content user.location.city_state
   end
 end
