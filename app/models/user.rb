@@ -28,16 +28,17 @@
 #  top_3_interests             :text             default([]), is an Array
 #  live_in_detroit             :boolean          default(TRUE)
 #  waitlist                    :boolean          default(TRUE)
-#  is_participating_next_month :boolean          default(FALSE)
 #  is_assigned_peer_group      :boolean          default(FALSE)
 #  mentor_times                :integer          default(1)
 #  mentor_limit                :integer          default(1)
 #  is_participating_this_month :boolean
 #  image_url                   :string(255)
+#  location_id                 :integer
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_location_id           (location_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
@@ -52,6 +53,7 @@ class User < ActiveRecord::Base
 
   has_many :peer_group_users
   has_many :peer_groups, through: :peer_group_users
+  belongs_to :location
 
   validates :top_3_interests, length: { maximum: 3, too_long: " is limited to %{count} interests" }
   validates_presence_of :first_name, :last_name
@@ -130,14 +132,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def mentor_times_change(new_mentor_limit)
+  def mentor_limit= new_mentor_limit
     mentor_diff = new_mentor_limit.to_i - self.mentor_limit
-    new_mentor_times = self.mentor_times + mentor_diff
-    if new_mentor_times < 0
-      return 0
-    else
-      return new_mentor_times
-    end
+    self.mentor_times = [self.mentor_times + mentor_diff, 0].max
+
+    super
   end
 
   def get_image_url

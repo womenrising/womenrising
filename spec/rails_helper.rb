@@ -7,6 +7,7 @@ require 'shoulda/matchers'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'devise'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -15,6 +16,7 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
+  config.include Devise::TestHelpers, :type => :controller
   config.include FeatureHelpers, type: :feature
   config.include FactoryGirl::Syntax::Methods
 

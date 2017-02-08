@@ -25,7 +25,7 @@
       <h2>Info</h2>
       <div class="row flush">
         <div class="col-md-6 flush">
-          <h4 class="medium-frame">Name: <div><%= @user.first_name%> <%= @user.last_name%></div></h4>
+          <h4 class="medium-frame">Location: <div><%= @user.location ? @user.location.city_state : 'N/A' %></div></h4>
           <h4 class="medium-frame">Primary Industry: <div><%= @user.primary_industry%></div></h4>
           <h4 class="medium-frame">Goal Right Now: <div><%= @user.current_goal%></div></h4>
           <div class="medium-frame">

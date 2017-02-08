@@ -1,8 +1,10 @@
 FactoryGirl.define do
 
-    factory :locaiton do
-        name 'boulder'
-        description 'boulder description'
-    end
+  factory :location do
+    name 'boulder'
+    description 'boulder description'
+    city 'Boulder'
+    state 'CO'
+  end
 
 end
