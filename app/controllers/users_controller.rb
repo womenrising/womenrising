@@ -59,6 +59,7 @@ class UsersController < ApplicationController
       :current_goal,
       :live_in_detroit,
       :location_id,
+      :zip_code,
       top_3_interests: []
     )
   end

@@ -41,24 +41,23 @@
             </h4>
             <h4 class="medium-frame">Email:
               <div class="form-group">
-                <%= f.text_field :email, class: 'form-control' %></br>
+                <%= f.text_field :email, class: 'form-control' %>
               </div>
             </h4>
-            <h4 class="medium-frame">I Live In Detroit:
+            <h4 class="medium-frame">Location:
               <div class="form-group">
-                <%= f.select :live_in_detroit, options_for_select([["Yes",true],["No",false]], @user.live_in_detroit) %></br>
-                <div id="live_in_detroit_info">
-                  <p>What if I don't live in Detroit?<p>
-                  <p>
-                    You will not be placed in a peer group and can only mentor.
-                    However, we're working hard to expand Women Rising to other areas. Stay tuned!
-                  </p>
-                </div>
+                <%= f.collection_select(:location_id, Location.all, :id, :city_state, include_blank: 'Other') %>
               </div>
-              <h4 class="medium-frame">Location:
-                <div class="form-group">
-                  <%= f.collection_select(:location_id, Location.all, :id, :city_state) %></br>
-                </div>
+            </h4>
+            <h4 class="medium-frame hidden" id="zip-code">Zip Code:
+              <div class="form-group">
+                <%= f.number_field :zip_code, class: 'form-control' %>
+                <p>
+                  You will not be placed in a peer group and can only mentor.
+                  However, we're working hard to expand Women Rising to other areas.
+                  Enter your zip code to let us know where you want a Women Rising chapter.
+                </p>
+              </div>
             </h4>
             <h4 class="medium-frame">Primary Industry:
               <div class="form-group">
@@ -131,3 +130,18 @@
     </div>
   </main>
 <%end%>
+
+<script>
+  $(document).ready(function() {
+    if ($('#user_location_id').val() == "") {
+      $('#zip-code').removeClass("hidden");
+    };
+    $('#user_location_id').change(function() {
+      if ($('#user_location_id').val() == "") {
+        $('#zip-code').removeClass("hidden");
+      } else {
+        $('#zip-code').addClass("hidden");
+      };
+    });
+  });
+</script>
