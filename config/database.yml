@@ -18,7 +18,7 @@ test:
   <% if ENV['WOMENRISING_DOCKER'] %>
   username: postgres
   password:
-  host: postgres
+  host: localhost
   <% end %>
 
 
