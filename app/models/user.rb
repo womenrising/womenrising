@@ -61,6 +61,8 @@ class User < ActiveRecord::Base
   validates_presence_of :mentor_industry, if: :mentor
   after_validation :check_industry
 
+  before_save :ensure_location_or_zip
+
   CURRENT_GOALS = [
     "Rising the ranks / breaking the glass ceiling",
     "Switching industries",
@@ -147,5 +149,11 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  private
+
+  def ensure_location_or_zip
+    self.zip_code = nil if location_id
   end
 end
