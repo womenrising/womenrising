@@ -1,4 +1,4 @@
-class OmniauthCallbacksController < Devise::OmniauthCallbacksController   
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def linkedin
     auth = env["omniauth.auth"]
     @user = User.connect_to_linkedin(request.env["omniauth.auth"],current_user)
@@ -10,4 +10,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to root_path
     end
   end
+
+  skip_before_action :verify_authenticity_token, only: :developer
+  alias_method :developer, :linkedin
 end

@@ -10,13 +10,13 @@
     <li>
       <% if current_user and user_signed_in? %>
 
-        <a href=<%=user_path(@user)%> class="avatar">
-          <%= image_tag @user.get_image_url, class:"img-circle img-responsive" %>
+        <a href="<%= user_path(@user) %>" class="avatar">
+          <%= image_tag @user.get_image_url, class: "img-circle img-responsive" %>
           <%= @user.full_name %>
         </a>
-        <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+        <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
       <% else %>
-        <%= link_to "Sign in", user_omniauth_authorize_path('linkedin'), class:"with-border" %>
+        <%= link_to "Sign in", default_omniauth_authorize_path, class: "with-border" %>
       <% end %>
     </li>
   </ul>
