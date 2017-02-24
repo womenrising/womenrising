@@ -8,10 +8,7 @@ A few sentences describing the overall goals of the pull request's commits.
 Notes regarding deployment the contained body of work.  These should note any
 db migrations, new environment variables, etc.
 
-## Impacted Areas in Application
-List general components of the application that this PR will affect:
-
-*
+## Github Issue
 
 ## Background
 

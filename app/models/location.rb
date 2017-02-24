@@ -12,6 +12,7 @@
 
 class Location < ActiveRecord::Base
   has_many :users
+  validates_presence_of :city, :state
 
   def city_state
     city + ', ' + state
