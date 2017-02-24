@@ -233,7 +233,11 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-   config.omniauth :linkedin, ENV['LINKEDIN_ID'], ENV['LINKEDIN_SECRET'], :fields => ['first-name', 'last-name', 'email-address', 'picture-urls::(original)', 'id']
+  config.omniauth :developer unless Rails.env.production?
+
+  if ENV['LINKEDIN_ID'] and ENV['LINKEDIN_SECRET']
+    config.omniauth :linkedin, ENV['LINKEDIN_ID'], ENV['LINKEDIN_SECRET'], fields: ['first-name', 'last-name', 'email-address', 'picture-urls::(original)', 'id']
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

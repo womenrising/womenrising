@@ -74,28 +74,29 @@ class User < ActiveRecord::Base
     "C-Level/Founder"
   ]
 
-  def self.connect_to_linkedin(auth, signed_in_resource =nil)
+  def self.connect_to_linkedin(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    user ||= User.where(email: auth.info.email).first
     image_url = auth.extra.raw_info.pictureUrls.values[1][0]
     if user
       user.update_attributes(image_url: image_url)
-      return user
     else
-      registered_user = User.where(:email => auth.info.email).first
-      if registered_user
-        registered_user.update_attributes(image_url: image_url)
-        return registered_user
-      else
-        user = User.create(first_name:auth.info.first_name, last_name:auth.info.last_name, provider:auth.provider, uid:auth.uid, email:auth.info.email, image_url:image_url,  password:Devise.friendly_token[0,20] )
+      user = User.create(
+        auth.info.slice(:first_name, :last_name, :email).merge(
+          auth.slice(:provider, :uid)
+        ).merge(
+          image_url: image_url,
+          password: Devise.friendly_token[0,20]
+        ).to_h
+      )
 
-        action = :new_user
-        message  = "#{user.id} is a new user"
-        SlackNotification.notify(action, message)
+      action = :new_user
+      message  = "#{user.id} is a new user"
+      SlackNotification.notify(action, message)
 
-        UserMailer.welcome_mail(user).deliver
-        return user
-      end
+      UserMailer.welcome_mail(user).deliver
     end
+    return user
   end
 
   def self.update_month
