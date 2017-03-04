@@ -34,7 +34,7 @@
 #  is_participating_this_month :boolean
 #  image_url                   :string(255)
 #  location_id                 :integer
-#  zip_code                    :integer
+#  zip_code                    :string(10)
 #
 # Indexes
 #

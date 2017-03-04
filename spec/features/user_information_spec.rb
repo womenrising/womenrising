@@ -27,7 +27,7 @@ feature 'User can edit information' do
     fill_in :user_zip_code, with: '12345'
     click_on 'Submit'
     expect(user.reload.location).to be_nil
-    expect(user.zip_code).to eq 12345
+    expect(user.zip_code).to eq '12345'
   end
 
   scenario 'clears zip code if they choose an existing location' do
