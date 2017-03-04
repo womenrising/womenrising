@@ -33,7 +33,7 @@ class PeerGroup < ActiveRecord::Base
     get_remainder = User.
       where(is_participating_this_month: true).
       where(waitlist: false).
-      where(live_in_detroit: true).
+      where.not(location_id: nil).
       where(is_assigned_peer_group: false)
 
     remainder_groups = []
@@ -95,10 +95,10 @@ class PeerGroup < ActiveRecord::Base
     User.where(
       is_participating_this_month: true,
       waitlist: false,
-      live_in_detroit: true,
       is_assigned_peer_group: false,
       peer_industry: industry,
-      stage_of_career: stage_of_career)
+      stage_of_career: stage_of_career).
+      where.not(location_id: nil)
   end
 
   def self.get_one_peer(group)

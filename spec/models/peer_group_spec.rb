@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe PeerGroup do
+  let!(:location) { create :location }
   context "#generate_groups" do
     let!(:users_already_grouped) do
-      create_list(:skinny_user, 2, :groupable, is_assigned_peer_group: true)
+      create_list(:skinny_user, 2, :groupable, location_id: location.id, is_assigned_peer_group: true)
     end
     let!(:users_to_be_grouped) do
-      create_list(:skinny_user, 5, :groupable, is_assigned_peer_group: false)
+      create_list(:skinny_user, 5, :groupable, location_id: location.id, is_assigned_peer_group: false)
     end
 
     it "Should loop through all the users and make groups" do
@@ -23,6 +24,7 @@ describe PeerGroup do
     let!(:startup_peers_stage_1) do
       create_list(:skinny_user, 10,
                   :groupable,
+                  location_id: location.id,
                   peer_industry: 'Startup',
                   stage_of_career: 1)
     end
@@ -30,6 +32,7 @@ describe PeerGroup do
     let!(:startup_peers_stage_2) do
       create_list(:skinny_user, 15,
                   :groupable,
+                  location_id: location.id,
                   peer_industry: 'Startup',
                   stage_of_career: 2)
     end
@@ -37,6 +40,7 @@ describe PeerGroup do
     let!(:business_peers_stage_1) do
       create_list(:skinny_user, 20,
                   :groupable,
+                  location_id: location.id,
                   peer_industry: 'Business',
                   stage_of_career: 1)
     end
@@ -44,6 +48,7 @@ describe PeerGroup do
     let!(:business_peers_stage_2) do
       create_list(:skinny_user, 25,
                   :groupable,
+                  location_id: location.id,
                   peer_industry: 'Business',
                   stage_of_career: 2)
     end
@@ -51,6 +56,7 @@ describe PeerGroup do
     let!(:technology_peers_stage_1) do
       create_list(:skinny_user, 30,
                   :groupable,
+                  location_id: location.id,
                   peer_industry: 'Technology',
                   stage_of_career: 1)
     end
@@ -58,6 +64,7 @@ describe PeerGroup do
     let!(:technology_peers_stage_2) do
       create_list(:skinny_user, 35,
                   :groupable,
+                  location_id: location.id,
                   peer_industry: 'Technology',
                   stage_of_career: 2)
     end
@@ -101,6 +108,7 @@ describe PeerGroup do
     let(:wine_group) do
       create_list(:skinny_user, 2,
                   :groupable,
+                  location_id: location.id,
                   current_goal: "Finding work/life balance",
                   top_3_interests: ["Wine"] + [
                     "Arts", "Music", "Crafting", "Home improvement / Decorating",
@@ -114,6 +122,7 @@ describe PeerGroup do
     let(:cats_group) do
       create_list(:skinny_user, 5,
                   :groupable,
+                  location_id: location.id,
                   top_3_interests: ["Cats"] + [
                     "Arts", "Music", "Crafting", "Home improvement / Decorating",
                     "Being a mom", "Dogs", "Watching Sports", "Outdoors / Hiking", "Exercise",
@@ -127,6 +136,7 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology_and_wants_balance,
+            location_id: location.id,
             top_3_interests: ["Anime", "Cats", "Mom"])
     end
 
@@ -134,6 +144,7 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology_and_wants_balance,
+            location_id: location.id,
             top_3_interests: ["Mom", "Cats", "Hiking"])
     end
 
@@ -141,6 +152,7 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology_and_wants_balance,
+            location_id: location.id,
             top_3_interests: ["Frogs", "Cats", "Beer"])
     end
 
@@ -150,12 +162,14 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology_and_wants_balance,
+            location_id: location.id,
             top_3_interests: ["puppies", "Cats", "bats"])
     end
 
     let(:cat_peer) do
       create(:skinny_user,
             :groupable,
+            location_id: location.id,
             current_goal: "Finding work/life balance",
             top_3_interests: ["Anime", "Cats", "Fruit"])
     end
@@ -163,6 +177,7 @@ describe PeerGroup do
     let(:cat_user_with_different_goal) do
       create(:skinny_user,
             :groupable,
+            location_id: location.id,
             current_goal: "Switching Industries",
             top_3_interests: ["Anime", "Cats", "Fruit"])
     end
@@ -170,6 +185,7 @@ describe PeerGroup do
     let(:user_doesnt_like_cats) do
       create(:skinny_user,
             :groupable,
+            location_id: location.id,
             current_goal: "Finding work/life balance",
             top_3_interests: ["Anime", "Animals", "Fruit"])
     end
@@ -178,6 +194,7 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology_and_wants_balance,
+            location_id: location.id,
             top_3_interests: ["Puppies", "Yoga", "Bats"])
     end
 
@@ -187,6 +204,7 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology_and_wants_balance,
+            location_id: location.id,
             top_3_interests: ["Anime", "Yoga", "Bats"])
     end
 
@@ -290,6 +308,7 @@ describe PeerGroup do
         peer = create(:skinny_user,
                       :groupable,
                       :new_to_technology,
+                      location_id: location.id,
                       current_goal: "Switching Industries",
                       top_3_interests: ["Anime", "Hiking","Fruit"])
         groups = [full_cats_group, yoga_group, wine_group]
@@ -308,6 +327,7 @@ describe PeerGroup do
       create_list(:skinny_user, 4,
                   :groupable,
                   :new_to_technology_and_wants_balance,
+                  location_id: location.id,
                   top_3_interests: ["Anime", "Cats", "Mom"])
     end
 
@@ -315,6 +335,7 @@ describe PeerGroup do
       create_list(:skinny_user, 3,
                   :groupable,
                   :new_to_technology_and_wants_balance,
+                  location_id: location.id,
                   top_3_interests: ["Anime", "Cats", "Mom"])
     end
 
@@ -322,6 +343,7 @@ describe PeerGroup do
       create_list(:skinny_user, 3,
                   :groupable,
                   :new_to_technology_and_wants_balance,
+                  location_id: location.id,
                   top_3_interests: ["Puppies", "Yoga", "Bats"])
     end
 
@@ -329,6 +351,7 @@ describe PeerGroup do
       create_list(:skinny_user, 2,
                   :groupable,
                   :new_to_technology_and_wants_balance,
+                  location_id: location.id,
                   top_3_interests: ["Hiking", "Fruit", "Puppies"])
     end
 
@@ -336,6 +359,7 @@ describe PeerGroup do
       create_list(:skinny_user, 2,
                   :groupable,
                   :new_to_technology_and_wants_balance,
+                  location_id: location.id,
                   top_3_interests: ["Arts", "Music", "Crafting"])
     end
 
@@ -343,6 +367,7 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology_and_wants_balance,
+            location_id: location.id,
             top_3_interests: ["Home improvement / Decorating", "Being a mom", "Dogs"])
     end
 
@@ -350,6 +375,7 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology,
+            location_id: location.id,
             current_goal: "Switching Industries",
             top_3_interests: ["Arts", "Music", "Crafting"])
     end
@@ -358,6 +384,7 @@ describe PeerGroup do
       create(:skinny_user,
             :groupable,
             :new_to_technology_and_wants_balance,
+            location_id: location.id,
             top_3_interests: ["Biking", "Watching Sports", "Exercise"])
     end
 
@@ -438,6 +465,7 @@ describe PeerGroup do
         create(:skinny_user,
               :groupable,
               :new_to_technology_and_wants_balance,
+              location_id: location.id,
               top_3_interests: ["Anime", "Hiking", "Bats"])
       end
 
@@ -445,6 +473,7 @@ describe PeerGroup do
         create(:skinny_user,
               :groupable,
               :new_to_technology_and_wants_balance,
+              location_id: location.id,
               top_3_interests: ["Mom", "Cats", "Hiking"])
       end
 
@@ -452,11 +481,13 @@ describe PeerGroup do
         peer_3 = create(:skinny_user,
                         :groupable,
                         :new_to_technology_and_wants_balance,
+                        location_id: location.id,
                         top_3_interests: ["Frogs", "Hiking", "Beer"])
 
         peer_4 = create(:skinny_user,
                         :groupable,
                         :new_to_technology_and_wants_balance,
+                        location_id: location.id,
                         top_3_interests: ["puppies", "yoga", "bats"])
 
         peers = [peer_1, peer_2, peer_3, peer_4]
@@ -474,13 +505,12 @@ describe PeerGroup do
 
     it "should make groups out of remainder" do
       ungrouped_users = User.where(is_participating_this_month: true,
-                                   waitlist: false, live_in_detroit: true,
+                                   waitlist: false,
                                    is_assigned_peer_group: false)
       expect(ungrouped_users.length).to eq(13)
       PeerGroup.generate_groups
       new_ungrouped_users = User.where(is_participating_this_month: true,
                                        waitlist: false,
-                                       live_in_detroit: true,
                                        is_assigned_peer_group: false)
       expect(new_ungrouped_users.length).to eq(0)
     end
@@ -488,7 +518,7 @@ describe PeerGroup do
 
   context "with 200 random users that can be grouped" do
     before do
-      create_list(:skinny_user, 200, :groupable, :any_stage_of_career)
+      create_list(:skinny_user, 200, :groupable, :any_stage_of_career, location_id: location.id)
     end
 
     context "#automatially_create_groups" do
