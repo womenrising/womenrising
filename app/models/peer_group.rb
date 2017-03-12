@@ -12,12 +12,11 @@
 #
 
 class PeerGroup < ActiveRecord::Base
-
   has_many :peer_group_users
   has_many :users, through: :peer_group_users
 
   def send_mail
-    self.users.each do |user|
+    users.each do |user|
       action = :peer_group_send_mail
       message = "User # #{user.id}"
       SlackNotification.notify(action, message)
@@ -27,68 +26,41 @@ class PeerGroup < ActiveRecord::Base
   end
 
   def self.generate_groups
-    groups = automatially_create_groups
-    create_peer_groups(groups)
+    users = User.where(
+      is_participating_this_month: true,
+      waitlist: false,
+      live_in_detroit: true,
+      is_assigned_peer_group: false
+    )
 
-    get_remainder = User.
-      where(is_participating_this_month: true).
-      where(waitlist: false).
-      where(live_in_detroit: true).
-      where(is_assigned_peer_group: false)
+    groups = organize_into_groups!(users)
 
-    remainder_groups = []
-    if get_remainder != []
-      while get_remainder.length > 2
-        new_group = get_remainder.sample(3)
-        get_remainder -= new_group
-        remainder_groups << new_group
-      end
-      get_remainder.each do |indv|
-        indv.update(is_assigned_peer_group: true)
-        UserMailer.peer_unavailable_mail(indv).deliver
-      end
-      create_peer_groups(remainder_groups)
+    groups.each do |group|
+      update_users!(group)
+      peer_group = PeerGroup.new
+
+      group.each { |user| peer_group.users << user }
+
+      peer_group.save
+      peer_group.send_mail
     end
-    groups += remainder_groups
   end
 
-  def self.automatially_create_groups
-    all_groups = []
-    ["Technology","Business", "Startup"].each do |industry|
-      remainder = []
-      industry_groups = []
-      (1..5).each do |stage_of_career|
-        groups = create_groups(remainder, industry, stage_of_career)
-        outlyers = get_singles(groups)
-        groups -= outlyers
-        if outlyers.length > 0
-          groups = reassign_not_full_groups(groups, outlyers.flatten)
-          new_outlyers = get_not_full_groups(groups)
-          groups -= new_outlyers
-          industry_groups += groups
-          if stage_of_career == 5
-            industry_groups = assign_group_no_checks(industry_groups, new_outlyers.flatten)
-          else
-            remainder = new_outlyers
-          end
-        else
-          new_outlyers = get_not_full_groups(groups)
-          groups -= new_outlyers
-          groups = reassign_not_full_groups(groups, new_outlyers.flatten)
-          if groups != nil
-            new_outlyers = get_not_full_groups(groups)
-            groups -= new_outlyers
-            industry_groups += groups
-            if new_outlyers.length > 0
-              industry_groups = assign_group_no_checks(industry_groups, new_outlyers.flatten)
-              remainder = []
-            end
-          end
-        end
-      end
-      all_groups += industry_groups
+  def self.organize_into_groups!(users)
+    quotient, remainder = users.length.divmod(3)
+    number_of_groups = remainder > 1 ? quotient + 1 : quotient
+
+    Array.new(number_of_groups) do
+      sample_size = users.length == 4 ? 4 : 3
+      selected = users.sample(sample_size)
+      users -= selected
+
+      selected
     end
-    all_groups
+  end
+
+  def self.update_users!(group)
+    group.each { |user| user.update(is_assigned_peer_group: true) }
   end
 
   def self.get_peers(industry, stage_of_career)
@@ -98,7 +70,8 @@ class PeerGroup < ActiveRecord::Base
       live_in_detroit: true,
       is_assigned_peer_group: false,
       peer_industry: industry,
-      stage_of_career: stage_of_career)
+      stage_of_career: stage_of_career
+    )
   end
 
   def self.get_one_peer(group)
@@ -111,7 +84,7 @@ class PeerGroup < ActiveRecord::Base
 
   def self.check_interests(group, peer)
     group_interests = get_group_interests(group)
-    return (peer.top_3_interests - group_interests).length < 3
+    (peer.top_3_interests - group_interests).length < 3
   end
 
   def self.get_group_interests(group)
@@ -128,7 +101,7 @@ class PeerGroup < ActiveRecord::Base
   end
 
   def self.check_group(group, peer)
-    return peer.current_goal == group[0].current_goal && check_interests(group, peer)
+    peer.current_goal == group[0].current_goal && check_interests(group, peer)
   end
 
   def self.assign_group(peer_groups, peer)
@@ -138,7 +111,7 @@ class PeerGroup < ActiveRecord::Base
         return peer_groups
       end
     end
-    return peer_groups << [peer]
+    peer_groups << [peer]
   end
 
   def self.create_groups(all_groups, industry, stage_of_career)
@@ -166,9 +139,7 @@ class PeerGroup < ActiveRecord::Base
     groups = all_peer_groups
     peer_groups = []
     groups.each do |group|
-      if group.length < 3
-        peer_groups << group
-      end
+      peer_groups << group if group.length < 3
     end
     peer_groups
   end
@@ -180,22 +151,7 @@ class PeerGroup < ActiveRecord::Base
         return peer_groups
       end
     end
-    return peer_groups << [peer]
-  end
-
-  def self.create_peer_groups(groups)
-    groups.each do |group|
-      update_user(group)
-      peer_group = PeerGroup.create
-      group.each{ |p| peer_group.users << p }
-      peer_group.send_mail
-    end
-  end
-
-  def self.update_user(group)
-    group.each do |indv|
-      indv.update(is_assigned_peer_group: true)
-    end
+    peer_groups << [peer]
   end
 
   def self.assign_group_no_checks(peer_groups, peers)

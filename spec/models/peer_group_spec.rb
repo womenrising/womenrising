@@ -10,12 +10,11 @@ describe PeerGroup do
     end
 
     it "Should loop through all the users and make groups" do
-      expect(UserMailer).to receive(:peer_unavailable_mail).at_least(:once).and_call_original
       groups = PeerGroup.generate_groups
 
       expect(User.where(is_assigned_peer_group: true).length).to eq(7)
       expect(User.where(is_assigned_peer_group: false).length).to eq(0)
-      expect(PeerGroup.all.length).to be(1)
+      expect(PeerGroup.all.length).to be(2)
     end
   end
 
@@ -494,32 +493,12 @@ describe PeerGroup do
     context "#automatially_create_groups" do
       before do
         @start_group = User.all
-        @groups = PeerGroup.automatially_create_groups
+        @groups = PeerGroup.organize_into_groups!(@start_group)
       end
 
       it "should loop through and assign groups" do
-        @groups.each do |group|
-          expect(group.length < 3).to be(false)
-        end
         expect(@groups.flatten.length).to eq(@start_group.length)
         expect(@groups.is_a?(Array)).to be(true)
-      end
-
-      it "should create groups with the same industry" do
-        @groups.each do |group|
-          expect(group.map(&:peer_industry).uniq.count).to eq(1)
-        end
-      end
-
-      it "should create groups that mostly have the same stage of career" do
-        deviations = @groups.map do |group|
-          stages = group.map &:stage_of_career
-          mean = stages.reduce(&:+).to_f / stages.count.to_f
-          variances = stages.map {|n| (n - mean)**2 }
-          std_dev = Math.sqrt(variances.reduce(&:+) / stages.count.to_f)
-        end
-        groups_with_poor_distribution = deviations.count { |n| n >= 1.0 }
-        expect(groups_with_poor_distribution.to_f / @groups.count).to be < 0.25
       end
     end
   end
