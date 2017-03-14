@@ -26,14 +26,7 @@ class PeerGroup < ActiveRecord::Base
   end
 
   def self.generate_groups
-    users = User.where(
-      is_participating_this_month: true,
-      waitlist: false,
-      live_in_detroit: true,
-      is_assigned_peer_group: false
-    )
-
-    groups = organize_into_groups!(users)
+    groups = automatically_create_groups
 
     groups.each do |group|
       update_users!(group)
@@ -46,7 +39,14 @@ class PeerGroup < ActiveRecord::Base
     end
   end
 
-  def self.organize_into_groups!(users)
+  def self.automatically_create_groups
+    users = User.where(
+      is_participating_this_month: true,
+      waitlist: false,
+      live_in_detroit: true,
+      is_assigned_peer_group: false
+    )
+
     quotient, remainder = users.length.divmod(3)
     number_of_groups = remainder > 1 ? quotient + 1 : quotient
 

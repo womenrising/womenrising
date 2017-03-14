@@ -10,7 +10,7 @@ describe PeerGroup do
     end
 
     it "Should loop through all the users and make groups" do
-      groups = PeerGroup.generate_groups
+      PeerGroup.generate_groups
 
       expect(User.where(is_assigned_peer_group: true).length).to eq(7)
       expect(User.where(is_assigned_peer_group: false).length).to eq(0)
@@ -490,10 +490,10 @@ describe PeerGroup do
       create_list(:skinny_user, 200, :groupable, :any_stage_of_career)
     end
 
-    context "#automatially_create_groups" do
+    context "#automatically_create_groups" do
       before do
         @start_group = User.all
-        @groups = PeerGroup.organize_into_groups!(@start_group)
+        @groups = PeerGroup.automatically_create_groups
       end
 
       it "should loop through and assign groups" do
