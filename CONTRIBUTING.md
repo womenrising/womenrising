@@ -13,8 +13,8 @@
 
 * Create a topic branch from where you want to base your work.
   * This is usually the master branch.
-  * Name your branch appropriately: feature/short-description, refactor/short-description, bugfix/short-description
-  * Example `bugfix/refactor-peer-group-specs`
+  * Name your branch appropriately: [github-issue-#]-short-description
+  * Example `21-refactor-peer-group-specs`
 
 
 * Write tests and make your change. Make the tests pass:
