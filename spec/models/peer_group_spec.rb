@@ -28,6 +28,9 @@ describe PeerGroup do
       end
 
       it "should loop through and assign groups" do
+        @groups.each do |group|
+          expect(group.length.between? 2, 4).to be(true)
+        end
         expect(@groups.flatten.length).to eq(@start_group.length)
         expect(@groups.is_a?(Array)).to be(true)
       end

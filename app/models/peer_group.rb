@@ -43,9 +43,8 @@ class PeerGroup < ActiveRecord::Base
     users = User.where(
       is_participating_this_month: true,
       waitlist: false,
-      live_in_detroit: true,
       is_assigned_peer_group: false
-    )
+    ).where.not(location_id: nil)
 
     quotient, remainder = users.length.divmod(3)
     number_of_groups = remainder > 1 ? quotient + 1 : quotient
