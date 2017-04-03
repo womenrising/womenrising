@@ -1,5 +1,6 @@
 LINKEDIN_ID: linkedin_id
 LINKEDIN_SECRET: linkedin_secret
+DEFAULT_OMNIAUTH_PROVIDER: developer
 
 gmail_username: gmail_username
 gmail_password: gmail_password
