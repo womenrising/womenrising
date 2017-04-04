@@ -26,25 +26,28 @@ class PeerGroup < ActiveRecord::Base
   end
 
   def self.generate_groups
-    groups = automatically_create_groups
+    Location.all.each do |location|
+      groups = automatically_create_groups(location)
 
-    groups.each do |group|
-      update_users!(group)
-      peer_group = PeerGroup.new
+      groups.each do |group|
+        update_users!(group)
+        peer_group = PeerGroup.new
 
-      group.each { |user| peer_group.users << user }
+        group.each { |user| peer_group.users << user }
 
-      peer_group.save
-      peer_group.send_mail
+        peer_group.save
+        peer_group.send_mail
+      end
     end
   end
 
-  def self.automatically_create_groups
+  def self.automatically_create_groups(location)
     users = User.where(
       is_participating_this_month: true,
       waitlist: false,
-      is_assigned_peer_group: false
-    ).where.not(location_id: nil)
+      is_assigned_peer_group: false,
+      location_id: location
+    )
 
     quotient, remainder = users.length.divmod(3)
     number_of_groups = remainder > 1 ? quotient + 1 : quotient
