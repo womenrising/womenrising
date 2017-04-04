@@ -25,10 +25,10 @@ describe PeerGroup do
 
       it "does not group denver user with detroit users" do
         PeerGroup.generate_groups
-        @groups = PeerGroup.all.map(&:users)
-        detroit_group = @groups.select{|g| g.include?(detroit_users.first)}.first
+        groups = PeerGroup.all.map(&:users)
+        detroit_group = groups.select{|g| g.include?(detroit_users.first)}.first
 
-        expect(@groups.count).to eq(2)
+        expect(groups.count).to eq(2)
         expect(detroit_group).to match_array(detroit_users)
         expect(detroit_group).to_not match_array(boulder_users)
       end
@@ -36,22 +36,21 @@ describe PeerGroup do
   end
 
   context "with 200 random users that can be grouped" do
-    before do
-      create_list(:skinny_user, 200, :groupable, :any_stage_of_career, location_id: boulder.id)
+    let(:users) do
+      create_list(:skinny_user, 200, :groupable, :any_stage_of_career,
+                  location_id: boulder.id)
     end
 
     context "#automatically_create_groups(location)" do
-      before do
-        @start_group = User.all
-        @groups = PeerGroup.automatically_create_groups(boulder)
-      end
-
       it "should loop through and assign groups" do
-        @groups.each do |group|
+        start_group = User.all
+        groups = PeerGroup.automatically_create_groups(boulder)
+
+        groups.each do |group|
           expect(group.length.between? 2, 4).to be(true)
         end
-        expect(@groups.flatten.length).to eq(@start_group.length)
-        expect(@groups.is_a?(Array)).to be(true)
+        expect(groups.flatten.length).to eq(start_group.length)
+        expect(groups.is_a?(Array)).to be(true)
       end
     end
   end
