@@ -82,12 +82,12 @@ ActiveRecord::Schema.define(version: 20170415165840) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                       default: "",    null: false
-    t.string   "encrypted_password",          default: "",    null: false
+    t.string   "email",                                  default: "",    null: false
+    t.string   "encrypted_password",                     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",               default: 0,     null: false
+    t.integer  "sign_in_count",                          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -98,22 +98,23 @@ ActiveRecord::Schema.define(version: 20170415165840) do
     t.string   "uid"
     t.string   "first_name"
     t.string   "last_name"
-    t.boolean  "mentor",                      default: false
+    t.boolean  "mentor",                                 default: false
     t.string   "primary_industry"
     t.integer  "stage_of_career"
     t.string   "mentor_industry"
     t.string   "peer_industry"
     t.string   "current_goal"
-    t.text     "top_3_interests",             default: [],                 array: true
-    t.boolean  "live_in_detroit",             default: true
-    t.boolean  "waitlist",                    default: true
-    t.boolean  "is_assigned_peer_group",      default: false
-    t.integer  "mentor_times",                default: 1
-    t.integer  "mentor_limit",                default: 1
+    t.text     "top_3_interests",                        default: [],                 array: true
+    t.boolean  "live_in_detroit",                        default: true
+    t.boolean  "waitlist",                               default: true
+    t.boolean  "is_assigned_peer_group",                 default: false
+    t.integer  "mentor_times",                           default: 1
+    t.integer  "mentor_limit",                           default: 1
     t.boolean  "is_participating_this_month"
     t.string   "image_url"
     t.integer  "location_id"
     t.string   "linkedin_url"
+    t.string   "zip_code",                    limit: 10
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
