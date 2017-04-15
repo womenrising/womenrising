@@ -46,7 +46,7 @@ class PeerGroup < ActiveRecord::Base
       is_participating_this_month: true,
       waitlist: false,
       is_assigned_peer_group: false,
-      location_id: location
+      location_id: location.id
     )
 
     quotient, remainder = users.length.divmod(3)

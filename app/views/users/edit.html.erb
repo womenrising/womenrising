@@ -130,11 +130,3 @@
     </div>
   </main>
 <%end%>
-
-<script>
-  $(function() {
-    $('#user_location_id').on('change', function() {
-      $('#zip-code').toggleClass("hidden", $(this).val() !== "");
-    }).trigger('change');
-  });
-</script>
