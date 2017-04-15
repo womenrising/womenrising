@@ -15,7 +15,11 @@
 		<h4>Your mini-meetup for this month: </h4>
 		<ul>
       <% @peers.each do |peer| %>
-        <li><%= peer.first_name%> <%= peer.last_name%> <%= mail_to( peer.email)%> (Ask me about: <% peer.top_3_interests.join(", ") %>)</li>
+        <li>
+          <b><%= peer.first_name %> <%= peer.last_name %></b>
+          <br><%= mail_to peer.email %> (Ask me about: <%= peer.top_3_interests.join(", ") %>)
+          <% if peer.linkedin_url %><br><%= link_to 'Connect on LinkedIn', peer.linkedin_url %><% end %>
+        </li>
       <% end %>
 		</ul>
 

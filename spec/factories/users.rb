@@ -19,6 +19,7 @@ FactoryGirl.define do
     live_in_detroit {%w(true false).sample}
     is_participating_this_month { true }
     waitlist { [true, false].sample }
+    linkedin_url { Faker::Internet.url }
   end
 
   factory :skinny_user, class: User do
@@ -27,6 +28,7 @@ FactoryGirl.define do
     last_name { Faker::Name.last_name }
     password "testtingstuff"
     password_confirmation {|attrs| attrs[:password]}
+    linkedin_url { Faker::Internet.url }
 
     trait :mentor do
       mentor true
