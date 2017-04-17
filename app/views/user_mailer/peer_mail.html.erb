@@ -8,14 +8,16 @@
 
 		<h3>Get ready to schedule and meet with your new friends!</h3>
 
-		<p>Welcome to your "Mini-meetup match" email! These women most likely had the same career goals, are around your career stage or requested meeting women form your line of work</p>
-
-		<p>Remember, from here we leave it to you to get in touch with your two peer matches and find a time for a group coffee, lunch or a drink in your area. <strong>Find time to schedule in the next couple weeks so you don't forget!</strong> </p>
+		<p>Welcome to your "Mini-meetup match" email! Remember, from here we leave it to you to get in touch with your two peer matches and find a time for a group coffee, lunch or a drink in your area. <strong>Find time to schedule in the next couple weeks so you don't forget!</strong></p>
 
 		<h4>Your mini-meetup for this month: </h4>
 		<ul>
       <% @peers.each do |peer| %>
-        <li><%= peer.first_name%> <%= peer.last_name%> <%= mail_to( peer.email)%> (Ask me about: <% peer.top_3_interests.join(", ") %>)</li>
+        <li>
+          <b><%= peer.first_name %> <%= peer.last_name %></b>
+          <br><%= mail_to peer.email %> (Ask me about: <%= peer.top_3_interests.join(", ") %>)
+          <% if peer.linkedin_url %><br><%= link_to 'Connect on LinkedIn', peer.linkedin_url %><% end %>
+        </li>
       <% end %>
 		</ul>
 
@@ -25,6 +27,6 @@
 		<p>Happy solidarity and inspiration!</p>
 		<p>The Women Rising Team</p>
 
-		<p>Groups were formulated based on the factors of: major goal, career level in industry, preferred industry to meet with and non-career interests. This formula is still in production, so feel free to reply with some <%= mail_to( "info@womenrising.co" , "Feedback")%>!<p>
+		<p>Groups were formed based on your location. This formula is still in development, so feel free to reply with some <%= mail_to "info@womenrising.co", "Feedback" %>!<p>
 	</body>
 </div>

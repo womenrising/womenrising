@@ -34,6 +34,7 @@
 #  is_participating_this_month :boolean
 #  image_url                   :string(255)
 #  location_id                 :integer
+#  linkedin_url                :string(255)
 #  zip_code                    :string(10)
 #
 # Indexes
@@ -78,17 +79,19 @@ class User < ActiveRecord::Base
   ]
 
   def self.connect_to_linkedin(auth, signed_in_resource=nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    user = User.where(provider: auth.provider, uid: auth.uid).first
     user ||= User.where(email: auth.info.email).first
     image_url = auth.extra.raw_info.pictureUrls.values[1][0]
+    linkedin_url = auth.extra.raw_info.publicProfileUrl
     if user
-      user.update_attributes(image_url: image_url)
+      user.update_attributes(image_url: image_url, linkedin_url: linkedin_url)
     else
       user = User.create(
         auth.info.slice(:first_name, :last_name, :email).merge(
           auth.slice(:provider, :uid)
         ).merge(
           image_url: image_url,
+          linkedin_url: linkedin_url,
           password: Devise.friendly_token[0,20]
         ).to_h
       )

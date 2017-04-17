@@ -22,20 +22,26 @@ gem 'sass-rails', '>= 3.2'
 group :development do
   gem 'quiet_assets'
   gem 'spring', '1.4.4'
+  gem 'binding_of_caller'
+  gem 'letter_opener'
 end
 
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'better_errors'
-  gem 'capybara'
   gem 'coveralls', require: false
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'launchy'
+end
+
+group :test do
   gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-email'
   gem 'shoulda-matchers'
 end
 

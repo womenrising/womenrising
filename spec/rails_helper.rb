@@ -19,6 +19,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include FeatureHelpers, type: :feature
   config.include FactoryGirl::Syntax::Methods
+  config.include Capybara::Email::DSL
 
   include Warden::Test::Helpers
   Warden.test_mode!
@@ -40,6 +41,10 @@ RSpec.configure do |config|
       MSG
     end
     DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    allow(SlackNotification).to receive(:notify)
   end
 
   #

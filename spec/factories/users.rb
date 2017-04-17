@@ -18,6 +18,7 @@ FactoryGirl.define do
     top_3_interests {["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3)}
     is_participating_this_month { true }
     waitlist { [true, false].sample }
+    linkedin_url { Faker::Internet.url }
   end
 
   factory :skinny_user, class: User do
@@ -26,6 +27,7 @@ FactoryGirl.define do
     last_name { Faker::Name.last_name }
     password "testtingstuff"
     password_confirmation {|attrs| attrs[:password]}
+    linkedin_url { Faker::Internet.url }
 
     trait :mentor do
       mentor true
