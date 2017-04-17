@@ -57,7 +57,6 @@ class UsersController < ApplicationController
       :mentor_industry,
       :peer_industry,
       :current_goal,
-      :live_in_detroit,
       :location_id,
       :zip_code,
       top_3_interests: []

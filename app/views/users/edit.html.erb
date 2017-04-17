@@ -93,7 +93,7 @@
               <%= f.select :mentor, options_for_select([["Yes",true],["No",false]], @user.mentor), { :class => 'mentoring' } %> </br>
             </h4>
             <h4 class="medium-frame">
-              <div id="live_in_detroit_info">
+              <div id="mentor_info">
                 If yes:
                 <% @industries.each do |industry| %>
                   <%= f.radio_button :mentor_industry, industry%>

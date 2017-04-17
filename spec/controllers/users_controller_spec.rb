@@ -14,7 +14,6 @@ describe UsersController do
     mentor_industry: 'Business',
     peer_industry: 'Business',
     current_goal: 'Switching industries',
-    live_in_detroit: true,
     location_id: 1,
   } }
 
