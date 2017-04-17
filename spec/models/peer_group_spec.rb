@@ -30,26 +30,26 @@ describe PeerGroup do
         expect(current_email).to have_css "[href='#{user.linkedin_url}']"
       end
     end
+  end
 
-    context "assigns users based on location" do
-      let!(:boulder_users) do
-        create_list(:skinny_user, 2, :groupable, location_id: boulder.id)
-      end
+  context "assigns users based on location" do
+    let!(:boulder_users) do
+      create_list(:skinny_user, 2, :groupable, location_id: boulder.id)
+    end
 
-      let(:detroit) { create :location, city: "Detroit"}
-      let!(:detroit_users) do
-        create_list(:skinny_user, 2, :groupable, location_id: detroit.id)
-      end
+    let(:detroit) { create :location, city: "Detroit"}
+    let!(:detroit_users) do
+      create_list(:skinny_user, 2, :groupable, location_id: detroit.id)
+    end
 
-      it "does not group denver user with detroit users" do
-        PeerGroup.generate_groups
-        groups = PeerGroup.all.map(&:users)
-        detroit_group = groups.select{|g| g.include?(detroit_users.first)}.first
+    it "does not group denver user with detroit users" do
+      PeerGroup.generate_groups
+      groups = PeerGroup.all.map(&:users)
+      detroit_group = groups.select{|g| g.include?(detroit_users.first)}.first
 
-        expect(groups.count).to eq(2)
-        expect(detroit_group).to match_array(detroit_users)
-        expect(detroit_group).to_not match_array(boulder_users)
-      end
+      expect(groups.count).to eq(2)
+      expect(detroit_group).to match_array(detroit_users)
+      expect(detroit_group).to_not match_array(boulder_users)
     end
   end
 
