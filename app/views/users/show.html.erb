@@ -7,6 +7,22 @@
   <div class="large-frame">
     <h3><%= @user.first_name%> <%= @user.last_name %></h3>
   </div>
+  <% if @user.peers.any? %>
+    <div class="large-frame">
+      <h2>Your Peers</h2>
+      <br>
+      <ul class="list-style-none">
+        <% @user.peers.each do |peer| %>
+          <li class="text-center well well-plain">
+            <a href="<%= user_path(peer) %>">
+              <%= image_tag(peer.image_url, class: "img-thumbnail img-thumbnail-small") %>
+              <h4 class="text-center"><%= peer.full_name %></h4>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </aside>
 
 <main class="col-md-8 side-frame">

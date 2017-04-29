@@ -21,6 +21,24 @@ FactoryGirl.define do
     linkedin_url { Faker::Internet.url }
   end
 
+  factory :active_user, class: User do
+    email { generate(:email) }
+    password {"testtingstuff"}
+    password_confirmation {|attrs| attrs[:password]}
+    first_name { Faker::Name.first_name}
+    last_name {Faker::Name.last_name}
+    mentor { true }
+    primary_industry { "Busines" }
+    stage_of_career { 1 }
+    mentor_industry { "Business" }
+    peer_industry {"Business" }
+    current_goal { "Finding work/life balance" }
+    top_3_interests { ["Arts", "Music", "Crafting"] }
+    is_participating_this_month { true }
+    waitlist { false }
+    linkedin_url { Faker::Internet.url }
+  end
+
   factory :skinny_user, class: User do
     email { generate(:email) }
     first_name { Faker::Name.first_name }

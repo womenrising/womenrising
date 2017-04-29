@@ -543,3 +543,17 @@ a.btn:hover {
 	color: white;
 	font-weight: bold;
 }
+
+/* Peer List Section */
+.list-style-none {
+	-webkit-padding-start: 0;
+	list-style: none;
+}
+.img-thumbnail-small {
+	width: 150px;
+}
+.well-plain {
+	border: none;
+	box-shadow: none;
+	background-color: #fff;
+}
