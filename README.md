@@ -164,6 +164,12 @@ install the gems.
   rails server
   ```
 
+  Or you can run guard, which will automically start the server and rerun your specs when you make changes to files.
+
+  ```sh
+  bundle exec guard
+  ```
+
 
 #### Docker
 
