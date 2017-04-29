@@ -432,6 +432,10 @@ nav {
 	.arrows {
 		display: block;
 	}
+
+	.list-md-inline li {
+		display: list-item;
+	}
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -556,4 +560,7 @@ a.btn:hover {
 	border: none;
 	box-shadow: none;
 	background-color: #fff;
+}
+.list-md-inline li {
+	display: inline-block
 }

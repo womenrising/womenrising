@@ -154,9 +154,13 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def peer_group
+    peer_groups.last if peer_groups.any?
+  end
+
   def peers
-    if peer_groups.any?
-      peer_groups.last.users - [self]
+    if peer_group
+      peer_group.users - [self]
     else
       []
     end

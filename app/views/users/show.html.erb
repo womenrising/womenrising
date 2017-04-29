@@ -11,7 +11,7 @@
     <div class="large-frame">
       <h2>Your Peers</h2>
       <br>
-      <ul class="list-style-none">
+      <ul class="list-style-none list-md-inline">
         <% @user.peers.each do |peer| %>
           <li class="text-center well well-plain">
             <a href="<%= user_path(peer) %>">
