@@ -36,6 +36,10 @@ group :development, :test do
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'guard'
+  gem 'guard-rails'
+  gem 'guard-bundler'
+  gem 'guard-rspec'
 end
 
 group :test do
