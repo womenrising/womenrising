@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   before do
     allow(SlackNotification).to receive(:notify)
   end
-  let(:user) { create(:skinny_user) }
+  let(:user) { create(:user) }
 
   describe 'validations' do
     it { expect(user).to validate_presence_of(:first_name) }
@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
 
   describe 'assigns location' do
     let!(:location) { Location.create(city: 'Detroit', state: 'MI')}
-    let(:user) { create(:skinny_user, location_id: location.id) }
+    let(:user) { create(:user, location_id: location.id) }
 
     scenario 'user has a location' do
       expect(user.location_id).to_not be_nil
@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
 
     context 'if user is participating this month' do
       let!(:participating_user) do
-        create(:skinny_user,
+        create(:user,
                is_participating_this_month: true,
                is_assigned_peer_group: true,
                mentor_times: 3,
@@ -57,7 +57,7 @@ RSpec.describe User, type: :model do
 
     context 'if user is not participating this month' do
       let!(:opted_out_user) do
-        create(:skinny_user,
+        create(:user,
                is_participating_this_month: false,
                mentor_times: 10)
       end
@@ -76,21 +76,21 @@ RSpec.describe User, type: :model do
     ## TODO: can these be validations? Why waitlist?
     context 'if user has no goal' do
       it 'flags the user as waitlisted' do
-        user = create(:skinny_user, current_goal: nil)
+        user = create(:user, current_goal: nil)
         expect(user.waitlist).to eq(true)
       end
     end
 
     context 'if user has specified their primary industry as \'Other\'' do
       it 'flags the user as waitlisted' do
-        user = create(:skinny_user, primary_industry: 'Other')
+        user = create(:user, primary_industry: 'Other')
         expect(user.waitlist).to eq(true)
       end
     end
 
     context 'if user has no primary_industry' do
       it 'flags the user as waitlisted' do
-        user = create(:skinny_user, primary_industry: nil)
+        user = create(:user, primary_industry: nil)
         expect(user.waitlist).to eq(true)
       end
     end
@@ -99,21 +99,21 @@ RSpec.describe User, type: :model do
       # peer industry is the industry in which
       # they are interested in meeting other people in
       it 'flags the user as waitlisted' do
-        user = create(:skinny_user, peer_industry: nil)
+        user = create(:user, peer_industry: nil)
         expect(user.waitlist).to eq(true)
       end
     end
 
     context 'if user has blank top_3_interests' do
       it 'flags the user as waitlisted' do
-        user = create(:skinny_user, top_3_interests: [])
+        user = create(:user, top_3_interests: [])
         expect(user.waitlist).to eq(true)
       end
     end
 
     context 'with all necessary values' do
       it 'does not waitlist the user' do
-        user = create(:skinny_user,
+        user = create(:user,
                       :with_interests,
                       :with_goal,
                       :technology_primary_industry,
@@ -131,7 +131,7 @@ RSpec.describe User, type: :model do
     # their mentor_times get set appropriately.
     context 'when the new mentor_limit would make mentor_times negative' do
       it 'returns 0 as the new value for mentor_times' do
-        user = create(:skinny_user, mentor_times: 0, mentor_limit: 1)
+        user = create(:user, mentor_times: 0, mentor_limit: 1)
         user.mentor_limit = 0
         expect(user.mentor_times).to eq(0)
       end
@@ -140,7 +140,7 @@ RSpec.describe User, type: :model do
     context 'when the new mentor_limit is higher than old mentor_limit' do
       context 'but user has not yet mentored this month' do
         it 'returns a higher value for mentor_times' do
-          user = create(:skinny_user, mentor_times: 1, mentor_limit: 1)
+          user = create(:user, mentor_times: 1, mentor_limit: 1)
           user.mentor_limit = 4
           expect(user.mentor_times).to eq(4)
           expect(user.mentor_limit).to eq(4)
@@ -149,7 +149,7 @@ RSpec.describe User, type: :model do
 
       context 'but the mentor has mentored already' do
         it 'subtracts the number of mentor meetings from the new mentor_times' do
-          user = create(:skinny_user, mentor_times: 0, mentor_limit: 1)
+          user = create(:user, mentor_times: 0, mentor_limit: 1)
           user.mentor_limit = 4
           expect(user.mentor_times).to eq(3)
         end
@@ -159,7 +159,7 @@ RSpec.describe User, type: :model do
     context 'when the new mentor_limit is lower than the old mentor_limit' do
       context 'and less than the old mentor_times' do
         it 'should set the new value for mentor_times as the new mentor_limit' do
-          user = create(:skinny_user, mentor_limit: 3)
+          user = create(:user, mentor_limit: 3)
           user.update(mentor_times: 3)
           user.mentor_limit = 2
           expect(user.mentor_times).to eq(2)
@@ -169,7 +169,7 @@ RSpec.describe User, type: :model do
 
     context 'when the new mentor limit is the same as the old' do
       it 'does not change the mentor_times value' do
-        user = create(:skinny_user, mentor_limit: 3)
+        user = create(:user, mentor_limit: 3)
         user.update(mentor_times: 2)
         user.mentor_limit = 3
         expect(user.mentor_times).to eq(2)

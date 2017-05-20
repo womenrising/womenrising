@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe UsersController do
-  let!(:user) { create :skinny_user }
+  let!(:user) { create :user }
   let!(:location) { create :location }
 
   let(:user_params) { {

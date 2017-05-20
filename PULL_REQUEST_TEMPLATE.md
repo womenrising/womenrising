@@ -5,6 +5,8 @@ YES | NO
 A few sentences describing the overall goals of the pull request's commits.
 
 ## Deploy Notes
+*remove if inapplicable*
+
 Notes regarding deployment the contained body of work.  These should note any
 db migrations, new environment variables, etc.
 
@@ -16,6 +18,7 @@ Fixes #
 Any other information you would like to provide for this item, if relevant.
 
 ## Screenshots
+*remove if inapplicable*
 
 If this PR includes changes to the view.
 

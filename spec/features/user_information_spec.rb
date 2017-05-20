@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'User can edit information' do
-  let!(:user) { create :skinny_user }
+  let!(:user) { create :user }
   let!(:boulder) { create :location }
   let!(:detroit) { create :location, city: 'Detroit', state: 'MI' }
 
