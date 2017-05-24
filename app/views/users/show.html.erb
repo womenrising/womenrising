@@ -11,9 +11,21 @@
 
 <main class="col-md-8 side-frame">
   <div class="blog-main">
-    <section class="mentor divider">
-      <h1 class="subject no-frame">Request A Mentor</h1>
-      <%= link_to "Request a Mentor", new_mentor_path, class: "btn large-frame" %>
+    <section class="mentor">
+      <div class="col-md-6">
+        <h3 class="subject no-frame">Request A Mentor</h3>
+        <%= link_to "Request a Mentor", new_mentor_path, class: "btn", id: "mentor-button" %>
+      </div>
+      <div class="col-md-6">
+        <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
+        <h4 style="margin-top:0; margin-bottom:28px;"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
+          <% if !@user.is_participating_this_month %>
+            <%= link_to "Click to participate this month", participate_path(@user), class: "btn medium-frame"%></br>
+          <%else%>
+            <%= link_to "Click to not participate this month", not_participate_path(@user), class: "btn medium-frame"%></br>
+          <%end%>
+        </h4>
+      </div>
     </section>
     <% if @user.waitlist%>
     <section class="waitlist large-frame">
@@ -36,14 +48,6 @@
               <%end%>
             </ol>
           </div>
-          <h4 class="medium-frame">
-            <p>Will you participate in peer matches this month? <div><%= @user.is_participating_this_month ? "yes" : "no"%></div></p>
-            <% if !@user.is_participating_this_month %>
-              <%= link_to "Click to participate this month", participate_path(@user)%></br>
-            <%else%>
-              <%= link_to "Click to not participate this month", not_participate_path(@user)%></br>
-            <%end%>
-          </h4>
         </div>
         <div class="col-md-6">
           <h4 class="medium-frame">Email: <div><%= @user.email%></div></h4>
