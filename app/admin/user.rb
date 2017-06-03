@@ -10,7 +10,8 @@ ActiveAdmin.register User do
     column :mentor
     column :primary_industry
     column :stage_of_career
-    column :live_in_detroit
+    column :location
+    column :zip_code
 
     actions
   end
@@ -27,7 +28,8 @@ ActiveAdmin.register User do
       input :peer_industry
       input :current_goal
       input :top_3_interests
-      input :live_in_detroit
+      input :location
+      input :zip_code
       input :waitlist
       input :is_assigned_peer_group
       input :mentor_times
@@ -52,7 +54,8 @@ ActiveAdmin.register User do
       row :peer_industry
       row :current_goal
       row :top_3_interests
-      row :live_in_detroit
+      row :location
+      row :zip_code
       row :waitlist
       row :mentor_times
       row :mentor_limit

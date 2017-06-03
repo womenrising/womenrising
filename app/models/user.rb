@@ -26,7 +26,6 @@
 #  peer_industry               :string(255)
 #  current_goal                :string(255)
 #  top_3_interests             :text             default([]), is an Array
-#  live_in_detroit             :boolean          default(TRUE)
 #  waitlist                    :boolean          default(TRUE)
 #  is_assigned_peer_group      :boolean          default(FALSE)
 #  mentor_times                :integer          default(1)
@@ -34,8 +33,8 @@
 #  is_participating_this_month :boolean
 #  image_url                   :string(255)
 #  location_id                 :integer
-#  linkedin_url                :string(255)
 #  zip_code                    :string(10)
+#  linkedin_url                :string(255)
 #
 # Indexes
 #
