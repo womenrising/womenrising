@@ -1,12 +1,9 @@
 class UsersController < ApplicationController
   before_filter :auth_user
 
-  def auth_user
-    redirect_to root_path unless user_signed_in?
-  end
-
   def show
-    @user = User.find(params[:id])
+    permitted_users = User.where(id: current_user.peers.map(&:id) + [current_user.id])
+    @user = permitted_users.find(params[:id])
   end
 
   def edit
