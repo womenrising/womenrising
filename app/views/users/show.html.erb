@@ -12,20 +12,14 @@
 <main class="col-md-8 side-frame">
   <div class="blog-main">
     <section class="mentor">
-      <div class="col-md-7">
-        <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
-        <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
-          <% if !@user.is_participating_this_month %>
-            <%= link_to "Click to participate this month", participate_path(@user), class: "btn medium-frame"%></br>
-          <%else%>
-            <%= link_to "Click to not participate this month", not_participate_path(@user), class: "btn medium-frame"%></br>
-          <%end%>
-        </h4>
-      </div>
-      <div class="col-md-5">
-        <h3 class="subject no-frame">Request A Mentor</h3>
-        <%= link_to "Request a Mentor", new_mentor_path, class: "btn", id: "mentor-button" %>
-      </div>
+      <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
+      <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
+        <% if !@user.is_participating_this_month %>
+          <%= link_to "Click to participate this month", participate_path(@user), class: "btn medium-frame"%></br>
+        <%else%>
+          <%= link_to "Click to not participate this month", not_participate_path(@user), class: "btn medium-frame"%></br>
+        <%end%>
+      </h4>
     </section>
     <% if @user.waitlist%>
     <section class="waitlist large-frame">
