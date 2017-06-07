@@ -28,7 +28,7 @@ If you have a mac and already have ruby set up, follow [these directions.](https
 
 Otherwise, set up Docker with [these directions](https://github.com/womenrising/womenrising#docker)
 
-#### Setting up with Linkedin:
+#### Setting up with Linkedin(*optional*):
 
 Create your own application on
 [linkedin developer site](https://developer.linkedin.com/) on this page click
