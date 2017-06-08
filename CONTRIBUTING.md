@@ -7,6 +7,11 @@
 
 ## Making Changes
 
+* You can find our backlog at https://huboard.com/womenrising/womenrising
+  * These items are tied directly to
+  [Github Issues](https://github.com/womenrising/womenrising/issues), the ones in
+  the "Ready" column (or have a ready label in the issues list) are ready to work on.
+
 * Fork, then clone the repo:
 
     `git clone git@github.com:your-username/womenrising.git`
