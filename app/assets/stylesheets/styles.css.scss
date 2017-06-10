@@ -515,6 +515,7 @@ a.btn:hover {
 .profile {
 	height: 250px;
 	width: 250px;
+	max-width: 100%;
 }
 
 /*Mentor Section*/
@@ -558,18 +559,24 @@ a.btn:hover {
 }
 
 /* Peer List Section */
-.list-style-none {
-	-webkit-padding-start: 0;
+.profile-list {
 	list-style: none;
-}
-.img-thumbnail-small {
-	width: 150px;
-}
-.well-plain {
-	border: none;
-	box-shadow: none;
-	background-color: #fff;
-}
-.list-md-inline li {
-	display: inline-block;
+	padding-left: 0;
+	
+	> li {
+		margin-bottom: 10px;
+		overflow: hidden;
+
+		h5 {
+			margin: 0;
+			line-height: 65px;
+		}
+		img {
+			width: 65px;
+			height: 65px;
+			float: left;
+			margin-right: 10px;
+			border-radius: 100%
+		}
+	}
 }
