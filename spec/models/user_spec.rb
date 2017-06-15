@@ -176,4 +176,43 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  context 'with groups' do
+    let!(:user_in_current_group) { create :user, :groupable }
+    let!(:user_in_previous_group) { create :user, :groupable }
+    let!(:user_in_other_group) { create :user, :groupable }
+
+    before do
+      PeerGroup.create users: [user_in_other_group]
+      PeerGroup.create users: [user, user_in_previous_group], created_at: 2.months.ago
+    end
+
+    describe '#current_peer_group' do
+      it 'is the latest group within the past month' do
+        current_group = PeerGroup.create users: [user, user_in_current_group], created_at: 1.month.ago
+        expect(user.current_peer_group).to eq current_group
+      end
+
+      it 'is nil if the latest group is two months ago' do
+        expect(user.current_peer_group).to be_nil
+      end
+    end
+
+    describe '#peers' do
+      it 'does not contain self' do
+        PeerGroup.create users: [user, user_in_current_group], created_at: 1.month.ago
+        expect(user.peers).to_not include user
+      end
+
+      it 'contains users in current group' do
+        PeerGroup.create users: [user, user_in_current_group], created_at: 1.month.ago
+        expect(user.peers).to include user_in_current_group
+        expect(user.peers).to_not include user_in_other_group
+      end
+
+      it 'does not contain users in previous group' do
+        expect(user.peers).to_not include user_in_previous_group
+      end
+    end
+  end
 end

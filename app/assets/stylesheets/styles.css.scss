@@ -432,6 +432,10 @@ nav {
 	.arrows {
 		display: block;
 	}
+
+	.list-md-inline li {
+		display: list-item;
+	}
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -511,6 +515,7 @@ a.btn:hover {
 .profile {
 	height: 250px;
 	width: 250px;
+	max-width: 100%;
 }
 
 /*Mentor Section*/
@@ -551,4 +556,27 @@ a.btn:hover {
 	background-color: #2D3E5D;
 	color: white;
 	font-weight: bold;
+}
+
+/* Peer List Section */
+.profile-list {
+	list-style: none;
+	padding-left: 0;
+	
+	> li {
+		margin-bottom: 10px;
+		overflow: hidden;
+
+		h5 {
+			margin: 0;
+			line-height: 65px;
+		}
+		img {
+			width: 65px;
+			height: 65px;
+			float: left;
+			margin-right: 10px;
+			border-radius: 100%
+		}
+	}
 }

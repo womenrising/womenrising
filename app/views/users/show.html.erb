@@ -5,8 +5,21 @@
 <aside class="col-md-3 col-md-offset-1 side-divider">
   <%= image_tag(@user.image_url, class: "profile") %>
   <div class="large-frame">
-    <h3><%= @user.first_name%> <%= @user.last_name %></h3>
+    <h2><%= @user.full_name %></h2>
   </div>
+  <% if @user.peers.any? %>
+    <h4><%= @user == current_user ? 'Your' : '' %> Peers This Month</h4>
+    <ul class="profile-list">
+      <% @user.peers.each do |peer| %>
+        <li>
+          <a href="<%= user_path peer %>">
+            <%= image_tag peer.image_url %>
+            <h5><%= peer.full_name %></h5>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </aside>
 
 <main class="col-md-8 side-frame">

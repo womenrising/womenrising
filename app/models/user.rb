@@ -153,6 +153,18 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def current_peer_group
+    peer_groups.current.first
+  end
+
+  def peers
+    if current_peer_group
+      current_peer_group.users - [self]
+    else
+      []
+    end
+  end
+
   private
 
   def ensure_location_or_zip

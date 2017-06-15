@@ -15,6 +15,8 @@ class PeerGroup < ActiveRecord::Base
   has_many :peer_group_users
   has_many :users, through: :peer_group_users
 
+  scope :current, -> { where('peer_groups.created_at > ?', 40.days.ago).order(created_at: :desc) }
+
   def send_mail
     users.each do |user|
       action = :peer_group_send_mail

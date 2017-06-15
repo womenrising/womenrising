@@ -5,6 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Fabricator(:location) do
+  city { Faker::Address.city }
+  state { Faker::Address.state_abbr }
+end
+
 Fabricator(:user) do
   email { Faker::Internet.email}
   password {"testtingstuff"}
@@ -19,9 +25,11 @@ Fabricator(:user) do
   current_goal {["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample}
   top_3_interests {["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watch    ing Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3)}
   is_participating_this_month {%w(true false).sample}
+  location_id { rand(Location.count) }
 end
 
-150.times { Fabricate(:user)}
+10.times { Fabricate(:location) }
+150.times { Fabricate(:user) }
 
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
