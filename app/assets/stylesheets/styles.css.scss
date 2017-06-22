@@ -244,7 +244,7 @@ nav {
 .unit.social {
 	font-size: 1.8rem;
 	font-weight: 600;
-	color: #fff;
+	color: #CB275A;
 	div {
 		padding: 1.5rem 1rem 1rem;
 	}
@@ -258,7 +258,7 @@ nav {
 	#emailLink {
 		font-size: 1.8rem;
 		font-weight: 600;
-		color: #fff;
+		color: #CB275A;
 
 		&:hover {
 			text-decoration: none;
@@ -266,6 +266,17 @@ nav {
 	}
 
 	.copyright {
+		text-align: center;
+	}
+}
+
+.unit.tips {
+	font-size: 1.8rem;
+	font-weight: 600;
+	div {
+		padding: 1.5rem 1rem 1rem;
+	}
+	h3 {
 		text-align: center;
 	}
 }
