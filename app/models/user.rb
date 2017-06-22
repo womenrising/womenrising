@@ -77,6 +77,38 @@ class User < ActiveRecord::Base
     "C-Level/Founder"
   ]
 
+  PRIMARY_INDUSTRY = [
+    "Business",
+    "Technology",
+    "Startup"
+  ]
+
+  TOP_3_INTERESTS = [
+    "Arts",
+    "Music",
+    "Crafting",
+    "Home improvement / Decorating",
+    "Being a mom",
+    "Dogs",
+    "Cats",
+    "Watching Sports",
+    "Outdoors / Hiking",
+    "Exercise",
+    "Biking",
+    "Yoga",
+    "Running",
+    "Beer",
+    "Wine",
+    "Traveling","
+    Local events",
+    "Reading",
+    "Photography",
+    "Movies",
+    "Cooking / Eating / Being a foodie",
+    "Social issues / volunteering",
+    "Video Games"
+  ]
+
   def self.connect_to_linkedin(auth, signed_in_resource=nil)
     user = User.where(provider: auth.provider, uid: auth.uid).first
     user ||= User.where(email: auth.info.email).first
