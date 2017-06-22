@@ -23,9 +23,10 @@ describe UsersController do
 
   describe '#update' do
     it 'updates all attributes' do
-      user_params.merge! top_3_interests: ["Arts", "Music", "Crafting"]
+      subject = user_params.merge! top_3_interests: ["Arts", "Music", "Crafting"]
 
-      put :update, id: user, user: user_params
+      patch :update, id: user, user: user_params
+
       expect(user.first_name).to eq 'Test'
       expect(user.mentor_industry).to eq 'Business'
       expect(user.peer_industry).to eq 'Business'
@@ -33,12 +34,47 @@ describe UsersController do
       expect(user.top_3_interests).to eq ["Arts", "Music", "Crafting"]
       expect(user.mentor_limit).to eq 3
       expect(user.mentor_times).to eq 3
+
+      expect(subject).to redirect_to(user_path)
     end
 
     it 'updates attributes without top 3' do
-      put :update, id: user, user: user_params
+      subject = patch :update, id: user, user: user_params
+
       expect(user.first_name).to eq 'Test'
       expect(user.top_3_interests).to eq []
+
+      expect(subject).to redirect_to(user_path)
+    end
+  end
+
+  describe '#show' do
+    it "shows a user" do
+      get :show, id: user
+
+      expect(response.status).to eq(200)
+    end
+  end
+
+  describe '#participate' do
+    it "changes a user's participation status to true" do
+      user.is_participating_this_month = false
+
+      subject = patch :participate, id: user
+
+      expect(user.is_participating_this_month).to eq(true)
+      expect(subject).to redirect_to(user_path)
+    end
+  end
+
+  describe '#not_participate' do
+    it "changes a user's participation status to false" do
+      user.is_participating_this_month = true
+
+      subject = patch :not_participate, id: user
+
+      expect(user.is_participating_this_month).to eq(false)
+      expect(subject).to redirect_to(user_path)
     end
   end
 end
