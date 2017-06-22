@@ -282,6 +282,19 @@ nav {
 }
 
 .unit.contact {
+
+	/* MailChimp Form Styling */
+	#mc_embed_signup {
+		clear: left;
+		font: Helvetica, Arial, sans-serif;
+		width: 100%;
+		color: $darkHeader;
+
+		label {
+			font-size: 3rem;
+		}
+	}
+
 	background-color: #EFA936;
 
 	.sectionHead {
@@ -290,10 +303,6 @@ nav {
 	    font-weight: 600;
 	    letter-spacing: normal;
 	    padding: 4rem 0;
-
-		span {
-			display: block;
-		}
 	}
 
 	form {
