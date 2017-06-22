@@ -153,6 +153,10 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def stage_of_career_name
+    STAGE_OF_CAREER[self.stage_of_career - 1] rescue nil
+  end
+
   def current_peer_group
     peer_groups.current.first
   end
