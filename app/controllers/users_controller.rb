@@ -8,8 +8,8 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    @industries = ["Business", "Technology", "Startup"]
-    @interests = ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events","Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"]
+    @industries = User::PRIMARY_INDUSTRY
+    @interests = User::TOP_3_INTERESTS
   end
 
   def update
@@ -17,8 +17,9 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(current_user)
     else
-      @industries = ["Business", "Technology", "Startup"]
-      @interests = ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events","Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"]
+      @industries = User::PRIMARY_INDUSTRY
+      @interests = User::TOP_3_INTERESTS
+
       render 'edit'
     end
   end
@@ -37,6 +38,7 @@ class UsersController < ApplicationController
   def not_participate
     @user = current_user
     @user.update(is_participating_this_month: false)
+
     redirect_to user_path(current_user)
   end
 
