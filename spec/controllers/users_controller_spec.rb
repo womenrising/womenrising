@@ -23,9 +23,9 @@ describe UsersController do
 
   describe '#update' do
     it 'updates all attributes' do
-      subject = user_params.merge! top_3_interests: ["Arts", "Music", "Crafting"]
+      user_params.merge! top_3_interests: ["Arts", "Music", "Crafting"]
 
-      patch :update, id: user, user: user_params
+      subject = patch :update, id: user.id, user: user_params
 
       expect(user.first_name).to eq 'Test'
       expect(user.mentor_industry).to eq 'Business'
@@ -39,7 +39,7 @@ describe UsersController do
     end
 
     it 'updates attributes without top 3' do
-      subject = patch :update, id: user, user: user_params
+      subject = patch :update, id: user.id, user: user_params
 
       expect(user.first_name).to eq 'Test'
       expect(user.top_3_interests).to eq []
@@ -53,6 +53,7 @@ describe UsersController do
       get :show, id: user
 
       expect(response.status).to eq(200)
+      expect(assigns(:user)).to eq(user)
     end
   end
 
@@ -71,7 +72,7 @@ describe UsersController do
     it "changes a user's participation status to false" do
       user.is_participating_this_month = true
 
-      subject = patch :not_participate, id: user
+      subject = patch :not_participate, id: user.id
 
       expect(user.is_participating_this_month).to eq(false)
       expect(subject).to redirect_to(user_path)
