@@ -37,7 +37,6 @@ FactoryGirl.define do
     trait :groupable do
       not_on_waitlist
       is_participating_this_month 'true'
-      is_assigned_peer_group 'false'
     end
 
     trait :new_to_technology do

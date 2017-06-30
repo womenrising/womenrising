@@ -27,7 +27,6 @@ RSpec.describe User, type: :model do
       let!(:participating_user) do
         create(:user,
                is_participating_this_month: true,
-               is_assigned_peer_group: true,
                mentor_times: 3,
                mentor_limit: 4)
       end
@@ -39,10 +38,6 @@ RSpec.describe User, type: :model do
 
       it 'resets is_participating_this_month back to false' do
         expect(participating_user.is_participating_this_month).to eq(false)
-      end
-
-      it 'resets is_assigned_peer_group back to false' do
-        expect(participating_user.is_assigned_peer_group).to eq(false)
       end
 
       it 'resets the user\'s mentor times to their stated mentor_limit' do

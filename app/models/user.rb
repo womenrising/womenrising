@@ -27,14 +27,13 @@
 #  current_goal                :string(255)
 #  top_3_interests             :text             default([]), is an Array
 #  waitlist                    :boolean          default(TRUE)
-#  is_assigned_peer_group      :boolean          default(FALSE)
 #  mentor_times                :integer          default(1)
 #  mentor_limit                :integer          default(1)
 #  is_participating_this_month :boolean
 #  image_url                   :string(255)
 #  location_id                 :integer
-#  zip_code                    :string(10)
 #  linkedin_url                :string(255)
+#  zip_code                    :string(10)
 #
 # Indexes
 #
@@ -148,7 +147,6 @@ class User < ActiveRecord::Base
       if user.is_participating_this_month
         user.update(
           is_participating_this_month: false,
-          is_assigned_peer_group: false,
           mentor_times: user.mentor_limit
         )
       else

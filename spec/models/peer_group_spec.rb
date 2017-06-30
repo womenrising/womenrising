@@ -9,9 +9,7 @@ describe PeerGroup do
       PeerGroup.generate_groups
     end
 
-    it "Should loop through all the users and make groups" do
-      expect(User.where(is_assigned_peer_group: true).length).to eq(7)
-      expect(User.where(is_assigned_peer_group: false).length).to eq(0)
+    it "loops through all the users and makes groups" do
       expect(PeerGroup.all.length).to be(2)
     end
 

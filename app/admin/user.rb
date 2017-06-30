@@ -31,7 +31,6 @@ ActiveAdmin.register User do
       input :location
       input :zip_code
       input :waitlist
-      input :is_assigned_peer_group
       input :mentor_times
       input :mentor_limit
       input :is_participating_this_month
