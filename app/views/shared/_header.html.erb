@@ -7,12 +7,13 @@
     <li><a href="/#featured">Featured</a></li>
     <li><a href="/#howitworks">How It Works</a></li>
     <li><a href="/#partners">Partners</a></li>
+    <li><a href="https://thewomenrising.wordpress.com/" target="_blank">Blog</a></li>
     <li>
       <% if current_user and user_signed_in? %>
 
-        <a href="<%= user_path(@user) %>" class="avatar">
-          <%= image_tag @user.get_image_url, class: "img-circle img-responsive" %>
-          <%= @user.full_name %>
+        <a href="<%= user_path(current_user) %>" class="avatar">
+          <%= image_tag current_user.get_image_url, class: "img-circle img-responsive" %>
+          <%= current_user.full_name %>
         </a>
         <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
       <% else %>

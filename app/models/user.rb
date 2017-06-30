@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :omniauthable
-         # :recoverable, :rememberable, :trackable, :validatable,  :registerable
+
 
   has_many :mentors, class_name: "Mentor", foreign_key: "mentor_id"
   has_many :mentees, class_name: "Mentor", foreign_key: "mentee_id"
@@ -75,6 +75,38 @@ class User < ActiveRecord::Base
     "Management / Senior",
     "Director/VP/Chief Architect",
     "C-Level/Founder"
+  ]
+
+  PRIMARY_INDUSTRY = [
+    "Business",
+    "Technology",
+    "Startup"
+  ]
+
+  TOP_3_INTERESTS = [
+    "Arts",
+    "Music",
+    "Crafting",
+    "Home improvement / Decorating",
+    "Being a mom",
+    "Dogs",
+    "Cats",
+    "Watching Sports",
+    "Outdoors / Hiking",
+    "Exercise",
+    "Biking",
+    "Yoga",
+    "Running",
+    "Beer",
+    "Wine",
+    "Traveling","
+    Local events",
+    "Reading",
+    "Photography",
+    "Movies",
+    "Cooking / Eating / Being a foodie",
+    "Social issues / volunteering",
+    "Video Games"
   ]
 
   def self.connect_to_linkedin(auth, signed_in_resource=nil)
@@ -151,6 +183,10 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  def stage_of_career_name
+    STAGE_OF_CAREER[self.stage_of_career - 1] rescue nil
   end
 
   def current_peer_group
