@@ -3,12 +3,8 @@
 # Table name: peer_groups
 #
 #  id         :integer          not null, primary key
-#  peer1_id   :integer
-#  peer2_id   :integer
-#  peer3_id   :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  peer4_id   :integer
 #
 
 class PeerGroup < ActiveRecord::Base
