@@ -33,7 +33,7 @@ feature 'peer matches' do
     end
 
     scenario 'sends email and Slack notifications' do
-      expect(SlackNotification).to receive(:notify).exactly(9).times
+      expect(SlackNotification).to receive(:notify).exactly(4).times
       click_on 'Run Monthly Matching'
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(7)
     end
