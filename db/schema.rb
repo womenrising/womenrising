@@ -107,8 +107,8 @@ ActiveRecord::Schema.define(version: 20170630194247) do
     t.boolean  "is_participating_this_month"
     t.string   "image_url"
     t.integer  "location_id"
-    t.string   "linkedin_url"
     t.string   "zip_code",                    limit: 10
+    t.string   "linkedin_url"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

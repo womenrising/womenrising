@@ -18,6 +18,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'sass-rails', '>= 3.2'
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development do
   gem 'quiet_assets'
