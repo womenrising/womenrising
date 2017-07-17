@@ -176,4 +176,15 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe ".mentors" do
+    let!(:mentor) { create(:mentor_user) }
+    let!(:mentee) { create(:mentee_user) }
+    it "returns all mentors" do
+      mentors = described_class.mentors
+      expect(mentors).to include(mentor)
+      expect(mentors).to_not include(mentee)
+    end
+  end
+
 end

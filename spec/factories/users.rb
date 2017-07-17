@@ -31,7 +31,15 @@ FactoryGirl.define do
 
     trait :mentor do
       mentor true
+      mentor_industry {["Business", "Technology", "Startup"].sample}
     end
+
+    trait :mentee do
+      mentor false
+    end
+
+    factory :mentor_user, traits: [:mentor]
+    factory :mentee_user, traits: [:mentee]
 
     trait :with_goal do
       current_goal 'Rising the ranks'

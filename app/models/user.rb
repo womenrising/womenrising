@@ -64,6 +64,8 @@ class User < ActiveRecord::Base
 
   before_save :ensure_location_or_zip
 
+  scope :mentors, -> { where(mentor: true) }
+
   CURRENT_GOALS = [
     "Rising the ranks / breaking the glass ceiling",
     "Switching industries",
