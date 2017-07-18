@@ -34,8 +34,9 @@
 #  is_participating_this_month :boolean
 #  image_url                   :string(255)
 #  location_id                 :integer
-#  linkedin_url                :string(255)
 #  zip_code                    :string(10)
+#  linkedin_url                :string(255)
+#  wants_mentor                :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -65,7 +66,7 @@ class User < ActiveRecord::Base
   before_save :ensure_location_or_zip
 
   scope :mentors, -> { where(mentor: true) }
-  scope :mentees, -> { where(mentor: false) }
+  scope :mentees, -> { where(wants_mentor: true) }
 
   CURRENT_GOALS = [
     "Rising the ranks / breaking the glass ceiling",

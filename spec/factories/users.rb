@@ -35,7 +35,7 @@ FactoryGirl.define do
     end
 
     trait :mentee do
-      mentor false
+      wants_mentor true
     end
 
     factory :mentor_user, traits: [:mentor]

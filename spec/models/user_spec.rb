@@ -6,6 +6,8 @@ RSpec.describe User, type: :model do
   end
   let(:user) { create(:skinny_user) }
 
+  it { should have_db_column(:wants_mentor).with_options(default: false) }
+
   describe 'validations' do
     it { expect(user).to validate_presence_of(:first_name) }
     it { expect(user).to validate_presence_of(:last_name) }
