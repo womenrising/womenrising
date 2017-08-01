@@ -17,7 +17,6 @@ describe 'users returns info for single user' do
     expect(response).to be_success
 
     parsed_user = JSON.parse(response.body)
-binding.pry
     expect(parsed_user).to be_a(Hash)
     expect(parsed_user["first_name"]).to eq(user.first_name)
     expect(parsed_user["last_name"]).to eq(user.last_name)

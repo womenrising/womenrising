@@ -18,6 +18,10 @@ RSpec.describe User, type: :model do
     scenario 'user has a location' do
       expect(user.location_id).to_not be_nil
     end
+
+    scenario 'user has a city' do
+      expect(user.city).to eq(location.city)
+    end
   end
 
   describe '.update_month' do
