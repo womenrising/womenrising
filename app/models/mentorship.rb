@@ -10,7 +10,7 @@
 #  updated_at :datetime
 #
 
-class Mentor < ActiveRecord::Base
+class Mentorship < ActiveRecord::Base
   validate  :is_question_empty, :not_on_waitlist, :have_available_mentors, :is_question
 
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'

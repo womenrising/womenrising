@@ -2,10 +2,10 @@
 	<h1 class="subject">Request A Mentor</h1>
 	<div class = "mentor">
 		<h3>What would you like to talk with your mentor about?</h3>
-		<%= form_for @mentor do |f| %>
-		  <% if @mentor.errors.messages != {}%>
+		<%= form_for @mentorship do |f| %>
+		  <% if @mentorship.errors.messages != {}%>
 		    <h3>You have errors:</h3>
-		    <% @mentor.errors.messages.each_with_index do |message,index|%>
+		    <% @mentorship.errors.messages.each_with_index do |message, index|%>
 		      <li><h4><%=message[0]%></h4><p><%=message[1][0]%></p></li>
 		    <%end%>
 		  <%end%>

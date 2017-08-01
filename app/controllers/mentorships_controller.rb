@@ -1,4 +1,4 @@
-class MentorsController < ApplicationController
+class MentorshipsController < ApplicationController
   before_filter :auth_user
 
   def auth_user
@@ -7,15 +7,15 @@ class MentorsController < ApplicationController
 
   def new
     @user = current_user
-    @mentor = Mentor.new()
+    @mentorship = Mentorship.new()
     @industries = ["Technology", "Business", "Startup"]
   end
 
   def create
     @user = current_user
-    @mentor = Mentor.new(mentee_id: current_user.id, question: params[:mentor][:question])
-    if @mentor.save
-      @mentor.send_mail
+    @mentorship = Mentorship.new(mentee_id: current_user.id, question: params[:mentor][:question])
+    if @mentorship.save
+      @mentorship.send_mail
 
       action = :new_mentor
       message  = "User id #{@user.id} is a new mentor"

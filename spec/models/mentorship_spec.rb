@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Mentor, :type => :model do
+RSpec.describe Mentorship, :type => :model do
  	it{should belong_to(:mentee).class_name('User').with_foreign_key('mentee_id')}
  	it{should belong_to(:mentoring).class_name('User').with_foreign_key('mentor_id')}
  	before{100.times{FactoryGirl.create(:user)}}
@@ -16,9 +16,9 @@ RSpec.describe Mentor, :type => :model do
  				mentor_times: 1)
  			mentee = User.create!(email: "hellowerq2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 1, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: ["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), is_participating_this_month: true,
  				mentor_times: 1)
- 			mentor_session = Mentor.create(mentee_id: mentee.id, question: "Hello?")
+ 			mentor_session = Mentorship.create(mentee_id: mentee.id, question: "Hello?")
  			mentor = mentor_session.mentoring
- 			expect(mentor_session).to be_an_instance_of(Mentor)
+ 			expect(mentor_session).to be_an_instance_of(Mentorship)
  			expect(mentor).to be_an_instance_of(User)
  			expect(mentor.stage_of_career).to be(create.stage_of_career)
  			expect(mentor.mentor_industry).to eq(create.mentor_industry)
@@ -33,9 +33,9 @@ RSpec.describe Mentor, :type => :model do
  				mentor_times: 2)
  			mentee = User.create!(email: "hellowerqed2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 3, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: ["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), is_participating_this_month: true,
  				mentor_times: 2)
- 			mentor_session = Mentor.create(mentee_id: user.id, question: "Hello?")
+ 			mentor_session = Mentorship.create(mentee_id: user.id, question: "Hello?")
  			mentor = mentor_session.mentoring
- 			expect(mentor_session).to be_an_instance_of(Mentor)
+ 			expect(mentor_session).to be_an_instance_of(Mentorship)
  			expect(mentor).to be_an_instance_of(User)
  			expect(mentor).to eq(user2)
  			expect(mentor_session).to be_valid
@@ -45,7 +45,7 @@ RSpec.describe Mentor, :type => :model do
  			mentee = User.create!(email: "howerqed2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 3, mentor_industry: "Technology", current_goal: ["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), is_participating_this_month: true,
  				mentor_times: 1)
  			expect(mentee.waitlist).to be(true)
- 			expect(Mentor.create(mentee_id: mentee.id, question: "Hello")).to_not be_valid
+ 			expect(Mentorship.create(mentee_id: mentee.id, question: "Hello")).to_not be_valid
  		end
  	end
 

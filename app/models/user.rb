@@ -49,8 +49,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :omniauthable
 
 
-  has_many :mentors, class_name: "Mentor", foreign_key: "mentor_id"
-  has_many :mentees, class_name: "Mentor", foreign_key: "mentee_id"
+  has_many :mentors, class_name: "Mentorship", foreign_key: "mentor_id"
+  has_many :mentees, class_name: "Mentorship", foreign_key: "mentee_id"
 
   has_many :peer_group_users
   has_many :peer_groups, through: :peer_group_users
