@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20170718000502) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,12 +74,8 @@ ActiveRecord::Schema.define(version: 20170718000502) do
   end
 
   create_table "peer_groups", force: true do |t|
-    t.integer  "peer1_id"
-    t.integer  "peer2_id"
-    t.integer  "peer3_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "peer4_id"
   end
 
   create_table "users", force: true do |t|
@@ -105,9 +102,7 @@ ActiveRecord::Schema.define(version: 20170718000502) do
     t.string   "peer_industry"
     t.string   "current_goal"
     t.text     "top_3_interests",                        default: [],                 array: true
-    t.boolean  "live_in_detroit",                        default: true
     t.boolean  "waitlist",                               default: true
-    t.boolean  "is_assigned_peer_group",                 default: false
     t.integer  "mentor_times",                           default: 1
     t.integer  "mentor_limit",                           default: 1
     t.boolean  "is_participating_this_month"

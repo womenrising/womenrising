@@ -271,6 +271,19 @@ nav {
 }
 
 .unit.contact {
+
+	/* MailChimp Form Styling */
+	#mc_embed_signup {
+		clear: left;
+		font: Helvetica, Arial, sans-serif;
+		width: 100%;
+		color: $darkHeader;
+
+		label {
+			font-size: 3rem;
+		}
+	}
+
 	background-color: #EFA936;
 
 	.sectionHead {
@@ -279,10 +292,6 @@ nav {
 	    font-weight: 600;
 	    letter-spacing: normal;
 	    padding: 4rem 0;
-
-		span {
-			display: block;
-		}
 	}
 
 	form {
@@ -432,6 +441,10 @@ nav {
 	.arrows {
 		display: block;
 	}
+
+	.list-md-inline li {
+		display: list-item;
+	}
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -477,6 +490,10 @@ a.btn:hover {
 	margin: 40px 0px !important;
 }
 
+#mentor-button {
+	margin: 47px 0px;
+}
+
 .medium-frame {
 	margin: 20px 0px !important;
 }
@@ -507,6 +524,7 @@ a.btn:hover {
 .profile {
 	height: 250px;
 	width: 250px;
+	max-width: 100%;
 }
 
 /*Mentor Section*/
@@ -515,6 +533,11 @@ a.btn:hover {
 	background-color: #EFA936;
 	color: white;
 	font-weight: bold;
+}
+
+.participating {
+  margin-top: 0;
+  margin-bottom: 28px;
 }
 
 /*Waitlist section*/
@@ -542,4 +565,27 @@ a.btn:hover {
 	background-color: #2D3E5D;
 	color: white;
 	font-weight: bold;
+}
+
+/* Peer List Section */
+.profile-list {
+	list-style: none;
+	padding-left: 0;
+	
+	> li {
+		margin-bottom: 10px;
+		overflow: hidden;
+
+		h5 {
+			margin: 0;
+			line-height: 65px;
+		}
+		img {
+			width: 65px;
+			height: 65px;
+			float: left;
+			margin-right: 10px;
+			border-radius: 100%
+		}
+	}
 }

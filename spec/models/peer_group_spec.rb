@@ -5,13 +5,11 @@ describe PeerGroup do
   context "#generate_groups" do
     before do
       clear_emails
-      create_list(:skinny_user, 7, :groupable, location_id: boulder.id)
+      create_list(:user, 7, :groupable, location_id: boulder.id)
       PeerGroup.generate_groups
     end
 
-    it "Should loop through all the users and make groups" do
-      expect(User.where(is_assigned_peer_group: true).length).to eq(7)
-      expect(User.where(is_assigned_peer_group: false).length).to eq(0)
+    it "loops through all the users and makes groups" do
       expect(PeerGroup.all.length).to be(2)
     end
 
@@ -34,12 +32,12 @@ describe PeerGroup do
 
   context "assigns users based on location" do
     let!(:boulder_users) do
-      create_list(:skinny_user, 2, :groupable, location_id: boulder.id)
+      create_list(:user, 2, :groupable, location_id: boulder.id)
     end
 
     let(:detroit) { create :location, city: "Detroit"}
     let!(:detroit_users) do
-      create_list(:skinny_user, 2, :groupable, location_id: detroit.id)
+      create_list(:user, 2, :groupable, location_id: detroit.id)
     end
 
     it "does not group denver user with detroit users" do
@@ -55,7 +53,7 @@ describe PeerGroup do
 
   context "with 200 random users that can be grouped" do
     let(:users) do
-      create_list(:skinny_user, 200, :groupable, :any_stage_of_career,
+      create_list(:user, 200, :groupable, :any_stage_of_career,
                   location_id: boulder.id)
     end
 
