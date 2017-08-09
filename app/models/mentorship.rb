@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: mentors
+# Table name: mentorships
 #
 #  id         :integer          not null, primary key
 #  mentor_id  :integer
