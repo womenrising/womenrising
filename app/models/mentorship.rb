@@ -22,7 +22,8 @@ class Mentorship < ActiveRecord::Base
   end
 
   after_save do
-    if mentor_changed? && mentor.present?
+    if mentor_id_changed? && mentor_id.present?
+      binding.pry
       mentoring.update(mentor_times: mentoring.mentor_times -=1)
     end
   end

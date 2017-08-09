@@ -19,7 +19,7 @@ $darkHeader: #efefef;
 */
 
 body {
-	font-size: 10px;
+	font-size: 12px;
 	font-family: Helvetica Neue, Helvetica, San Serif;
 	min-height: 100vh;
 	background-color: white;
@@ -529,7 +529,7 @@ a.btn:hover {
 
 /*Mentor Section*/
 
-.mentor .btn {
+.actions .btn {
 	background-color: #EFA936;
 	color: white;
 	font-weight: bold;
@@ -571,7 +571,7 @@ a.btn:hover {
 .profile-list {
 	list-style: none;
 	padding-left: 0;
-	
+
 	> li {
 		margin-bottom: 10px;
 		overflow: hidden;

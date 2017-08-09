@@ -6,4 +6,8 @@ namespace :womenrising do
     User.update_month
   end
 
+  desc 'Match mentors'
+  task :mentor_matches => :environment do
+    puts "MATCH!"
+  end
 end
