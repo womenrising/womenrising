@@ -6,8 +6,6 @@ RSpec.describe User, type: :model do
   end
   let(:user) { create(:user) }
 
-  it { should have_db_column(:wants_mentor).with_options(default: false) }
-
   describe 'validations' do
     it { expect(user).to validate_presence_of(:first_name) }
     it { expect(user).to validate_presence_of(:last_name) }
@@ -182,16 +180,6 @@ RSpec.describe User, type: :model do
       mentors = described_class.mentors
       expect(mentors).to include(mentor)
       expect(mentors).to_not include(mentee)
-    end
-  end
-
-  describe ".mentees" do
-    let!(:mentor) { create(:mentor) }
-    let!(:mentee) { create(:mentee) }
-    it "returns all mentees" do
-      mentees = described_class.mentees
-      expect(mentees).to include(mentee)
-      expect(mentees).to_not include(mentor)
     end
   end
 

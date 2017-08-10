@@ -62,7 +62,6 @@ FactoryGirl.define do
     end
 
     factory :mentee do
-      wants_mentor true
       not_on_waitlist
       primary_industry 'Technology'
       any_stage_of_career
