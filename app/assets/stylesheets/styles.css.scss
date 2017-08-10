@@ -63,6 +63,9 @@ h3 {
 	}
 }
 
+.wrapper {
+  padding: 10px;
+}
 
 .container-fluid {
 	padding: 0;
@@ -87,6 +90,13 @@ nav {
 		margin-left: .5rem;
 		width: 165px;
 	}
+}
+
+.btn-primary {
+	background-color: #2D3E5D;
+	color: white;
+	font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .hero {
@@ -539,6 +549,14 @@ a.btn:hover {
   margin-top: 0;
   margin-bottom: 28px;
 }
+
+#question-input {
+  @extend .form-control;
+  width: 45%;
+  display: inline-block;
+}
+
+.mentor .field_with_errors { display: inline; }
 
 /*Waitlist section*/
 

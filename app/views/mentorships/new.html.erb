@@ -3,15 +3,8 @@
 	<div class = "mentor">
 		<h3>What would you like to talk with your mentor about?</h3>
 		<%= form_for @mentorship do |f| %>
-		  <% if @mentorship.errors.messages != {}%>
-		    <h3>You have errors:</h3>
-		    <% @mentorship.errors.messages.each_with_index do |message, index|%>
-		      <li><h4><%=message[0]%></h4><p><%=message[1][0]%></p></li>
-		    <%end%>
-		  <%end%>
-		  <%= f.text_field :question  %>
-		  <%= f.submit "Submit", class:"btn"%>
+		  <%= f.text_field :question, id: 'question-input' %>
+		  <%= f.submit "Submit", class:"btn btn-primary" %>
 		<%end%>
 	</div>
-
 </div>

@@ -22,7 +22,10 @@
 
     <div style="margin-top: 100px;">
       <% flash.each do |type, message| %>
-        <div class="alert alert-<%= type %>">
+        <div class="alert alert-dismissible alert-<%= type %>">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
           <%= message %>
         </div>
       <% end %>

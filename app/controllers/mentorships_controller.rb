@@ -18,6 +18,7 @@ class MentorshipsController < ApplicationController
       flash[:success] = "Your request for a mentor has been submitted. Mentor matches are run daily, and you will receive an email when you are matched."
       redirect_to user_path(current_user)
     else
+      flash[:danger] = @mentorship.errors.full_messages.to_sentence
       render 'new'
     end
   end
