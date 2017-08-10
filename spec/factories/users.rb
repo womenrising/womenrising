@@ -11,18 +11,6 @@ FactoryGirl.define do
     password_confirmation {|attrs| attrs[:password]}
     linkedin_url { Faker::Internet.url }
 
-    trait :mentor do
-      mentor true
-      mentor_industry {["Business", "Technology", "Startup"].sample}
-    end
-
-    trait :mentee do
-      wants_mentor true
-    end
-
-    factory :mentor_user, traits: [:mentor, :not_on_waitlist]
-    factory :mentee_user, traits: [:mentee]
-
     trait :with_goal do
       current_goal 'Rising the ranks'
     end
@@ -64,6 +52,20 @@ FactoryGirl.define do
 
     trait :any_stage_of_career do
       stage_of_career {Random.rand(1..5)}
+    end
+
+    factory :mentor do
+      mentor true
+      not_on_waitlist
+      mentor_industry 'Technology'
+      stage_of_career 5
+    end
+
+    factory :mentee do
+      wants_mentor true
+      not_on_waitlist
+      primary_industry 'Technology'
+      any_stage_of_career
     end
   end
 end

@@ -4,7 +4,7 @@ describe "womenrising:mentor_matches" do
   include_context "rake"
 
   context 'with mutliple mentors and mentorships' do
-    let!(:mentors) { create_list :mentor_user, 3, stage_of_career: 5, mentor_industry: "Technology" }
+    let!(:mentors) { create_list :mentor, 3 }
     let!(:mentorships) { create_list :mentorship, 3 }
 
     it "matches available mentors with available mentorships" do
@@ -33,7 +33,7 @@ describe "womenrising:mentor_matches" do
     end
 
     it 'does not change mentor times if a mentor was not matched' do
-      extra_mentor = create :mentor_user, stage_of_career: 5, mentor_industry: "Technology"
+      extra_mentor = create :mentor
 
       subject.invoke
 
@@ -50,7 +50,7 @@ describe "womenrising:mentor_matches" do
   it 'matches mentees in order of time of request' do
     later_mentorships = create_list :mentorship, 10
     first_mentorship = create :mentorship, created_at: 1.week.ago
-    mentor = create :mentor_user, stage_of_career: 5, mentor_industry: "Technology"
+    mentor = create :mentor
 
     subject.invoke
 

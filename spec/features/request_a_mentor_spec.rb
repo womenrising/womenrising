@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 feature 'User can request a mentor' do
-
-  let(:mentee) { create :user, :not_on_waitlist }
+  let(:user) { create :user, :not_on_waitlist }
 
   scenario 'a logged in user user can submit a question and request a mentor and is put on a waitlist' do
-    login_as(mentee, :scope => :user)
-    visit user_path(mentee)
+    login_as(user, :scope => :user)
+    visit user_path(user)
 
     click_on("Request a Mentor")
     expect(page).to have_content "What would you like to talk with your mentor about?"
