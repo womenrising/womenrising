@@ -30,6 +30,4 @@ class UserMailer < ActionMailer::Base
     @indv = indv
     mail(to: @indv.email, subject: '"Women Rising" could not match you this month :(')
   end
-
-
 end

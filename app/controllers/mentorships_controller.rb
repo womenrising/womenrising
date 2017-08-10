@@ -15,11 +15,6 @@ class MentorshipsController < ApplicationController
     @user = current_user
     @mentorship = Mentorship.new(mentee_id: current_user.id, question: params[:mentorship][:question])
     if @mentorship.save
-      # @mentorship.send_mail
-      #
-      # action = :new_mentor
-      # message  = "User id #{@user.id} is a new mentor"
-      # SlackNotification.notify(action, message)
       flash[:success] = "Your request for a mentor has been submitted. Mentor matches are run daily, and you will receive an email when you are matched."
       redirect_to user_path(current_user)
     else
