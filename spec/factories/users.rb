@@ -20,7 +20,7 @@ FactoryGirl.define do
       wants_mentor true
     end
 
-    factory :mentor_user, traits: [:mentor]
+    factory :mentor_user, traits: [:mentor, :not_on_waitlist]
     factory :mentee_user, traits: [:mentee]
 
     trait :with_goal do

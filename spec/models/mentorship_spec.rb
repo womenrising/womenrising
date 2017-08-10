@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Mentorship, :type => :model do
  	it{should belong_to(:mentee).class_name('User').with_foreign_key('mentee_id')}
- 	it{should belong_to(:mentoring).class_name('User').with_foreign_key('mentor_id')}
+ 	it{should belong_to(:mentor).class_name('User').with_foreign_key('mentor_id')}
  	before{100.times{FactoryGirl.create(:user)}}
 
   it "can get users" do
@@ -17,7 +17,7 @@ RSpec.describe Mentorship, :type => :model do
  			mentee = User.create!(email: "hellowerq2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 1, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: ["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), is_participating_this_month: true,
  				mentor_times: 1)
  			mentor_session = Mentorship.create(mentee_id: mentee.id, question: "Hello?")
- 			mentor = mentor_session.mentoring
+ 			mentor = mentor_session.mentor
  			expect(mentor_session).to be_an_instance_of(Mentorship)
 
       # haven't assigned a mentor yet, so of course this doens't pass
@@ -36,7 +36,7 @@ RSpec.describe Mentorship, :type => :model do
  			mentee = User.create!(email: "hellowerqed2@gmail.com", password: "Somethingwierd12",password_confirmation: "Somethingwierd12", first_name: "Hello",last_name: "world", mentor: true, primary_industry: "Technology", stage_of_career: 3, mentor_industry: "Technology", peer_industry: ["Business", "Technology", "Startup"].sample, current_goal: ["Rising the ranks / breaking the glass ceiling","Switching industries","Finding work/life balance"].sample,top_3_interests: ["Arts", "Music", "Crafting", "Home improvement / Decorating", "Being a mom", "Dogs", "Cats", "Watching Sports", "Outdoors / Hiking", "Exercise", "Biking", "Yoga", "Running", "Beer","Wine","Traveling"," Local events",    "Reading", "Photography", "Movies","Cooking / Eating / Being a foodie" ,"Social issues / volunteering","Video Games"].sample(3), is_participating_this_month: true,
  				mentor_times: 2)
  			mentor_session = Mentorship.create(mentee_id: user.id, question: "Hello?")
- 			mentor = mentor_session.mentoring
+ 			mentor = mentor_session.mentor
  			expect(mentor_session).to be_an_instance_of(Mentorship)
  			expect(mentor).to be_an_instance_of(User)
  			expect(mentor).to eq(user2)

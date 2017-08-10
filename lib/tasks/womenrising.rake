@@ -8,6 +8,9 @@ namespace :womenrising do
 
   desc 'Match mentors'
   task :mentor_matches => :environment do
-    puts "MATCH!"
+    @available_mentorships = Mentorship.where(mentor_id: nil)
+    @available_mentorships.each do |mentorship|
+      mentorship.update(mentor: mentorship.choose_mentor)
+    end
   end
 end

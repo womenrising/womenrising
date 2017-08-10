@@ -15,7 +15,7 @@ class Mentorship < ActiveRecord::Base
   validates_presence_of :question
 
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
-  belongs_to :mentoring, class_name: "User", foreign_key: 'mentor_id'
+  belongs_to :mentor, class_name: "User", foreign_key: 'mentor_id'
 
   def not_on_waitlist
     errors.add("You are currently Waitlisted","members who are waitlisted cannot get mentors") if self.mentee.waitlist
@@ -23,8 +23,7 @@ class Mentorship < ActiveRecord::Base
 
   after_save do
     if mentor_id_changed? && mentor_id.present?
-      binding.pry
-      mentoring.update(mentor_times: mentoring.mentor_times -=1)
+      mentor.update(mentor_times: mentor.mentor_times -=1)
     end
   end
 
