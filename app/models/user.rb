@@ -201,6 +201,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def my_mentors
+    mentees.all.map(&:mentor_id).compact
+  end
+
+  def my_mentees
+    mentors.all.map(&:mentee_id).compact
+  end
+
+  def related_user_ids
+    [id, peers.map(&:id), my_mentors, my_mentees].flatten
+  end
+
   private
 
   def ensure_location_or_zip

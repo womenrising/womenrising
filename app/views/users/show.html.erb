@@ -7,6 +7,52 @@
   <div class="large-frame">
     <h2><%= @user.full_name %></h2>
   </div>
+  <% if @user == current_user && @user.mentees.present? %>
+    <h4>Your Mentors</h4>
+    <ul class="profile-list">
+      <% @user.mentees.each do |question| %>
+        <li>
+          Question: <%= question.question %>
+        </li>
+        <li>
+          Mentor:
+          <% if question.mentor %>
+            <a href="<%= user_path question.mentor %>">
+              <%= question.mentor.full_name %>
+            </a>
+          <% else %>
+            Pending
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <br>
+
+  <% if @user == current_user && @user.mentors.present? %>
+    <h4>Your Mentees</h4>
+    <ul class="profile-list">
+      <% @user.mentors.each do |mentee| %>
+        <li>
+          Question: <%= mentee.question %>
+        </li>
+        <li>
+          Mentee:
+          <% if mentee.mentor %>
+            <a href="<%= user_path mentee.mentee %>">
+              <%= mentee.mentee.full_name %>
+            </a>
+          <% else %>
+            Pending
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <br>
+
   <% if @user.peers.any? %>
     <h4><%= @user == current_user ? 'Your' : '' %> Peers This Month</h4>
     <ul class="profile-list">
