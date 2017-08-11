@@ -172,6 +172,17 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe ".mentors" do
+    let!(:mentor) { create(:mentor) }
+    let!(:mentee) { create(:mentee) }
+
+    it "returns all mentors" do
+      mentors = described_class.mentors
+      expect(mentors).to include(mentor)
+      expect(mentors).to_not include(mentee)
+    end
+  end
+
   context 'with groups' do
     let!(:user_in_current_group) { create :user, :groupable }
     let!(:user_in_previous_group) { create :user, :groupable }

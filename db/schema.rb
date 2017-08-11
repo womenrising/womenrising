@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630194247) do
+ActiveRecord::Schema.define(version: 20170810214717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170630194247) do
     t.string "state"
   end
 
-  create_table "mentors", force: true do |t|
+  create_table "mentorships", force: true do |t|
     t.integer  "mentor_id"
     t.integer  "mentee_id"
     t.text     "question"
@@ -107,8 +107,8 @@ ActiveRecord::Schema.define(version: 20170630194247) do
     t.boolean  "is_participating_this_month"
     t.string   "image_url"
     t.integer  "location_id"
-    t.string   "linkedin_url"
     t.string   "zip_code",                    limit: 10
+    t.string   "linkedin_url"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

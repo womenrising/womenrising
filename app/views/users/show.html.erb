@@ -22,26 +22,34 @@
   <% end %>
 </aside>
 
-<main class="col-md-8 side-frame">
+<main class="col-md-8 side-frame container-fluid">
   <div class="blog-main">
-    <% if @user == current_user %>
-      <section class="mentor">
-        <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
-        <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
-          <% if !@user.is_participating_this_month %>
-            <%= link_to "Click to participate this month", participate_path(@user), class: "btn medium-frame"%></br>
-          <% else %>
-            <%= link_to "Click to not participate this month", not_participate_path(@user), class: "btn medium-frame"%></br>
-          <% end %>
-        </h4>
-      </section>
-      <% if @user.waitlist%>
-        <section class="waitlist large-frame">
-          <h2 class="no-frame">Status: <span>Waitlisted</span></h2>
-          <p class="tiny-frame">Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile</p>
+    <div class="row">
+      <% if @user == current_user %>
+        <section class="actions">
+          <div class="col-md-7">
+            <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
+            <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
+              <% if !@user.is_participating_this_month %>
+                <%= link_to "Click to participate this month", participate_path(@user), class: "btn medium-frame"%></br>
+              <% else %>
+                <%= link_to "Click to not participate this month", not_participate_path(@user), class: "btn medium-frame"%></br>
+              <% end %>
+            </h4>
+          </div>
+          <div class="col-md-5">
+            <h3 class="subject no-frame">Request A Mentor</h3>
+            <%= link_to "Request a Mentor", new_mentorship_path, class: "btn", id: "mentor-button" %>
+          </div>
         </section>
+        <% if @user.waitlist%>
+          <section class="waitlist large-frame">
+            <h2 class="no-frame">Status: <span>Waitlisted</span></h2>
+            <p class="tiny-frame">Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile</p>
+          </section>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
     <section class="context">
       <h2>Info</h2>
       <div class="row flush">

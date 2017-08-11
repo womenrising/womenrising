@@ -32,8 +32,8 @@
 #  is_participating_this_month :boolean
 #  image_url                   :string(255)
 #  location_id                 :integer
-#  linkedin_url                :string(255)
 #  zip_code                    :string(10)
+#  linkedin_url                :string(255)
 #
 # Indexes
 #
@@ -48,8 +48,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :omniauthable
 
 
-  has_many :mentors, class_name: "Mentor", foreign_key: "mentor_id"
-  has_many :mentees, class_name: "Mentor", foreign_key: "mentee_id"
+  has_many :mentors, class_name: "Mentorship", foreign_key: "mentor_id"
+  has_many :mentees, class_name: "Mentorship", foreign_key: "mentee_id"
 
   has_many :peer_group_users
   has_many :peer_groups, through: :peer_group_users
@@ -61,6 +61,8 @@ class User < ActiveRecord::Base
   after_validation :check_industry
 
   before_save :ensure_location_or_zip
+
+  scope :mentors, -> { where(mentor: true) }
 
   CURRENT_GOALS = [
     "Rising the ranks / breaking the glass ceiling",
