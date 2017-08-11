@@ -1,3 +1,5 @@
+# This is the shared context, emulate the structure given in tutorial
+# Tutorial link: https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
 require "rake"
 
 shared_context "rake" do
