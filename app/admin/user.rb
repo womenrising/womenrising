@@ -73,7 +73,7 @@ ActiveAdmin.register User do
   end
 
   collection_action :run_matches, method: :post do
-    User.update_month
+    User.match_peers_and_update_users
     redirect_to admin_users_path, notice: "Ran Monthly Matches"
   end
 

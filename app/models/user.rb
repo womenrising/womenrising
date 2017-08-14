@@ -137,9 +137,9 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def self.update_month
+  def self.match_peers_and_update_users
     # start
-    action = :update_month_start
+    action = :match_peers_and_update_users_start
     message  = "started update month"
     SlackNotification.notify(action, message)
 
@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
     end
 
     # finish
-    action = :update_month_finish
+    action = :match_peers_and_update_users_finish
     message  = "finished update month"
     SlackNotification.notify(action, message)
   end
