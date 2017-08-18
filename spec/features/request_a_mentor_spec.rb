@@ -44,4 +44,10 @@ feature 'User can request a mentor' do
     expect(current_path).to eq user_path(user)
     expect(page).to_not have_content "Your"
   end
+
+  scenario 'mentee can cancel pending request', focus: true do
+    expect(page). to have_content "Pending"
+    click_on "Cancel"
+    expect{ click_on "Cancel" }.to change{Mentorship.count}.by(-1)
+  end
 end
