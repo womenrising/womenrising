@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'User can request a mentor' do
   let(:user) { create :user, :not_on_waitlist }
 
-  scenario 'a logged in user user can submit a question and request a mentor and is put on a waitlist' do
+  scenario 'a logged in user user can submit a question and request a mentor and is put on a waitlist', skip: true do
     login_as(user, :scope => :user)
     visit user_path(user)
 
