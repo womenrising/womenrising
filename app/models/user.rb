@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
   def self.connect_to_linkedin(auth, signed_in_resource=nil)
     user = User.where(provider: auth.provider, uid: auth.uid).first
     user ||= User.where(email: auth.info.email).first
-    image_url = auth.extra.raw_info.pictureUrls.values[1][0]
+    image_url = auth.extra.raw_info.pictureUrls.values[1][0] rescue nil
     linkedin_url = auth.extra.raw_info.publicProfileUrl
     if user
       user.update_attributes(image_url: image_url, linkedin_url: linkedin_url)
