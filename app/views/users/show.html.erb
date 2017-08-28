@@ -3,7 +3,7 @@
 <br>
 
 <aside class="col-md-3 col-md-offset-1 side-divider">
-  <%= image_tag(@user.image_url, class: "profile") %>
+  <%= image_tag(@user.get_image_url, class: "profile") %>
   <div class="large-frame">
     <h2><%= @user.full_name %></h2>
   </div>
@@ -13,7 +13,7 @@
       <% @user.peers.each do |peer| %>
         <li>
           <a href="<%= user_path peer %>">
-            <%= image_tag peer.image_url %>
+            <%= image_tag peer.get_image_url %>
             <h5><%= peer.full_name %></h5>
           </a>
         </li>
