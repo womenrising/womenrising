@@ -10,19 +10,19 @@
   <% if @user == current_user && @user.mentees.present? %>
     <h4>Your Mentors</h4>
     <ul class="mentor-list">
-      <% @user.mentees.each do |question| %>
-        <li title="<%= question.question %>">
-          <%= image_tag question.mentor.image_url rescue content_tag(:div, nil, class: 'profile-placeholder') %>
+      <% @user.mentees.each do |mentorship| %>
+        <li title="<%= mentorship.question %>">
+          <%= image_tag mentorship.mentor.image_url rescue content_tag(:div, nil, class: 'profile-placeholder') %>
           <p>
-            &quot;<%= truncate(question.question) %>&quot;
+            &quot;<%= truncate(mentorship.question) %>&quot;
             <br>
-            <% if question.mentor %>
-              <a href="<%= user_path question.mentor %>">
-                <%= question.mentor.full_name %>
+            <% if mentorship.mentor %>
+              <a href="<%= user_path mentorship.mentor %>">
+                <%= mentorship.mentor.full_name %>
               </a>
             <% else %>
               <em>Pending</em>
-              <%= link_to "Cancel", mentorship_path(question)%></br>
+              <%= link_to "Cancel", mentorship_path(mentorship), method: :delete %></br>
             <% end %>
           </p>
         </li>

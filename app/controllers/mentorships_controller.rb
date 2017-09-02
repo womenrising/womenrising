@@ -24,5 +24,11 @@ class MentorshipsController < ApplicationController
     end
   end
 
-# delete it!
+  def destroy
+    @mentorship = Mentorship.find(params[:id])
+    @mentorship.destroy
+
+    flash[:success] = "Your question has been cancelled"
+    redirect_to user_path(current_user)
+  end
 end
