@@ -68,8 +68,7 @@
     <div class="row">
       <% if @user == current_user %>
         <section class="actions">
-          <div>
-          <!-- <div class="col-md-7"> -->
+          <div class="col-md-7">
             <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
             <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
               <% if !@user.is_participating_this_month %>
@@ -79,10 +78,10 @@
               <% end %>
             </h4>
           </div>
-          <!-- <div class="col-md-5">
+          <div class="col-md-5">
             <h3 class="subject no-frame">Request A Mentor</h3>
             <%= link_to "Request a Mentor", new_mentorship_path, class: "btn", id: "mentor-button" %>
-          </div> -->
+          </div>
         </section>
         <% if @user.waitlist%>
           <section class="waitlist large-frame">
