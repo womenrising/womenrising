@@ -3,7 +3,7 @@
 <br>
 
 <aside class="col-md-3 col-md-offset-1 side-divider">
-  <%= image_tag(@user.image_url, class: "profile") %>
+  <%= image_tag(@user.get_image_url, class: "profile") %>
   <div class="large-frame">
     <h2><%= @user.full_name %></h2>
   </div>
@@ -54,7 +54,7 @@
       <% @user.peers.each do |peer| %>
         <li>
           <a href="<%= user_path peer %>">
-            <%= image_tag peer.image_url %>
+            <%= image_tag peer.get_image_url %>
             <h5><%= peer.full_name %></h5>
           </a>
         </li>
@@ -68,7 +68,8 @@
     <div class="row">
       <% if @user == current_user %>
         <section class="actions">
-          <div class="col-md-7">
+          <div>
+          <!-- <div class="col-md-7"> -->
             <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
             <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
               <% if !@user.is_participating_this_month %>
@@ -78,10 +79,10 @@
               <% end %>
             </h4>
           </div>
-          <div class="col-md-5">
+          <!-- <div class="col-md-5">
             <h3 class="subject no-frame">Request A Mentor</h3>
             <%= link_to "Request a Mentor", new_mentorship_path, class: "btn", id: "mentor-button" %>
-          </div>
+          </div> -->
         </section>
         <% if @user.waitlist%>
           <section class="waitlist large-frame">

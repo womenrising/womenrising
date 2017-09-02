@@ -20,8 +20,8 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '.update_month' do
-    #update_month 'refreshes' user settings for next month
+  describe '.match_peers_and_update_users' do
+    #match_peers_and_update_users 'refreshes' user settings for next month
 
     context 'if user is participating this month' do
       let!(:participating_user) do
@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
       end
 
       before do
-        User.update_month
+        User.match_peers_and_update_users
         participating_user.reload
       end
 
@@ -58,7 +58,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'sets the user\'s mentor times to 0 so they will not be matched' do
-        User.update_month
+        User.match_peers_and_update_users
         opted_out_user.reload
 
         expect(opted_out_user.mentor_times).to eq(0)

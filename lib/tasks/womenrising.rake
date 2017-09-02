@@ -2,8 +2,9 @@ namespace :womenrising do
 
   desc 'Run the PeerGroup monthly match'
   task :peer_group_monthly_match => :environment do
-    # run the peer group matches
-    User.update_month
+    if DateTime.current.day == 1
+      User.match_peers_and_update_users
+    end
   end
 
   desc 'Match mentors'
