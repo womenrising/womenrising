@@ -20,29 +20,24 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '.update_month' do
-    #update_month 'refreshes' user settings for next month
+  describe '.match_peers_and_update_users' do
+    #match_peers_and_update_users 'refreshes' user settings for next month
 
     context 'if user is participating this month' do
       let!(:participating_user) do
         create(:user,
                is_participating_this_month: true,
-               is_assigned_peer_group: true,
                mentor_times: 3,
                mentor_limit: 4)
       end
 
       before do
-        User.update_month
+        User.match_peers_and_update_users
         participating_user.reload
       end
 
       it 'resets is_participating_this_month back to false' do
         expect(participating_user.is_participating_this_month).to eq(false)
-      end
-
-      it 'resets is_assigned_peer_group back to false' do
-        expect(participating_user.is_assigned_peer_group).to eq(false)
       end
 
       it 'resets the user\'s mentor times to their stated mentor_limit' do
@@ -63,7 +58,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'sets the user\'s mentor times to 0 so they will not be matched' do
-        User.update_month
+        User.match_peers_and_update_users
         opted_out_user.reload
 
         expect(opted_out_user.mentor_times).to eq(0)
@@ -174,6 +169,17 @@ RSpec.describe User, type: :model do
         user.mentor_limit = 3
         expect(user.mentor_times).to eq(2)
       end
+    end
+  end
+
+  describe ".mentors" do
+    let!(:mentor) { create(:mentor) }
+    let!(:mentee) { create(:mentee) }
+
+    it "returns all mentors" do
+      mentors = described_class.mentors
+      expect(mentors).to include(mentor)
+      expect(mentors).to_not include(mentee)
     end
   end
 

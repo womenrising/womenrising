@@ -15,13 +15,10 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-$(document).ready(function () {
-  if ($("#user_mentor :selected").val(false)) {
-    $("#mentor_info").hide();
-  }
-    $("#user_mentor").on("change", function(){
-      $("#mentor_info").toggle();
-  });
+$(function() {
+  $("#user_mentor").on("change", function() {
+    $("#mentor_info").toggleClass("hidden", $(this).val() == "false");
+  }).trigger('change');
 
   $('#user_location_id').on('change', function() {
     $('#zip-code').toggleClass("hidden", $(this).val() !== "");

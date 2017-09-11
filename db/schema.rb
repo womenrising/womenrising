@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603173109) do
+ActiveRecord::Schema.define(version: 20170810214717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170603173109) do
     t.string "state"
   end
 
-  create_table "mentors", force: true do |t|
+  create_table "mentorships", force: true do |t|
     t.integer  "mentor_id"
     t.integer  "mentee_id"
     t.text     "question"
@@ -73,12 +73,8 @@ ActiveRecord::Schema.define(version: 20170603173109) do
   end
 
   create_table "peer_groups", force: true do |t|
-    t.integer  "peer1_id"
-    t.integer  "peer2_id"
-    t.integer  "peer3_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "peer4_id"
   end
 
   create_table "users", force: true do |t|
@@ -106,7 +102,6 @@ ActiveRecord::Schema.define(version: 20170603173109) do
     t.string   "current_goal"
     t.text     "top_3_interests",                        default: [],                 array: true
     t.boolean  "waitlist",                               default: true
-    t.boolean  "is_assigned_peer_group",                 default: false
     t.integer  "mentor_times",                           default: 1
     t.integer  "mentor_limit",                           default: 1
     t.boolean  "is_participating_this_month"

@@ -31,7 +31,6 @@ ActiveAdmin.register User do
       input :location
       input :zip_code
       input :waitlist
-      input :is_assigned_peer_group
       input :mentor_times
       input :mentor_limit
       input :is_participating_this_month
@@ -74,7 +73,7 @@ ActiveAdmin.register User do
   end
 
   collection_action :run_matches, method: :post do
-    PeerGroup.generate_groups
+    User.match_peers_and_update_users
     redirect_to admin_users_path, notice: "Ran Monthly Matches"
   end
 

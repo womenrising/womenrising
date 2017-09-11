@@ -27,7 +27,6 @@
 #  current_goal                :string(255)
 #  top_3_interests             :text             default([]), is an Array
 #  waitlist                    :boolean          default(TRUE)
-#  is_assigned_peer_group      :boolean          default(FALSE)
 #  mentor_times                :integer          default(1)
 #  mentor_limit                :integer          default(1)
 #  is_participating_this_month :boolean
@@ -47,10 +46,10 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :omniauthable
-         # :recoverable, :rememberable, :trackable, :validatable,  :registerable
 
-  has_many :mentors, class_name: "Mentor", foreign_key: "mentor_id"
-  has_many :mentees, class_name: "Mentor", foreign_key: "mentee_id"
+
+  has_many :mentors, class_name: "Mentorship", foreign_key: "mentor_id"
+  has_many :mentees, class_name: "Mentorship", foreign_key: "mentee_id"
 
   has_many :peer_group_users
   has_many :peer_groups, through: :peer_group_users
@@ -62,6 +61,8 @@ class User < ActiveRecord::Base
   after_validation :check_industry
 
   before_save :ensure_location_or_zip
+
+  scope :mentors, -> { where(mentor: true) }
 
   CURRENT_GOALS = [
     "Rising the ranks / breaking the glass ceiling",
@@ -77,10 +78,42 @@ class User < ActiveRecord::Base
     "C-Level/Founder"
   ]
 
+  PRIMARY_INDUSTRY = [
+    "Business",
+    "Technology",
+    "Startup"
+  ]
+
+  TOP_3_INTERESTS = [
+    "Arts",
+    "Music",
+    "Crafting",
+    "Home improvement / Decorating",
+    "Being a mom",
+    "Dogs",
+    "Cats",
+    "Watching Sports",
+    "Outdoors / Hiking",
+    "Exercise",
+    "Biking",
+    "Yoga",
+    "Running",
+    "Beer",
+    "Wine",
+    "Traveling","
+    Local events",
+    "Reading",
+    "Photography",
+    "Movies",
+    "Cooking / Eating / Being a foodie",
+    "Social issues / volunteering",
+    "Video Games"
+  ]
+
   def self.connect_to_linkedin(auth, signed_in_resource=nil)
     user = User.where(provider: auth.provider, uid: auth.uid).first
     user ||= User.where(email: auth.info.email).first
-    image_url = auth.extra.raw_info.pictureUrls.values[1][0]
+    image_url = auth.extra.raw_info.pictureUrls.values[1][0] rescue nil
     linkedin_url = auth.extra.raw_info.publicProfileUrl
     if user
       user.update_attributes(image_url: image_url, linkedin_url: linkedin_url)
@@ -104,9 +137,9 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def self.update_month
+  def self.match_peers_and_update_users
     # start
-    action = :update_month_start
+    action = :match_peers_and_update_users_start
     message  = "started update month"
     SlackNotification.notify(action, message)
 
@@ -116,7 +149,6 @@ class User < ActiveRecord::Base
       if user.is_participating_this_month
         user.update(
           is_participating_this_month: false,
-          is_assigned_peer_group: false,
           mentor_times: user.mentor_limit
         )
       else
@@ -125,7 +157,7 @@ class User < ActiveRecord::Base
     end
 
     # finish
-    action = :update_month_finish
+    action = :match_peers_and_update_users_finish
     message  = "finished update month"
     SlackNotification.notify(action, message)
   end
@@ -151,6 +183,10 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  def stage_of_career_name
+    STAGE_OF_CAREER[self.stage_of_career - 1] rescue nil
   end
 
   def current_peer_group

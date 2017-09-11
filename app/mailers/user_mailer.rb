@@ -8,14 +8,14 @@ class UserMailer < ActionMailer::Base
 
   def mentor_mail(mentor_match)
     @mentor_match = mentor_match
-    @mentor = mentor_match.mentoring
+    @mentor = mentor_match.mentor
     @mentee = mentor_match.mentee
     mail(to: @mentor.email, subject: "#{@mentee.first_name} has requested to learn with you")
   end
 
   def mentee_mail(mentor_match)
     @mentor_match = mentor_match
-    @mentor = mentor_match.mentoring
+    @mentor = mentor_match.mentor
     @mentee = mentor_match.mentee
     mail(to: @mentee.email, subject: "You have requested to be mentored by #{@mentor.first_name}")
   end
@@ -30,6 +30,4 @@ class UserMailer < ActionMailer::Base
     @indv = indv
     mail(to: @indv.email, subject: '"Women Rising" could not match you this month :(')
   end
-
-
 end

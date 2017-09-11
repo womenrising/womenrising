@@ -59,14 +59,20 @@ Rails.application.configure do
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
+
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {
-    :address => "smtp.gmail.com",
-    :port    => 587,
-    :user_name => ENV['gmail_username'],
-    :password => ENV['gmail_password'],
-    :authentication => "plain",
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'womenrising.co',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
     :enable_starttls_auto => true
+  }
+  config.action_mailer.default_options = {
+    :from => 'info@womenrising.co'
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

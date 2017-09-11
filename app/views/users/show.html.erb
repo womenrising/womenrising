@@ -3,7 +3,7 @@
 <br>
 
 <aside class="col-md-3 col-md-offset-1 side-divider">
-  <%= image_tag(@user.image_url, class: "profile") %>
+  <%= image_tag(@user.get_image_url, class: "profile") %>
   <div class="large-frame">
     <h2><%= @user.full_name %></h2>
   </div>
@@ -13,7 +13,7 @@
       <% @user.peers.each do |peer| %>
         <li>
           <a href="<%= user_path peer %>">
-            <%= image_tag peer.image_url %>
+            <%= image_tag peer.get_image_url %>
             <h5><%= peer.full_name %></h5>
           </a>
         </li>
@@ -22,60 +22,67 @@
   <% end %>
 </aside>
 
-<main class="col-md-8 side-frame">
+<main class="col-md-8 side-frame container-fluid">
   <div class="blog-main">
-    <section class="mentor">
-      <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
-      <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
-        <% if !@user.is_participating_this_month %>
-          <%= link_to "Click to participate this month", participate_path(@user), class: "btn medium-frame"%></br>
-        <%else%>
-          <%= link_to "Click to not participate this month", not_participate_path(@user), class: "btn medium-frame"%></br>
-        <%end%>
-      </h4>
-    </section>
-    <% if @user.waitlist%>
-    <section class="waitlist large-frame">
-      <h2 class="no-frame">Status: <span>Waitlisted</span></h2>
-      <p class="tiny-frame">Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile</p>
-    </section>
-    <%end%>
+    <div class="row">
+      <% if @user == current_user %>
+        <section class="actions">
+          <div>
+          <!-- <div class="col-md-7"> -->
+            <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
+            <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
+              <% if !@user.is_participating_this_month %>
+                <%= link_to "Click to participate this month", participate_path(@user), class: "btn medium-frame"%></br>
+              <% else %>
+                <%= link_to "Click to not participate this month", not_participate_path(@user), class: "btn medium-frame"%></br>
+              <% end %>
+            </h4>
+          </div>
+          <!-- <div class="col-md-5">
+            <h3 class="subject no-frame">Request A Mentor</h3>
+            <%= link_to "Request a Mentor", new_mentorship_path, class: "btn", id: "mentor-button" %>
+          </div> -->
+        </section>
+        <% if @user.waitlist%>
+          <section class="waitlist large-frame">
+            <h2 class="no-frame">Status: <span>Waitlisted</span></h2>
+            <p class="tiny-frame">Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile</p>
+          </section>
+        <% end %>
+      <% end %>
+    </div>
     <section class="context">
       <h2>Info</h2>
       <div class="row flush">
         <div class="col-md-6 flush">
-          <h4 class="medium-frame">Location: <div><%= @user.location ? @user.location.city_state : 'N/A' %></div></h4>
+          <h4 class="medium-frame">Location: <div><%= @user.location.city_state rescue 'N/A' %></div></h4>
           <h4 class="medium-frame">Primary Industry: <div><%= @user.primary_industry%></div></h4>
           <h4 class="medium-frame">Goal Right Now: <div><%= @user.current_goal%></div></h4>
           <div class="medium-frame">
             <h4 class="no-frame">My Top 3 non-career interests are: </h4>
             <ol>
               <% @user.top_3_interests.each do |interest|%>
-              <li><%= interest%></li>
-              <%end%>
+                <li><%= interest%></li>
+              <% end %>
             </ol>
           </div>
         </div>
         <div class="col-md-6">
           <h4 class="medium-frame">Email: <div><%= @user.email%></div></h4>
-          <h4 class="medium-frame">Stage Of Career: <div><% case @user.stage_of_career
-            when 1%><%= "Intern/Apprentice/Aspiring"%>
-            <%when 2%><%= "Gaining a foothold"%>
-            <%when 3%><%= "Management / Senior"%>
-            <%when 4%><%= "Director/VP/Chief Architect"%>
-            <%when 5%><%= "C-Level/Founder"%>
-            <%end%></div>
+          <h4 class="medium-frame">Stage Of Career: <div><%= @user.stage_of_career_name %></div>
           </h4>
           <h4 class="medium-frame">I want to be a peer with: <div><%= @user.peer_industry%></div></h4>
           <% if @user.mentor == true %>
             <h4 class="medium-frame">I will mentor women in this industry: <div><%= @user.mentor_industry %></div></h4>
-          <%end%>
+          <% end %>
         </div>
       </div>
     </section>
-    <section class="edit">
-      <%= link_to "Edit My Profile", edit_user_path(@user), class: "btn medium-frame" %>
-    </section>
+    <% if @user == current_user %>
+      <section class="edit">
+        <%= link_to "Edit My Profile", edit_user_path(@user), class: "btn medium-frame" %>
+      </section>
+    <% end %>
   </div>
 </main>
 </div>

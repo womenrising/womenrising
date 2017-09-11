@@ -9,7 +9,7 @@
   <%end%>
 
   <aside class="col-md-3 col-md-offset-1 side-divider">
-    <%= image_tag(@user.image_url, class: "profile") %>
+    <%= image_tag(@user.get_image_url, class: "profile") %>
     <div class="large-frame">
       <h3><%= @user.first_name%> <%= @user.last_name %></h3>
     </div>
@@ -90,7 +90,7 @@
             </h4>
             <h4 class="medium-frame">
               Would you like to <%= f.label :Mentor%>?
-              <%= f.select :mentor, options_for_select([["Yes",true],["No",false]], @user.mentor), { :class => 'mentoring' } %> </br>
+              <%= f.select :mentor, options_for_select([["Yes",true],["No",false]], @user.mentor), { :class => 'mentor' } %> </br>
             </h4>
             <h4 class="medium-frame">
               <div id="mentor_info">

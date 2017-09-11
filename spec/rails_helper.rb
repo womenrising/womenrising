@@ -17,6 +17,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include Devise::TestHelpers, :type => :controller
+  config.include ActiveSupport::Testing::TimeHelpers
   config.include FeatureHelpers, type: :feature
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::Email::DSL
@@ -50,6 +51,10 @@ RSpec.configure do |config|
   #
   # @custom
   #
+  config.before(:each) do
+    ActionMailer::Base.deliveries.clear
+  end
+
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
