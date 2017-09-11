@@ -201,6 +201,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def city
+    location.city
+  end
+
   private
 
   def ensure_location_or_zip
