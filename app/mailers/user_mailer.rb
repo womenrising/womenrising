@@ -20,7 +20,7 @@ class UserMailer < ActionMailer::Base
     mail(to: @mentee.email, subject: "You have requested to be mentored by #{@mentor.first_name}")
   end
 
-  def peer_mail(peer_group) 
+  def peer_mail(peer_group)
     @peers = peer_group.users
     return if @peers.empty?
     mail(to: @peers.map(&:email), subject: 'Your "Women Rising" matches for this month!')

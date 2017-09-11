@@ -7,10 +7,13 @@
     body {
       font-family: 'Open Sans', sans-serif;
     }
-    h1, a {
-      color: rgb(45 ,62, 93);
+    a,
+    h1 {
+      color: rgb(45, 62, 93);
     }
+
   </style>
+
   <body>
     <h1>Here Are Your Women Rising Matches!</h1>
 
@@ -27,8 +30,8 @@
     <ul>
       <% @peers.each do |peer| %>
       <li>
-        <b><%= peer.first_name %>
-          <%= peer.last_name %></b>
+        <strong><%= peer.first_name %>
+          <%= peer.last_name %></strong>
         <br><%= mail_to peer.email %>
         (Ask me about:
         <%= peer.top_3_interests.join(", ") %>)
@@ -37,7 +40,8 @@
       <% end %>
     </ul>
 
-    <p>Remember, this is about meeting new people so be open minded! You never know which of these women could become your new best friend or help you get your next job. Make our day by tweeting a picture or a story of your match at <a href="https://twitter.com/TheWomenRising" target="_blank">@TheWomenRising</a>!
+    <p>Remember, this is about meeting new people so be open minded! You never know which of these women could become your new best friend or help you get your next job. Make our day by tweeting a picture or a story of your match at
+      <a href="https://twitter.com/TheWomenRising" target="_blank">@TheWomenRising</a>!
     </p>
 
     <p>Happy solidarity and inspiration!</p>
@@ -45,5 +49,5 @@
     <p>The Women Rising Team</p>
 
     <p>PS Groups were formed based on your location. This formula is still in development, so feel free to reply with some
-      <%= mail_to "info@womenrising.co", "Feedback" %>!<p></body>
-    </div>
+      <%= mail_to "info@womenrising.co", "Feedback" %>!</p>
+    </body>
