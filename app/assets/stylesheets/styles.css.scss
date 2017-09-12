@@ -169,6 +169,37 @@ nav {
   p {
     font-size: 1.6rem;
     padding: 0 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.tips {
+  .row {
+    margin: 0 50px;
+  }
+
+  p {
+    font-size: 1.6rem;
+    padding: 0 2rem;
+  }
+
+  ul {
+    font-size: 1.6rem;
+    padding: 0 6rem;
+  }
+
+  .sectionHead {
+    padding: 2rem 0;
+  }
+
+  .tips-info {
+    padding-bottom: 2rem;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    border-bottom: 1px solid #CB275A;
   }
 }
 
