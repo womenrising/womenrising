@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :auth_user
 
   def show
-    permitted_users = User.where(id: current_user.peers.map(&:id) + [current_user.id])
+    permitted_users = User.where(id: current_user.related_user_ids)
     @user = permitted_users.find(params[:id])
   end
 

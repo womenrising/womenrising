@@ -7,6 +7,47 @@
   <div class="large-frame">
     <h2><%= @user.full_name %></h2>
   </div>
+  <% if @user == current_user && @user.mentees.present? %>
+    <h4>Your Mentors</h4>
+    <ul class="mentor-list">
+      <% @user.mentees.each do |mentorship| %>
+        <li title="<%= mentorship.question %>">
+          <%= image_tag mentorship.mentor.image_url rescue content_tag(:div, nil, class: 'profile-placeholder') %>
+          <p>
+            &quot;<%= truncate(mentorship.question) %>&quot;
+            <br>
+            <% if mentorship.mentor %>
+              <a href="<%= user_path mentorship.mentor %>">
+                <%= mentorship.mentor.full_name %>
+              </a>
+            <% else %>
+              <em>Pending</em>
+              <%= link_to "Cancel", mentorship_path(mentorship), method: :delete %></br>
+            <% end %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @user == current_user && @user.mentors.present? %>
+    <h4>Your Mentees</h4>
+    <ul class="mentor-list">
+      <% @user.mentors.each do |mentee| %>
+        <li>
+          <%= image_tag mentee.mentee.image_url %>
+          <p>
+            &quot;<%= mentee.question %>&quot;
+            <br>
+            <a href="<%= user_path mentee.mentee %>">
+              <%= mentee.mentee.full_name %>
+            </a>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <% if @user.peers.any? %>
     <h4><%= @user == current_user ? 'Your' : '' %> Peers This Month</h4>
     <ul class="profile-list">
@@ -27,8 +68,7 @@
     <div class="row">
       <% if @user == current_user %>
         <section class="actions">
-          <div>
-          <!-- <div class="col-md-7"> -->
+          <div class="col-md-7">
             <h3 class="subject no-frame">Will you participate in peer matches this month?</h3>
             <h4 class="participating"><%= @user.is_participating_this_month ? "YES" : "NO"%>&nbsp;
               <% if !@user.is_participating_this_month %>
@@ -38,10 +78,10 @@
               <% end %>
             </h4>
           </div>
-          <!-- <div class="col-md-5">
+          <div class="col-md-5">
             <h3 class="subject no-frame">Request A Mentor</h3>
             <%= link_to "Request a Mentor", new_mentorship_path, class: "btn", id: "mentor-button" %>
-          </div> -->
+          </div>
         </section>
         <% if @user.waitlist%>
           <section class="waitlist large-frame">
