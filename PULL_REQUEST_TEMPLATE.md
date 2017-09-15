@@ -1,26 +1,17 @@
-## Migrations
-YES | NO
-
 ## Description
 A few sentences describing the overall goals of the pull request's commits.
-
-## Deploy Notes
-*remove if inapplicable*
-
-Notes regarding deployment the contained body of work.  These should note any
-db migrations, new environment variables, etc.
 
 ## Github Issue
 Fixes #
 
-## Background
-
-Any other information you would like to provide for this item, if relevant.
-
 ## Screenshots
 *remove if inapplicable*
 
-If this PR includes changes to the view.
+## Deploy Notes
+*remove if inapplicable*
+
+*Notes regarding deploying the contained body of work.  These should note any
+db migrations, new environment variables, etc.*
 
 ## Definition of Done
 
