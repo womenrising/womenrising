@@ -19,8 +19,7 @@ If you have any complaints please let us know by sending an email to
 info@womenrising.co and we will do our best to address them!
 
 ## Getting Started
-In order to get started with this project please fork the repo and clone it to
-have it locally on your computer.
+Check out our [Contributing doc](https://github.com/womenrising/womenrising/blob/master/CONTRIBUTING.md) for more information on contributing to this project. In order to get started please fork the repo and clone it to have it locally on your computer.
 
 ### Development Environment
 
