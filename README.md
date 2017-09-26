@@ -25,31 +25,9 @@ Check out our [Contributing doc](https://github.com/womenrising/womenrising/blob
 
 ##### Mac OSX
 
-1. Install `homebrew`. See instructions on their website,
-[http://brew.sh/](http://brew.sh/).
+If you don't have Ruby installed, check out [Getting Started with Ruby](https://github.com/womenrising/womenrising/blob/master/GETTING_STARTED_WITH_RUBY.md)
 
-2. Install `postgres`.
-
-  ```sh
-  brew install postgresql
-  ```
-
-3. Install `rvm`. See intructions on their website,
-[https://rvm.io/](https://rvm.io/).
-
-4. Use `rvm` to install the current ruby version.
-
-  ```sh
-  rvm install ruby-2.3.1
-  ```
-
-5. Install `bundler`.
-
-  ```sh
-  gem install bundler
-  ```
-
-6. Clone the repo and cd (change directory) into the womenrising rails app and
+1. Clone the repo and cd (change directory) into the womenrising rails app and
 install the gems.
 
   ```sh
@@ -58,7 +36,7 @@ install the gems.
   bundle install
   ```
 
-7. Set up the database:
+2. Set up the database:
 
   ```sh
   rake db:create
@@ -66,13 +44,13 @@ install the gems.
   rake db:seed  # seed file containing test users
   ```
 
-8. Copy `config/application.example.yml` to `config/application.yml`. Then run the test suite to ensure everything is passing.
+3. Copy `config/application.example.yml` to `config/application.yml`. Then run the test suite to ensure everything is passing.
 
   ```sh
   bundle exec rspec spec/
   ```
 
-9. Fire up the app, and open your web browser to
+4. Fire up the app, and open your web browser to
 [localhost:3000](http://localhost:3000).
 
   ```sh
