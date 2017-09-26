@@ -21,13 +21,6 @@ info@womenrising.co and we will do our best to address them!
 ## Getting Started
 Check out our [Contributing doc](https://github.com/womenrising/womenrising/blob/master/CONTRIBUTING.md) for more information on contributing to this project. In order to get started please fork the repo and clone it to have it locally on your computer.
 
-### Development Environment
-
-If you have a mac and already have ruby set up, follow [these directions.](https://github.com/womenrising/womenrising#mac-osx)
-
-Otherwise, set up Docker with [these directions](https://github.com/womenrising/womenrising#docker)
-
-
 ### Setup Options
 
 ##### Mac OSX
