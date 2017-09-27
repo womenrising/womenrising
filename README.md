@@ -27,7 +27,7 @@ Check out our [Contributing doc](https://github.com/womenrising/womenrising/blob
 
 If you don't have Ruby installed, check out [Getting Started with Ruby](https://github.com/womenrising/womenrising/blob/master/GETTING_STARTED_WITH_RUBY.md)
 
-1. Clone the repo and cd (change directory) into the womenrising rails app and
+1. Fork, then clone the repo and cd (change directory) into the womenrising rails app and
 install the gems.
 
   ```sh
