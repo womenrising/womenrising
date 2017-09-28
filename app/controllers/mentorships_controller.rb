@@ -36,6 +36,19 @@ class MentorshipsController < ApplicationController
     end
   end
 
+  def mark_completed
+    mentorship = policy_scope(Mentorship).find(params[:id])
+    user = current_user
+
+    if mentorship.mentor_id == @user.id
+      mentorship.mentor_completed = true
+    elsif mentorship.mentee_id == @user.id
+      mentorship.mentee_completed = true
+    end
+    mentorship.save
+    redirect_to :back
+  end  
+
   private
 
   def policy_scope scope

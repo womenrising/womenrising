@@ -20,10 +20,16 @@
               <a href="<%= user_path mentorship.mentor %>">
                 <%= mentorship.mentor.full_name %>
               </a>
+              <br>
+              <% if mentorship.mentee_completed %>
+                Completed
+              <% else %>
+                Not Completed <%= button_to "I met my Mentor!", mark_completed_mentorship_path(mentorship) %>
+              <% end %>
             <% else %>
               <em>Pending</em>
               <%= link_to "Cancel", mentorship_path(mentorship), method: :delete %></br>
-            <% end %>
+            <% end %> 
           </p>
         </li>
       <% end %>
