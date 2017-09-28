@@ -7,7 +7,7 @@ development:
   <<: *default
   database: womenrising_development
   <% if ENV['WOMENRISING_DOCKER'] %>
-  username: postgres
+  username: womenrising
   password:
   host: postgres
   <% end %>
@@ -16,7 +16,7 @@ test:
   <<: *default
   database: womenrising_test
   <% if ENV['WOMENRISING_DOCKER'] %>
-  username: postgres
+  username: womenrising
   password:
   host: postgres
   <% end %>
