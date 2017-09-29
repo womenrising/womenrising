@@ -38,6 +38,8 @@ install the gems.
 
 2. Set up the database:
 
+  Copy `config/database.example.yml` to `config/database.yml` and edit as necessary.
+
   ```sh
   rake db:create
   rake db:migrate

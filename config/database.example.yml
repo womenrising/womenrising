@@ -20,10 +20,3 @@ test:
   password:
   host: postgres
   <% end %>
-
-
-production:
-  <<: *default
-  database: womenrising_production
-  username: womenrising
-  password: <%= ENV['WOMENRISING_DATABASE_PASSWORD'] %>
