@@ -38,7 +38,7 @@ install the gems.
 
 2. Set up the database:
 
-  Copy `config/database.example.yml` to `config/database.yml` and edit as necessary.
+  Copy `config/database.local.yml` to `config/database.yml` and edit as necessary.
 
   ```sh
   rake db:create
@@ -68,13 +68,9 @@ install the gems.
 
 #### Docker
 
-1. Install docker-machine locally
-
-2. Start `docker-machine`,
-
+1. Copy or symlink `config/database.docker.yml` to `config/database.yml`.
   ```sh
-  docker-machine start default
-  docker-machine env default
+  ln -s database.docker.yml config/database.yml
   ```
 
 2. Run these commands,

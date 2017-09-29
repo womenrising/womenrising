@@ -23,5 +23,5 @@ config/application.production.yml
 # make sure we provide an example application.yml file
 !config/application.example.yml
 
-# copy the sample file instead
+# copy one of the sample files instead
 config/database.yml
