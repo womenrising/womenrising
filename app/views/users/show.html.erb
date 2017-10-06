@@ -48,6 +48,12 @@
             <a href="<%= user_path mentee.mentee %>">
               <%= mentee.mentee.full_name %>
             </a>
+            <br>
+            <% if mentee.mentor_completed %>
+              Completed
+            <% else %>
+              Not Completed <%= button_to "I met my Mentee!", mark_completed_mentorship_path(mentee) %>
+            <% end %>    
           </p>
         </li>
       <% end %>
