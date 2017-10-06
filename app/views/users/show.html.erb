@@ -43,7 +43,7 @@
         <li>
           <%= image_tag mentee.mentee.get_image_url %>
           <p>
-            &quot;<%= mentee.question %>&quot;
+            &quot;<%= truncate(mentee.question) %>&quot;
             <br>
             <a href="<%= user_path mentee.mentee %>">
               <%= mentee.mentee.full_name %>
