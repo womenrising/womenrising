@@ -169,6 +169,37 @@ nav {
   p {
     font-size: 1.6rem;
     padding: 0 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.tips {
+  .row {
+    margin: 0 50px;
+  }
+
+  p {
+    font-size: 1.6rem;
+    padding: 0 2rem;
+  }
+
+  ul {
+    font-size: 1.6rem;
+    padding: 0 6rem;
+  }
+
+  .sectionHead {
+    padding: 2rem 0;
+  }
+
+  .tips-info {
+    padding-bottom: 2rem;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    border-bottom: 1px solid #CB275A;
   }
 }
 
@@ -527,6 +558,10 @@ a.btn:hover {
 .side-divider {
   border-right: 1px solid #AEAEAE;
   height: inherit;
+
+  h4 {
+    margin-top: 25px;
+  }
 }
 
 /*Profile Picture Section*/
@@ -598,12 +633,37 @@ a.btn:hover {
       margin: 0;
       line-height: 65px;
     }
-    img {
+    img, .profile-placeholder {
       width: 65px;
       height: 65px;
       float: left;
       margin-right: 10px;
       border-radius: 100%
     }
+  }
+}
+
+.profile-placeholder {
+  background: #ddd;
+
+  &:after {
+    content: '?';
+    display: block;
+    line-height: 65px;
+    font-size: 40px;
+    color: #aaa;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Mentor List Section */
+.mentor-list {
+  @extend .profile-list;
+
+  li p {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 13px 0;
   }
 }

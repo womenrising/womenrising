@@ -18,17 +18,86 @@ contributor should review our code of conduct at
 If you have any complaints please let us know by sending an email to
 info@womenrising.co and we will do our best to address them!
 
-### Getting Started
-In order to get started with this project please fork the repo and clone it to
-have it locally on your computer.
+## Getting Started
+Check out our [Contributing doc](https://github.com/womenrising/womenrising/blob/master/CONTRIBUTING.md) for more information on contributing to this project. In order to get started please fork the repo and clone it to have it locally on your computer.
 
-#### Development Environment
+### Setup Options
 
-If you have a mac and already have ruby set up, follow [these directions.](https://github.com/womenrising/womenrising#mac-osx)
+##### Mac OSX
 
-Otherwise, set up Docker with [these directions](https://github.com/womenrising/womenrising#docker)
+If you don't have Ruby installed, check out [Getting Started with Ruby](https://github.com/womenrising/womenrising/blob/master/GETTING_STARTED_WITH_RUBY.md)
 
-#### Setting up with Linkedin(*optional*):
+1. Fork, then clone the repo and cd (change directory) into the womenrising rails app and
+install the gems.
+
+  ```sh
+  git clone git@github.com:your-username/womenrising.git
+  cd womenrising
+  bundle install
+  ```
+
+2. Set up the database:
+
+  ```sh
+  rake db:create
+  rake db:migrate
+  rake db:seed  # seed file containing test users
+  ```
+
+3. Copy `config/application.example.yml` to `config/application.yml`. Then run the test suite to ensure everything is passing.
+
+  ```sh
+  bundle exec rspec spec/
+  ```
+
+4. Fire up the app, and open your web browser to
+[localhost:3000](http://localhost:3000).
+
+  ```sh
+  rails server
+  ```
+
+  Or you can run guard, which will automically start the server and rerun your specs when you make changes to files.
+
+  ```sh
+  bundle exec guard
+  ```
+
+
+#### Docker
+
+1. Install docker-machine locally
+
+2. Start `docker-machine`,
+
+  ```sh
+  docker-machine start default
+  docker-machine env default
+  ```
+
+2. Run these commands,
+  ```sh
+  docker-compose build
+  docker-compose run web rake db:create db:migrate
+  docker-compose up
+  ```
+
+---
+
+### Importing the Staging or Production DB
+
+```sh
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -d womenrising_development ./db/backup-2016-01-14.dump
+```
+
+### Monthly Matches
+
+```sh
+# open a heroku rails shell
+heroku run rake womenrising:peer_group_monthly_match c -a womenrising
+```
+
+### Setting up with Linkedin(*optional*):
 
 Create your own application on
 [linkedin developer site](https://developer.linkedin.com/) on this page click
@@ -77,114 +146,15 @@ seen by anyone else.*
 
 This will give you access to Linkedin so that you will be able to sign-in.
 
-
-### Importing the Staging or Production DB
-
-```sh
-pg_restore --verbose --clean --no-acl --no-owner -h localhost -d womenrising_development ./db/backup-2016-01-14.dump
-```
-
-### Reporting Bugs
+## Reporting Bugs
 
 To report a bug, please create an issue with [Github Issues](https://github.com/womenrising/womenrising/issues/new)
 
 Please make sure that you have your issues be as detailed as possible
 (screenshots are always helpful!!).
 
-### Sources
+## Sources
 
 The choice of the code of conduct was inspired by the awesome
 [Coraline Ada Ehmke](https://github.com/CoralineAda) from her talk at
-[Geekfest](https://vimeo.com/101449990). If you want to look more into this you
-can find more at [contributor-covenant](http://contributor-covenant.org/).
-
-
-### Monthly Matches
-
-```sh
-# open a heroku rails shell
-heorku run rake womenrising:peer_group_monthly_match c -a womenrising
-```
-
-### Setup Options
-
-##### Mac OSX
-
-1. Install `homebrew`. See instructions on their website,
-[http://brew.sh/](http://brew.sh/).
-
-2. Install `postgres`.
-
-  ```sh
-  brew install postgresql
-  ```
-
-3. Install `rvm`. See intructions on their website,
-[https://rvm.io/](https://rvm.io/).
-
-4. Use `rvm` to install the current ruby version.
-
-  ```sh
-  rvm install ruby-2.3.1
-  ```
-
-5. Install `bundler`.
-
-  ```sh
-  gem install bundler
-  ```
-
-6. Clone the repo and cd (change directory) into the womenrising rails app and
-install the gems.
-
-  ```sh
-  git clone git@github.com:your-username/womenrising.git
-  cd womenrising
-  bundle install
-  ```
-
-7. Set up the database:
-
-  ```sh
-  rake db:create
-  rake db:migrate
-  rake db:seed  # seed file containing test users
-  ```
-
-8. Copy `config/application.example.yml` to `config/application.yml`. Then run the test suite to ensure everything is passing.
-
-  ```sh
-  bundle exec rspec spec/
-  ```
-
-9. Fire up the app, and open your web browser to
-[localhost:3000](http://localhost:3000).
-
-  ```sh
-  rails server
-  ```
-
-  Or you can run guard, which will automically start the server and rerun your specs when you make changes to files.
-
-  ```sh
-  bundle exec guard
-  ```
-
-
-#### Docker
-
-1. Install docker-machine locally
-
-2. Start `docker-machine`,
-
-  ```sh
-  docker-machine start default
-  docker-machine env default
-  ```
-
-2. Run these commands,
-  ```sh
-  docker-compose build
-  docker-compose run web rake db:create db:migrate
-  docker-compose up
-  ```
+[Geekfest](https://vimeo.com/101449990). If you want to look more into this you can find more at [contributor-covenant](http://contributor-covenant.org/).

@@ -3,17 +3,58 @@
 <br>
 
 <aside class="col-md-3 col-md-offset-1 side-divider">
-  <%= image_tag(@user.image_url, class: "profile") %>
+  <%= image_tag(@user.get_image_url, class: "profile") %>
   <div class="large-frame">
     <h2><%= @user.full_name %></h2>
   </div>
+  <% if @user == current_user && @user.mentees.present? %>
+    <h4>Your Mentors</h4>
+    <ul class="mentor-list">
+      <% @user.mentees.each do |mentorship| %>
+        <li title="<%= mentorship.question %>">
+          <%= image_tag mentorship.mentor.get_image_url rescue content_tag(:div, nil, class: 'profile-placeholder') %>
+          <p>
+            &quot;<%= truncate(mentorship.question) %>&quot;
+            <br>
+            <% if mentorship.mentor %>
+              <a href="<%= user_path mentorship.mentor %>">
+                <%= mentorship.mentor.full_name %>
+              </a>
+            <% else %>
+              <em>Pending</em>
+              <%= link_to "Cancel", mentorship_path(mentorship), method: :delete %></br>
+            <% end %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @user == current_user && @user.mentors.present? %>
+    <h4>Your Mentees</h4>
+    <ul class="mentor-list">
+      <% @user.mentors.each do |mentee| %>
+        <li>
+          <%= image_tag mentee.mentee.get_image_url %>
+          <p>
+            &quot;<%= truncate(mentee.question) %>&quot;
+            <br>
+            <a href="<%= user_path mentee.mentee %>">
+              <%= mentee.mentee.full_name %>
+            </a>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <% if @user.peers.any? %>
     <h4><%= @user == current_user ? 'Your' : '' %> Peers This Month</h4>
     <ul class="profile-list">
       <% @user.peers.each do |peer| %>
         <li>
           <a href="<%= user_path peer %>">
-            <%= image_tag peer.image_url %>
+            <%= image_tag peer.get_image_url %>
             <h5><%= peer.full_name %></h5>
           </a>
         </li>
