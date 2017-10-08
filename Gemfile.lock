@@ -2,6 +2,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     actionmailer (4.1.4)
+      actionpack (= 4.1.4)
+      actionview (= 4.1.4)
+      mail (~> 2.5.4)
     actionpack (4.1.4)
       actionview (= 4.1.4)
       activesupport (= 4.1.4)
@@ -362,4 +365,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.14.6
+   1.15.4
