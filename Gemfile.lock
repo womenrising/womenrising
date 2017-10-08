@@ -217,7 +217,6 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.1.4)
-      actionmailer (= 4.1.4)
       actionpack (= 4.1.4)
       actionview (= 4.1.4)
       activemodel (= 4.1.4)
