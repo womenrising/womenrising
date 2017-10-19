@@ -94,7 +94,7 @@ pg_restore --verbose --clean --no-acl --no-owner -h localhost -d womenrising_dev
 
 ```sh
 # open a heroku rails shell
-heorku run rake womenrising:peer_group_monthly_match c -a womenrising
+heroku run rake womenrising:peer_group_monthly_match c -a womenrising
 ```
 
 ### Setting up with Linkedin(*optional*):
