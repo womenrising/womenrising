@@ -57,7 +57,13 @@ class User < ActiveRecord::Base
 
   validates :top_3_interests, length: { maximum: 3, too_long: " is limited to %{count} interests" }
   validates_presence_of :first_name, :last_name
-  validates_presence_of :mentor_industry, if: :mentor
+
+  has_many :mentor_industry_users, dependent: :destroy
+  has_many :mentor_industries, through: :mentor_industry_users
+  accepts_nested_attributes_for :mentor_industry_users, allow_destroy: true
+
+  # validates_presence_of :mentor_industry, if: :mentor
+
   after_validation :check_industry
 
   before_save :ensure_location_or_zip
@@ -77,12 +83,17 @@ class User < ActiveRecord::Base
     "Director/VP/Chief Architect",
     "C-Level/Founder"
   ]
+  # this array is now also an enum in the mentor_industry_user.rb model, but is currently still called in the user edit view for @user.stage_of_career
 
   PRIMARY_INDUSTRY = [
     "Business",
     "Technology",
     "Startup"
   ]
+  # this array can be migrated to the database so users can choose multiple mentor_industries with:
+  # MentorIndustry.create(name: "Business")
+  # MentorIndustry.create(name: "Technology")
+  # MentorIndustry.create(name: "Startup")
 
   TOP_3_INTERESTS = [
     "Arts",

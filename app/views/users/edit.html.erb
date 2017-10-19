@@ -62,8 +62,8 @@
             <h4 class="medium-frame">Primary Industry:
               <div class="form-group">
                 <% @industries.each do |industry| %>
-                  <%= f.radio_button :primary_industry, industry%>
-                  <%= f.label :industry, industry.humanize, :value => industry%>
+                  <%= f.radio_button :primary_industry, industry.name%>
+                  <%= f.label :industry, industry.name, :value => industry%>
                 <%end%>
                 <%= f.radio_button :primary_industry, "Other"%>
                 <%= f.label :Other, "Other".humanize, :value => "Other"%></br>
@@ -83,8 +83,8 @@
             <h4 class="medium-frame">I want to be a peer with others in this industry:
               <div>
                 <% @industries.each do |industry| %>
-                  <%= f.radio_button :peer_industry, industry%>
-                  <%= f.label :industry, industry.humanize, :value => industry%>
+                  <%= f.radio_button :peer_industry, industry.name%>
+                  <%= f.label :industry, industry.name, :value => industry%>
                 <%end%>
               </div>
             </h4>
@@ -94,15 +94,17 @@
             </h4>
             <h4 class="medium-frame">
               <div id="mentor_info">
-                If yes:
-                <% @industries.each do |industry| %>
-                  <%= f.radio_button :mentor_industry, industry%>
-                  <%= f.label :industry, industry.humanize, :value => industry%>
-                <%end%></br>
+                <%= f.fields_for :mentor_industry_users, @user.mentor_industry_users do |f| %>
+                  <%= f.hidden_field :mentor_industry_id %>
+                  <div class="mentor_check_box"><%= f.check_box :_destroy, {checked: f.object.id?}, '0', '1' %> <%= f.label :_destroy, f.object.name %></div>
+                  <div class="mentor_career_stage"><%= f.collection_select :career_stage, @career_stages.keys, :to_s, :to_s %></div>
+                <% end %>
+              </div>
                 How many times would you like to mentor per month?
                 <%= f.number_field :mentor_limit, in: 0..10%></br>
               </div>
             </h4>
+
           </div>
           <div class="col-md-6">
             <div class="medium-frame">

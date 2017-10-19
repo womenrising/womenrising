@@ -20,7 +20,13 @@ $(function() {
     $("#mentor_info").toggleClass("hidden", $(this).val() == "false");
   }).trigger('change');
 
-  $('#user_location_id').on('change', function() {
-    $('#zip-code').toggleClass("hidden", $(this).val() !== "");
-  }).trigger('change');
+  $("#user_location_id").on("change", function() {
+    $("#zip-code").toggleClass("hidden", $(this).val() !== "");
+  }).trigger("change");
+
+  $('.mentor_check_box').children('input[type="checkbox"]').each(function(index) {
+    $(this).on('change', function() {
+      $('.mentor_career_stage').eq(index).toggleClass("hidden", this.checked == false);
+    }).trigger('change');
+  });
 });

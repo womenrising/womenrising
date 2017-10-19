@@ -111,9 +111,17 @@
           <h4 class="medium-frame">Email: <div><%= @user.email%></div></h4>
           <h4 class="medium-frame">Stage Of Career: <div><%= @user.stage_of_career_name %></div>
           </h4>
-          <h4 class="medium-frame">I want to be a peer with: <div><%= @user.peer_industry%></div></h4>
+          <h4 class="medium-frame">I want to be a peer with women in this industry: <div><%= @user.peer_industry%></div></h4>
           <% if @user.mentor == true %>
-            <h4 class="medium-frame">I will mentor women in this industry: <div><%= @user.mentor_industry %></div></h4>
+            <h4 class="medium-frame">Industries I will mentor in:
+              <% @user.mentor_industry_users.each do |miu| %>
+                <ul>
+                  <li>
+                    <div><strong><%= miu.name %></strong> as a <%= miu.career_stage %> in the industry.</div>
+                  </li>
+                </ul>
+              <% end %>
+            </h4>
           <% end %>
         </div>
       </div>

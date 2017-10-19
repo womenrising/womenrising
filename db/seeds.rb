@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+MentorIndustry.create(name: "Business")
+MentorIndustry.create(name: "Technology")
+MentorIndustry.create(name: "Startup")
+
 Fabricator(:location) do
   city { Faker::Address.city }
   state { Faker::Address.state_abbr }
