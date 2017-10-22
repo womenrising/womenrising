@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe MentorIndustry, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:mentor_industry) { create(:mentor_industry, name: "Business")}
+  it "has a name" do
+    expect(mentor_industry.name).to eq("Business")
+  end
 end
