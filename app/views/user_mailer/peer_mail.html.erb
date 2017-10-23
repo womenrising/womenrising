@@ -3,30 +3,51 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
   </head>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+    a,
+    h1 {
+      color: rgb(45, 62, 93);
+    }
+
+  </style>
+
   <body>
-		<h1>Introducing, Your Women Rising matches!</h1>
+    <h1>Here Are Your Women Rising Matches!</h1>
 
-		<h3>Get ready to schedule and meet with your new friends!</h3>
+    <img src="http://www.womenrising.co/assets/logo-7e380c299d3a84e6826ba4e5b7d7108934cb661659ac99bf1e928fb715a4ba4b.png" alt="">
 
-		<p>Welcome to your "Mini-meetup match" email! Remember, from here we leave it to you to get in touch with your two peer matches and find a time for a group coffee, lunch or a drink in your area. <strong>Find time to schedule in the next couple weeks so you don't forget!</strong></p>
+    <h3>Get ready to schedule and meet with your new friends!</h3>
 
-		<h4>Your mini-meetup for this month: </h4>
-		<ul>
+    <p>Welcome to your "Mini-meetup match" email! Remember, from here we leave it to you to get in touch with your two peer matches and find a time for a group coffee, lunch or a drink in your area.
+      <strong>Find time to schedule in the next couple weeks so you don't forget!</strong>
+    </p>
+
+    <h4>Your mini-meetup for this month:
+    </h4>
+    <ul>
       <% @peers.each do |peer| %>
-        <li>
-          <b><%= peer.first_name %> <%= peer.last_name %></b>
-          <br><%= mail_to peer.email %> (Ask me about: <%= peer.top_3_interests.join(", ") %>)
-          <% if peer.linkedin_url %><br><%= link_to 'Connect on LinkedIn', peer.linkedin_url %><% end %>
-        </li>
+      <li>
+        <strong><%= peer.first_name %>
+          <%= peer.last_name %></strong>
+        <br><%= mail_to peer.email %>
+        (Ask me about:
+        <%= peer.top_3_interests.join(", ") %>)
+        <% if peer.linkedin_url %><br><%= link_to 'Connect on LinkedIn', peer.linkedin_url %><% end %>
+      </li>
       <% end %>
-		</ul>
+    </ul>
 
-		<p>Remember, this is about meeting new people so be open minded! You never know which of these women could become your new best friend or help you get your next job. Make our day by tweeting a picture or a story of your match at @TheWomenRising!
-		</p>
+    <p>Remember, this is about meeting new people so be open minded! You never know which of these women could become your new best friend or help you get your next job. Make our day by tweeting a picture or a story of your match at
+      <a href="https://twitter.com/TheWomenRising" target="_blank">@TheWomenRising</a>!
+    </p>
 
-		<p>Happy solidarity and inspiration!</p>
-		<p>The Women Rising Team</p>
+    <p>Happy solidarity and inspiration!</p>
+    <p>Love,</p>
+    <p>The Women Rising Team</p>
 
-		<p>Groups were formed based on your location. This formula is still in development, so feel free to reply with some <%= mail_to "info@womenrising.co", "Feedback" %>!<p>
-	</body>
-</div>
+    <p>PS Groups were formed based on your location. This formula is still in development, so feel free to reply with some
+      <%= mail_to "info@womenrising.co", "Feedback" %>!</p>
+    </body>
