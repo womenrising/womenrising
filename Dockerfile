@@ -1,24 +1,21 @@
-FROM westonplatter/ruby-nodejs-postgres:2.3.1
+FROM ruby:2.3.1-alpine
 
-RUN apt-get update -qq \
-  && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    ruby-dev \
-    zlib1g-dev \
-    liblzma-dev \
-    libxslt-dev \
-    libxml2-dev \
-    nodejs \
-    locales
+# Install libraries needed for native extensions
+RUN apk add --no-cache build-base libxml2-dev libxslt-dev postgresql-dev nodejs tzdata
 
-RUN mkdir /app
-WORKDIR /app
+RUN mkdir /womenrising
+WORKDIR /womenrising
 
-ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
+# Grab the latest version of Bundler
+RUN gem install bundler
 
-# RUN bundle install
-RUN gem install bundler && bundle install --jobs 20 --retry 5
+# Configure nokogiri to use libxml2-dev and libxslt-dev
+# As of nokogiri 1.6.8, the --use-system-libraries work-around is unnecessary.
+RUN bundle config build.nokogiri --use-system-libraries
 
-ADD . /app
+ADD Gemfile /womenrising/Gemfile
+ADD Gemfile.lock /womenrising/Gemfile.lock
+
+RUN bundle install
+
+ADD . /womenrising

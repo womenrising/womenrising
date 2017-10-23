@@ -1,0 +1,14 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  host: db
+
+development:
+  <<: *default
+  database: womenrising_development
+
+test:
+  <<: *default
+  database: womenrising_test
