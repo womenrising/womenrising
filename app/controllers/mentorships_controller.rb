@@ -25,7 +25,7 @@ class MentorshipsController < ApplicationController
   end
 
   def destroy
-    @mentorship = policy_scope(Mentorship).find(params[:id])
+    @mentorship = destroy_policy_scope(Mentorship).find(params[:id])
     if @mentorship.mentor
       flash[:danger] = 'Unable to delete active or past mentorships'
       redirect_to user_path(current_user)
@@ -36,9 +36,26 @@ class MentorshipsController < ApplicationController
     end
   end
 
+  def mark_completed
+    mentorship = mark_completed_policy_scope(Mentorship).find(params[:id])
+    user = current_user
+
+    if mentorship.mentor_id == user.id
+      mentorship.mentor_completed = true
+    elsif mentorship.mentee_id == user.id
+      mentorship.mentee_completed = true
+    end
+    mentorship.save
+    redirect_to :back
+  end  
+
   private
 
-  def policy_scope scope
+  def destroy_policy_scope scope
     scope.where(mentee: current_user)
+  end
+
+  def mark_completed_policy_scope scope
+    scope.where(["mentee_id = ? or mentor_id = ?", current_user, current_user])
   end
 end
