@@ -21,37 +21,82 @@ info@womenrising.co and we will do our best to address them!
 ## Getting Started
 Check out our [Contributing doc](https://github.com/womenrising/womenrising/blob/master/CONTRIBUTING.md) for more information on contributing to this project. In order to get started please fork the repo and clone it to have it locally on your computer.
 
-### Setup Options
+### Setup
 
-##### Mac OSX
-
-If you don't have Ruby installed, check out [Getting Started with Ruby](https://github.com/womenrising/womenrising/blob/master/GETTING_STARTED_WITH_RUBY.md)
-
-1. Fork, then clone the repo and cd (change directory) into the womenrising rails app and
-install the gems.
+1. Clone the repo and `cd` (change directory) into the newly created directory.
 
   ```sh
   git clone git@github.com:your-username/womenrising.git
   cd womenrising
+  ```
+2. Copy `config/application.example.yml` to `config/application.yml`.
+
+  ```sh
+  cp config/application.example.yml config/application.yml
+  ```
+
+From here, there are two possible ways to continue. The easiest option is to use Docker to run the application in a container. The other option is to set up the Rails app traditionally. Consider which is best for you and then follow one of the sets of instructions below.
+
+#### Option 1: Docker
+
+Make sure you have Docker installed and the daemon running.
+
+1. Copy or symlink `config/database.docker.yml` to `config/database.yml`.
+  ```sh
+  ln -s database.docker.yml config/database.yml
+  ```
+
+2. Build the necessary Docker images.
+
+  ```sh
+  docker-compose build
+  ```
+
+3. Create the database
+
+  ```sh
+  docker-compose run web rake db:create db:migrate db:seed
+  ```
+
+4. Start the Rails and Postgres servers
+
+  ```sh
+  docker-compose up
+  ```
+
+You should be able to see it running at [localhost:3000](http://localhost:3000).
+
+Try `docker-compose run web rspec` to run the tests.
+
+#### Option 2: Traditional
+
+If you don't have Ruby installed, check out [Getting Started with Ruby](https://github.com/womenrising/womenrising/blob/master/GETTING_STARTED_WITH_RUBY.md)
+
+1. Install the required gems.
+
+  ```sh
   bundle install
   ```
 
 2. Set up the database:
 
+  Copy `config/database.local.yml` to `config/database.yml` and edit as necessary.
+
+  Then create and seed the database with:
+
   ```sh
-  rake db:create
-  rake db:migrate
-  rake db:seed  # seed file containing test users
+  bundle exec rake db:create
+  bundle exec rake db:migrate
+  bundle exec rake db:seed  # seed file containing test users
   ```
 
-3. Copy `config/application.example.yml` to `config/application.yml`. Then run the test suite to ensure everything is passing.
+3.  Run the test suite to ensure everything is passing.
 
   ```sh
   bundle exec rspec spec/
   ```
 
-4. Fire up the app, and open your web browser to
-[localhost:3000](http://localhost:3000).
+4. Fire up the app, and open your web browser to [localhost:3000](http://localhost:3000).
 
   ```sh
   rails server
@@ -61,25 +106,6 @@ install the gems.
 
   ```sh
   bundle exec guard
-  ```
-
-
-#### Docker
-
-1. Install docker-machine locally
-
-2. Start `docker-machine`,
-
-  ```sh
-  docker-machine start default
-  docker-machine env default
-  ```
-
-2. Run these commands,
-  ```sh
-  docker-compose build
-  docker-compose run web rake db:create db:migrate
-  docker-compose up
   ```
 
 ---
