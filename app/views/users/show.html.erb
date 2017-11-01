@@ -7,6 +7,11 @@
   <div class="large-frame">
     <h2><%= @user.full_name %></h2>
   </div>
+
+  <div>
+    <%= link_to "Mentorship History", mentorships_path %>
+  </div>
+
   <% if @user == current_user && @user.mentees.present? %>
     <h4>Your Mentors</h4>
     <ul class="mentor-list">
