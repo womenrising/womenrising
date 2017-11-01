@@ -671,4 +671,8 @@ a.btn:hover {
 .mentorships-index {
   font-size: 16px;
   padding-top: 20px;
+
+  .mentorship--mentee, .mentorship--mentor, .mentorship--created-at {
+    width: 150px;
+  }
 }

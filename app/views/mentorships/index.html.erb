@@ -1,36 +1,38 @@
 <div class="container mentorships-index">
-  <div class="row">
-    <div class="col-md-3">
-      Mentor
-    </div>
-    <div class="col-md-3">
-      Mentee
-    </div>
-    <div class="col-md-2">
-      Question
-    </div>
-    <div class="col-md-2">
-      Created
-    </div>
-  </div>
-  <% @mentorships.each do |mentorship| %>
-    <div class="row">
-      <div class="col-md-3">
-        <% if mentorship.mentor %>
-          <%= link_to mentorship.mentor.full_name, user_path(mentorship.mentor) %>
-        <% else %>
-          <i>Pending</i>
-        <% end %>
-      </div>
-      <div class="col-md-3">
-        <%= link_to mentorship.mentee.full_name, user_path(mentorship.mentee) %>
-      </div>
-      <div class="col-md-3">
-        <%= mentorship.question %>
-      </div>
-      <div class="col-md-3">
-        <%= l mentorship.created_at, format: :default %>
-      </div>
-    </div>
-  <% end %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Mentor</th><th>Mentee</th><th>Question</th><th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @mentorships.each do |mentorship| %>
+        <tr class="mentorship--row">
+          <td class="mentorship--mentor">
+            <% if mentorship.mentor == current_user %>
+              <%= current_user.full_name %>
+            <% elsif mentorship.mentor %>
+              <%= link_to mentorship.mentor.full_name, user_path(mentorship.mentor) %>
+            <% else %>
+              <i>Pending</i>
+              <%= link_to "Cancel", mentorship_path(mentorship), method: :delete %></br>
+            <% end %>
+          </td>
+          <td class="mentorship--mentee">
+            <% if mentorship.mentee == current_user %>
+              <%= current_user.full_name %>
+            <% else %>
+              <%= link_to mentorship.mentee.full_name, user_path(mentorship.mentee) %>
+            <% end %>
+          </td>
+          <td class="mentorship--question">
+            <%= mentorship.question %>
+          </td>
+          <td class="mentorship--created-at">
+            <%= l mentorship.created_at.to_date, format: :default %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
