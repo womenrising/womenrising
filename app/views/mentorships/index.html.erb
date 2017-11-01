@@ -1,0 +1,36 @@
+<div class="container mentorships-index">
+  <div class="row">
+    <div class="col-md-3">
+      Mentor
+    </div>
+    <div class="col-md-3">
+      Mentee
+    </div>
+    <div class="col-md-2">
+      Question
+    </div>
+    <div class="col-md-2">
+      Created
+    </div>
+  </div>
+  <% @mentorships.each do |mentorship| %>
+    <div class="row">
+      <div class="col-md-3">
+        <% if mentorship.mentor %>
+          <%= link_to mentorship.mentor.full_name, user_path(mentorship.mentor) %>
+        <% else %>
+          <i>Pending</i>
+        <% end %>
+      </div>
+      <div class="col-md-3">
+        <%= link_to mentorship.mentee.full_name, user_path(mentorship.mentee) %>
+      </div>
+      <div class="col-md-3">
+        <%= mentorship.question %>
+      </div>
+      <div class="col-md-3">
+        <%= l mentorship.created_at, format: :default %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -36,6 +36,10 @@ class MentorshipsController < ApplicationController
     end
   end
 
+  def index
+    @mentorships = current_user.mentorships
+  end
+
   private
 
   def policy_scope scope

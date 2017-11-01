@@ -162,6 +162,10 @@ class User < ActiveRecord::Base
     SlackNotification.notify(action, message)
   end
 
+  def mentorships
+    Mentorship.where('mentor_id = :user_id OR mentee_id = :user_id', user_id: id)
+  end
+
   def check_industry
     if self.primary_industry == "Other" || self.primary_industry == nil || self.peer_industry == nil || self.top_3_interests == [] || self.current_goal == nil
       self.waitlist = true
