@@ -8,10 +8,6 @@
     <h2><%= @user.full_name %></h2>
   </div>
 
-  <div>
-    <%= link_to "Mentorship History", mentorships_path %>
-  </div>
-
   <% if @user == current_user && @user.mentees.present? %>
     <h4>Your Mentors</h4>
     <ul class="mentor-list">
@@ -52,6 +48,10 @@
       <% end %>
     </ul>
   <% end %>
+
+  <div>
+    <%= link_to "Mentorship History", mentorships_path, class: 'btn medium-frame btn-secondary' %>
+  </div>
 
   <% if @user.peers.any? %>
     <h4><%= @user == current_user ? 'Your' : '' %> Peers This Month</h4>
