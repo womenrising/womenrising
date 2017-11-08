@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-feature "I want to see a list of past mentorships", focus: true do
+feature "I want to see a list of past mentorships" do
   let(:user) { create :user, :not_on_waitlist }
-  let!(:mentorship1) { create :mentorship, mentee: user }
-  let!(:mentorship2) { create :mentorship, mentor: user }
+  let!(:mentorship1) { create :mentorship, :with_mentor, mentee: user }
+  let!(:mentorship2) { create :mentorship, :with_mentor, mentor: user }
 
   before do
     login_as(user, :scope => :user)
