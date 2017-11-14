@@ -7,13 +7,13 @@ class MentorshipsController < ApplicationController
 
   def new
     @user = current_user
-    @mentorship = Mentorship.new()
+    @mentorship = Mentorship.new
     @industries = ['Technology', 'Business', 'Startup']
   end
 
   def create
     @user = current_user
-    @mentorship = Mentorship.new(mentee_id: current_user.id, question: params[:mentorship][:question])
+    @mentorship = Mentorship.new mentee_id: current_user.id, question: params[:mentorship][:question]
 
     if @mentorship.save
       flash[:success] = 'Your request for a mentor has been submitted. Mentor matches are run daily, and you will receive an email when you are matched.'

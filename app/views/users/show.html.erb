@@ -49,9 +49,11 @@
     </ul>
   <% end %>
 
-  <div>
-    <%= link_to "Mentorship History", mentorships_path, class: 'btn medium-frame btn-secondary' %>
-  </div>
+  <% if @user == current_user %>
+    <div>
+      <%= link_to "Mentorship History", mentorships_path, class: 'btn medium-frame btn-secondary' %>
+    </div>
+  <% end %>
 
   <% if @user.peers.any? %>
     <h4><%= @user == current_user ? 'Your' : '' %> Peers This Month</h4>
