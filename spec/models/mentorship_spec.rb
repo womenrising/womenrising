@@ -4,6 +4,11 @@ RSpec.describe Mentorship, :type => :model do
    it{should belong_to(:mentee).class_name('User').with_foreign_key('mentee_id')}
    it{should belong_to(:mentor).class_name('User').with_foreign_key('mentor_id')}
    before{100.times{FactoryGirl.create(:user)}}
+   before(:all) do
+     MentorIndustry.create(name: "Business")
+     MentorIndustry.create(name: "Technology")
+     MentorIndustry.create(name: "Startup")
+   end
 
   it "can get users" do
     expect(FactoryGirl.create(:user)).to be_valid
@@ -20,7 +25,6 @@ RSpec.describe Mentorship, :type => :model do
       expect(mentor_session).to be_an_instance_of(Mentorship)
       expect(mentor).to be_an_instance_of(User)
       expect(mentor.stage_of_career).to be(user.stage_of_career)
-      expect(mentor.mentor_industry).to eq(user.mentor_industry)
       expect(mentor.waitlist).to be(false)
     end
 

@@ -1,8 +1,17 @@
 FactoryGirl.define do
   factory :mentor_industry_user, class: MentorIndustryUser do
-    mentor_industry_id 5
-    user_id 6
-    career_stage 2
-  end
+    trait :senior_tech_mentor do
+      after_create do |industry_user|
+        industry_user.mentor_industry = create :mentor_industry, :technology
+        industry_user.career_stage = 3
+      end
+    end
 
+    trait :founder_tech_mentor do
+      after_create do |industry_user|
+        industry_user.mentor_industry = create :mentor_industry, :technology
+        industry_user.career_stage = 5
+      end
+    end
+  end
 end

@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def show
     permitted_users = User.where(id: current_user.related_user_ids)
     @user = permitted_users.find(params[:id])
+    @career_stages = MentorIndustryUser.career_stages
   end
 
   def edit

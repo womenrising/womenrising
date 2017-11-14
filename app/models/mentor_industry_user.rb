@@ -10,6 +10,7 @@
 
 class MentorIndustryUser < ActiveRecord::Base
   belongs_to :mentor_industry
+  belongs_to :user
 
   enum career_stage: {
     "Intern/Apprentice/Aspiring" => 1,

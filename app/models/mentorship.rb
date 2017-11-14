@@ -44,16 +44,44 @@ class Mentorship < ActiveRecord::Base
 
 private
 
+  # def get_possible_mentors
+  #   if mentee.stage_of_career == 5
+  #     User.where(mentor: true, waitlist: false, stage_of_career: 5)
+  #         .where( "mentor_times > ?", 0)
+  #         .where(mentor_industry: mentee.primary_industry)
+  #         .where("id != ?", mentee.id)
+  #   else
+  #     User.where(mentor: true, waitlist: false)
+  #         .where("stage_of_career > ? AND mentor_times > ?", mentee.stage_of_career, 0)
+  #         .where(mentor_industry: mentee.primary_industry)
+  #   end
+  # end
+
   def get_possible_mentors
+    industry_key = MentorIndustry.find_by_name(mentee.primary_industry).id
+
+    # puts "MentorIndustryUsers:"
+    # puts User.all
+    # puts MentorIndustryUser.all
+
+    puts "mentor industry users"
+    puts MentorIndustryUser.where.not(user_id: mentee.id).map { |m| m.user_id }
+    puts "corresponding users"
+    puts User.joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
+    # .where("mentor_times > ?", 0)
+    # .where.not(id: mentee.id)
+    # .joins("INNER JOIN mentor_industry_users ON mentor_industry_users.mentor_industry_id = #{industry_key}")
+              # .where("stage_of_career > ? AND mentor_times > ?", mentee.stage_of_career, 0)
+              # :mentor_industry_users).where("mentor_industry_users.mentor_industry_id" =>
     if mentee.stage_of_career == 5
       User.where(mentor: true, waitlist: false, stage_of_career: 5)
           .where( "mentor_times > ?", 0)
-          .where(mentor_industry: mentee.primary_industry)
-          .where("id != ?", mentee.id)
+          .where.not(id: mentee.id)
+          .joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
     else
       User.where(mentor: true, waitlist: false)
           .where("stage_of_career > ? AND mentor_times > ?", mentee.stage_of_career, 0)
-          .where(mentor_industry: mentee.primary_industry)
+          .joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
     end
   end
 

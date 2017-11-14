@@ -1,6 +1,15 @@
 FactoryGirl.define do
   factory :mentor_industry, class: MentorIndustry do
-    name "Example"
-  end
+    trait :business do
+      name "Business"
+    end
 
+    trait :startup do
+      name "Startup"
+    end
+
+    trait :technology do
+      name "Technology"
+    end
+  end
 end

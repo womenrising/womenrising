@@ -58,9 +58,7 @@ ActiveRecord::Schema.define(version: 20171019201011) do
   end
 
   create_table "mentor_industries", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "name"
   end
 
   create_table "mentor_industry_users", force: true do |t|

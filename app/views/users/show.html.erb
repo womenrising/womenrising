@@ -109,7 +109,7 @@
         </div>
         <div class="col-md-6">
           <h4 class="medium-frame">Email: <div><%= @user.email%></div></h4>
-          <h4 class="medium-frame">Stage Of Career: <div><%= @user.stage_of_career_name %></div>
+          <h4 class="medium-frame">Stage Of Career: <div><%= @career_stages.key(@user.stage_of_career) %></div>
           </h4>
           <h4 class="medium-frame">I want to be a peer with women in this industry: <div><%= @user.peer_industry%></div></h4>
           <% if @user.mentor == true %>

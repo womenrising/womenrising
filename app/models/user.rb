@@ -76,24 +76,11 @@ class User < ActiveRecord::Base
     "Finding work/life balance"
   ]
 
-  STAGE_OF_CAREER = [
-    "Intern/Apprentice/Aspiring",
-    "Gaining a foothold",
-    "Management / Senior",
-    "Director/VP/Chief Architect",
-    "C-Level/Founder"
-  ]
-  # this array is now also an enum in the mentor_industry_user.rb model, but is currently still called in the user edit view for @user.stage_of_career
-
   PRIMARY_INDUSTRY = [
     "Business",
     "Technology",
     "Startup"
   ]
-  # this array can be migrated to the database so users can choose multiple mentor_industries with:
-  # MentorIndustry.create(name: "Business")
-  # MentorIndustry.create(name: "Technology")
-  # MentorIndustry.create(name: "Startup")
 
   TOP_3_INTERESTS = [
     "Arts",

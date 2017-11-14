@@ -1,9 +1,15 @@
 class CreateMentorIndustries < ActiveRecord::Migration
-  def change
+  def up
     create_table :mentor_industries do |t|
       t.string :name
-
-      t.timestamps
     end
+
+    MentorIndustry.create(name: "Business")
+    MentorIndustry.create(name: "Technology")
+    MentorIndustry.create(name: "Startup")
+  end
+
+  def down
+    drop_table :mentor_industries
   end
 end
