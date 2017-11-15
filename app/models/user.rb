@@ -62,8 +62,6 @@ class User < ActiveRecord::Base
   has_many :mentor_industries, through: :mentor_industry_users
   accepts_nested_attributes_for :mentor_industry_users, allow_destroy: true
 
-  # validates_presence_of :mentor_industry, if: :mentor
-
   after_validation :check_industry
 
   before_save :ensure_location_or_zip

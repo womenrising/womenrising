@@ -62,8 +62,8 @@
             <h4 class="medium-frame">Primary Industry:
               <div class="form-group">
                 <% @industries.each do |industry| %>
-                  <%= f.radio_button :primary_industry, industry.name%>
-                  <%= f.label :industry, industry.name, :value => industry%>
+                  <%= f.radio_button :primary_industry, industry.name.humanize %>
+                  <%= f.label :industry, industry.name.humanize, :value => industry%>
                 <%end%>
                 <%= f.radio_button :primary_industry, "Other"%>
                 <%= f.label :Other, "Other".humanize, :value => "Other"%></br>
