@@ -27,7 +27,6 @@ describe UsersController do
       subject = patch :update, id: user.id, user: user_params
 
       expect(user.first_name).to eq 'Test'
-      # I would not expect a user's mentor industry to be 'Business' if 'mentor' is set to false
       expect(user.peer_industry).to eq 'Business'
       expect(user.current_goal).to eq 'Switching industries'
       expect(user.top_3_interests).to eq ["Arts", "Music", "Crafting"]

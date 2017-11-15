@@ -18,6 +18,7 @@ RSpec.describe Mentorship, :type => :model do
     it "Should choose a valid person to mentor" do
       user = create :mentor
       mentee = create :mentee
+      miu = create :mentor_industry_user, user: user, mentor_industry: MentorIndustry.where(name: "Technology").first
 
       mentor_session = Mentorship.create(mentee_id: mentee.id, question: "Hello?")
       mentor = mentor_session.choose_mentor
@@ -32,6 +33,7 @@ RSpec.describe Mentorship, :type => :model do
       user = create :mentor, stage_of_career: 3
       user2 = create :mentor, stage_of_career: 5
       mentee = create :mentee, stage_of_career: 5
+      miu = create :mentor_industry_user, user: user2, mentor_industry: MentorIndustry.where(name: "Technology").first
 
       mentor_session = Mentorship.create(mentee_id: mentee.id, question: "Hello?")
       mentor = mentor_session.choose_mentor

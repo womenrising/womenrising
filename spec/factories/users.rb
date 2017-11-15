@@ -59,20 +59,6 @@ FactoryGirl.define do
       not_on_waitlist
       mentor_industry 'Technology'
       stage_of_career 5
-
-      trait :senior_tech_mentor do
-        after_create do |mentor|
-          industry_user = create :mentor_industry_user, :senior_tech_mentor, user_id: mentor.id
-          mentor.mentor_industry_users << industry_user
-        end
-      end
-
-      trait :founder_tech_mentor do
-        after_create do |mentor|
-          industry_user = create :mentor_industry_user, :founder_tech_mentor, user_id: mentor.id
-          mentor.mentor_industry_users << industry_user
-        end
-      end
     end
 
     factory :mentee do
@@ -80,5 +66,6 @@ FactoryGirl.define do
       primary_industry 'Technology'
       any_stage_of_career
     end
+
   end
 end
