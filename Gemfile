@@ -24,12 +24,12 @@ group :development do
   gem 'spring', '1.4.4'
   gem 'binding_of_caller'
   gem 'letter_opener'
+  gem 'better_errors'
 end
 
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
-  gem 'better_errors'
   gem 'coveralls', require: false
   gem 'database_cleaner'
   gem 'fabrication'
