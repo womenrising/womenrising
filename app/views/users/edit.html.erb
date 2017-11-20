@@ -8,124 +8,91 @@
     <%end%>
   <%end%>
 
-  <aside class="col-md-3 col-md-offset-1 side-divider">
+  <aside class="col-md-3 side-divider">
     <%= image_tag(@user.get_image_url, class: "profile") %>
     <div class="large-frame">
       <h3><%= @user.first_name%> <%= @user.last_name %></h3>
     </div>
   </aside>
 
-  <main class="col-md-8 side-frame">
+  <main>
     <div class="blog-main">
-      <section class="mentor divider">
+      <section class="mentor divider col-md-9">
         <h1 class="subject no-frame">Edit Your Profile</h1>
         <br>
-      </section>
-      <% if @user.waitlist%>
-        <section class="waitlist large-frame">
+        <% if @user.waitlist%>
           <h2 class="no-frame">Status: <span>Waitlisted</span></h2>
           <p class="tiny-frame">Either because you made your primary career 'Other' (which we currently don't support yet) or you did not finish your profile</p>
-        </section>
-      <%end%>
-      <section class="context">
-        <h2>Info</h2>
-        <div class="row flush">
-          <div class="col-md-6 flush">
-            <h4 class="medium-frame">Name:
-              <div class="form-group">
-                <%= f.label :First_Name %>
-                <%= f.text_field :first_name, class: 'form-control' %></br>
-                <%= f.label :Last_Name%>
-                <%= f.text_field :last_name, class: 'form-control' %></br>
-              </div>
-            </h4>
-            <h4 class="medium-frame">Email:
-              <div class="form-group">
-                <%= f.text_field :email, class: 'form-control' %>
-              </div>
-            </h4>
-            <h4 class="medium-frame">Location:
-              <div class="form-group">
-                <%= f.collection_select(:location_id, Location.all, :id, :city_state, include_blank: 'Other') %>
-              </div>
-            </h4>
-            <h4 class="medium-frame hidden" id="zip-code">Zip Code:
-              <div class="form-group">
-                <%= f.number_field :zip_code, class: 'form-control' %>
-                <p>
-                  You will not be placed in a peer group and can only mentor.
-                  However, we're working hard to expand Women Rising to other areas.
-                  Enter your zip code to let us know where you want a Women Rising chapter.
-                </p>
-              </div>
-            </h4>
-            <h4 class="medium-frame">Primary Industry:
-              <div class="form-group">
-                <% @industries.each do |industry| %>
-                  <%= f.radio_button :primary_industry, industry.name.humanize %>
-                  <%= f.label :industry, industry.name.humanize, :value => industry%>
-                <%end%>
-                <%= f.radio_button :primary_industry, "Other"%>
-                <%= f.label :Other, "Other".humanize, :value => "Other"%></br>
-              </div>
-            </h4>
-            <h4 class="medium-frame">Goal Right Now:
-              <div class="form-group">
-                <%= f.select :current_goal, options_for_select(User::CURRENT_GOALS, @user.current_goal)%> </br>
-              </div>
-            </h4>
-            <h4 class="medium-frame">Stage Of Career:
-              <div>
-                <p><span>NOTE TO THOSE WORKING IN STARTUPS:</span> Rate your stage of career more on experience level than position title. For example, if you're just starting out in your new company, being a CEO is probably equivalent to management level, not CEO level.</p>
-                <%= f.select :stage_of_career, options_for_select(@career_stages, @user.stage_of_career), class: "form-control" %> </br>
-              </div>
-            </h4>
-            <h4 class="medium-frame">I want to be a peer with others in this industry:
-              <div>
-                <% @industries.each do |industry| %>
-                  <%= f.radio_button :peer_industry, industry.name%>
-                  <%= f.label :industry, industry.name.humanize, :value => industry%>
-                <%end%>
-              </div>
-            </h4>
-            <h4 class="medium-frame">
-              Would you like to <%= f.label :Mentor%>?
-              <%= f.select :mentor, options_for_select([["Yes",true],["No",false]], @user.mentor), { :class => 'mentor' } %> </br>
-            </h4>
-            <h4 class="medium-frame">
-              <div id="mentor_info">
-                <%= f.fields_for :mentor_industry_users, @user.mentor_industry_users do |f| %>
-                  <%= f.hidden_field :mentor_industry_id %>
-                  <div class="mentor_check_box"><%= f.check_box :_destroy, {checked: f.object.id?}, '0', '1' %> <%= f.label :_destroy, f.object.name %></div>
-                  <div class="mentor_career_stage"><%= f.collection_select :career_stage, @career_stages.keys, :to_s, :to_s %></div>
-                <% end %>
-              </div>
-                How many times would you like to mentor per month?
-                <%= f.number_field :mentor_limit, in: 0..10%></br>
-              </div>
-            </h4>
-
-          </div>
-          <div class="col-md-6">
-            <div class="medium-frame">
-              <h4 class="no-frame">My Top 3 non-career interests are: </h4>
-              <%= f.label :top_3_interests%></br>
-              <div class="form-group" >
-                <% @interests.each_with_index do |interest,index| %>
-                  <% if (index + 1) % 3 == 0 %>
-                    <div><%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-                    <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></div></br>
-                  <%else%>
-                    <div><%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
-                    <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></div>
-                  <%end%>
-                <%end%></br>
-              </div>
+        <%end%>
+      </section>
+      <h2 class="col-md-9">Info</h2>
+      <section class="context col-md-6">
+        <div class="row flush medium-frame form-group">
+          <h4>First Name</h4>
+          <%= f.text_field :first_name, class: 'form-control' %>
+          <h4>Last Name</h4>
+          <%= f.text_field :last_name, class: 'form-control' %>
+          <h4>Email</h4>
+          <%= f.text_field :email, class: 'form-control' %>
+          <h4>Location</h4>
+          <h4 class="form-group" id="gray-text"><%= f.collection_select(:location_id, Location.all, :id, :city_state, include_blank: 'Other') %></h4>
+          <h4 class="medium-frame hidden" id="zip-code">Zip Code:
+            <div class="form-group">
+              <%= f.number_field :zip_code, class: 'form-control' %>
+              <p>
+                You will not be placed in a peer group and can only mentor.
+                However, we're working hard to expand Women Rising to other areas.
+                Enter your zip code to let us know where you want a Women Rising chapter.
+              </p>
             </div>
-          </div>
+          </h4>
+          <h4>Primary Industry</h4>
+          <h4 id="gray-text">
+            <% @industries.each do |industry| %>
+              <%= f.radio_button :primary_industry, industry.name.humanize %>
+              <%= f.label :industry, industry.name.humanize, :value => industry%>
+            <%end%>
+            <%= f.radio_button :primary_industry, "Other"%>
+            <%= f.label :Other, "Other".humanize, :value => "Other"%>
+          </h4>
+          <h4>Current Goal</h4>
+          <h4 id="gray-text"><%= f.select :current_goal, options_for_select(User::CURRENT_GOALS, @user.current_goal)%></h4>
+          <h4 id="gray-text">NOTE TO THOSE WORKING IN STARTUPS: Rate your stage of career more on experience level than position title. For example, if you're just starting out in your new company, being a CEO is probably equivalent to management level, not CEO level.</h4>
+          <h4>Stage of Career</h4>
+          <h4 id="gray-text"><%= f.select :stage_of_career, options_for_select(@career_stages, @user.stage_of_career), class: "form-control" %></h4>
+          <h4>I want to find peers in this industry</h4>
+          <h4 id="gray-text"><% @industries.each do |industry| %>
+            <%= f.radio_button :peer_industry, industry.name%>
+            <%= f.label :industry, industry.name.humanize, :value => industry%>
+          <%end%></h4>
+          <h4>Would you like to be a mentor? <span id="gray-text"><%= f.select :mentor, options_for_select([["Yes",true],["No",false]], @user.mentor), { :class => 'mentor' } %></span></h4>
+          <h4 id="mentor-info gray-text">
+            <%= f.fields_for :mentor_industry_users, @user.mentor_industry_users do |f| %>
+              <%= f.hidden_field :mentor_industry_id %>
+              <div class="mentor_check_box"><%= f.check_box :_destroy, {checked: f.object.id?}, '0', '1' %> <%= f.label :_destroy, f.object.name %></div>
+              <div class="mentor_career_stage"><%= f.collection_select :career_stage, @career_stages.keys, :to_s, :to_s %></div>
+            <% end %>
+            <br>
+            <%= f.label :How_many_times_would_you_like_to_mentor_per_month?%>
+            <%= f.number_field :mentor_limit, in: 0..10%></br>
+          </h4>
         </div>
       </section>
-      <section class="edit">
+      <section class="edit col-md-3">
+        <div class="medium-frame form-group">
+          <h4>Top 3 Non-Career Interests</h4>
+          <p id="gray-text">
+            <% @interests.each_with_index do |interest,index| %>
+              <% if (index + 1) % 3 == 0 %>
+                <div><%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
+                <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></div></br>
+              <%else%>
+                <div><%= check_box_tag 'user[top_3_interests][]', interest, @user.top_3_interests.include?(interest) %>
+                <%= f.label :interest, interest.humanize, :value => interest, class:"check"%></div>
+              <%end%>
+            <%end%>
+          </p>
+        </div>
         <p>PS -- we'd love if you told some friends or tweeted something like "I just joined @TheWomenRising, an awesome new network for women to connect, support and mentor each other! http://www.womenrising.co"</p>
         <%= f.submit "Submit", class:"btn medium-frame"%>
       </section>
