@@ -47,14 +47,16 @@ private
     industry_key = MentorIndustry.find_by_name(mentee.primary_industry).id
 
     if mentee.stage_of_career == 5
-      User.where(mentor: true, waitlist: false, stage_of_career: 5)
+      User.where(mentor: true, waitlist: false)
           .where( "mentor_times > ?", 0)
           .where.not(id: mentee.id)
           .joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
+          .joins(:mentor_industry_users).where("mentor_industry_users.career_stage" => 5)
     else
       User.where(mentor: true, waitlist: false)
-          .where("stage_of_career > ? AND mentor_times > ?", mentee.stage_of_career, 0)
+          .where("mentor_times > ?", 0)
           .joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
+          .joins(:mentor_industry_users).where("mentor_industry_users.career_stage > ?", mentee.stage_of_career)
     end
   end
 
