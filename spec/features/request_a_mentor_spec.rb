@@ -53,4 +53,17 @@ feature 'User can request a mentor' do
     expect(page).to have_content "Your question has been cancelled"
     expect(page).to have_content "Will you participate"
   end
+
+  context 'with multiple mentors' do
+    let!(:mentorship) { create_list :mentorship, 5, mentor_id: mentor.id, mentee_id: user.id }
+    let(:other_mentor) { create :mentor }
+    let!(:old_mentorship) { create :mentorship, created_at: 1.week.ago, mentor_id: other_mentor.id, mentee_id: user.id }
+
+    scenario 'only shows 3 mentors' do
+      within '.mentor-list' do
+        expect(page).to have_css 'li', count: 3
+        expect(page).to_not have_content other_mentor.full_name
+      end
+    end
+  end
 end

@@ -4,10 +4,12 @@ class UsersController < ApplicationController
 
   def show
     @user = policy_scope(User).find(params[:id])
+    @mentors = @user.mentors.last(3)
+    @mentees = @user.mentees.last(3)
   end
 
   def edit
-    @user = current_user    
+    @user = current_user
   end
 
   def update
