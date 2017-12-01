@@ -4,7 +4,7 @@ feature 'User can request a mentor' do
   let(:user) { create :user, :not_on_waitlist }
   let(:question) { 'This is a question' }
   let(:mentor) { create :mentor }
-  let!(:mentorship) { create :mentorship, mentor_id: mentor.id, mentee_id: user.id }
+  let!(:mentorship) { create :mentorship, created_at: 1.day.ago, mentor_id: mentor.id, mentee_id: user.id }
 
   before do
     login_as(user, :scope => :user)
@@ -55,14 +55,17 @@ feature 'User can request a mentor' do
   end
 
   context 'with multiple mentors' do
-    let!(:mentorship) { create_list :mentorship, 5, mentor_id: mentor.id, mentee_id: user.id }
-    let(:other_mentor) { create :mentor }
-    let!(:old_mentorship) { create :mentorship, created_at: 1.week.ago, mentor_id: other_mentor.id, mentee_id: user.id }
+    let!(:mentorships) { create_list :mentorship, 5, created_at: 2.days.ago, mentor_id: mentor.id, mentee_id: user.id }
+    let!(:old_mentorship) { create :mentorship, created_at: 1.week.ago, mentor_id: mentor.id, mentee_id: user.id, question: 'This is the old question' }
+    let!(:new_mentorship) { create :mentorship, created_at: 1.minute.ago, mentor_id: mentor.id, mentee_id: user.id, question: 'This is the new question' }
 
     scenario 'only shows 3 mentors' do
+      visit user_path(user)
+
       within '.mentor-list' do
         expect(page).to have_css 'li', count: 3
-        expect(page).to_not have_content other_mentor.full_name
+        expect(page).to_not have_content 'This is the old question'
+        expect(page).to have_content 'This is the new question'
       end
     end
   end
