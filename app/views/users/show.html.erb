@@ -8,7 +8,7 @@
     <h2><%= @user.full_name %></h2>
   </div>
 
-  <% if @user == current_user && @user.mentees.present? %>
+  <% if @user == current_user && @mentor_mentorships.present? %>
     <h4>Your Mentors</h4>
     <ul class="mentor-list">
       <% @mentor_mentorships.each do |mentorship| %>
@@ -31,7 +31,7 @@
     </ul>
   <% end %>
 
-  <% if @user == current_user && @user.mentors.present? %>
+  <% if @user == current_user && @mentee_mentorships.present? %>
     <h4>Your Mentees</h4>
     <ul class="mentor-list">
       <% @mentee_mentorships.each do |mentorship| %>

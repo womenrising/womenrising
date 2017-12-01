@@ -47,10 +47,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :omniauthable
 
-
-  has_many :mentors, class_name: "Mentorship", foreign_key: "mentor_id"
-  has_many :mentees, class_name: "Mentorship", foreign_key: "mentee_id"
-
   has_many :peer_group_users
   has_many :peer_groups, through: :peer_group_users
   belongs_to :location
@@ -207,11 +203,11 @@ class User < ActiveRecord::Base
   end
 
   def my_mentors
-    mentees.all.map(&:mentor_id).compact
+    Mentorship.mentoring(self).all.map(&:mentor_id).compact
   end
 
   def my_mentees
-    mentors.all.map(&:mentee_id).compact
+    Mentorship.mentored_by(self).all.map(&:mentee_id).compact
   end
 
   def related_user_ids
