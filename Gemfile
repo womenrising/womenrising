@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.6'
 
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'annotate'
@@ -34,7 +34,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'faker'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'launchy'
   gem 'guard'
   gem 'guard-rails'
