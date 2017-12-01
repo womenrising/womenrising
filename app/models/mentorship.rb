@@ -17,6 +17,9 @@ class Mentorship < ActiveRecord::Base
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
   belongs_to :mentor, class_name: "User", foreign_key: 'mentor_id'
 
+  scope :mentored_by, -> (user) { where mentor: user }
+  scope :mentoring, -> (user) { where mentee: user }
+
   def not_on_waitlist
     errors.add("You are currently Waitlisted","members who are waitlisted cannot get mentors") if self.mentee.waitlist
   end
@@ -59,7 +62,7 @@ private
 
   def get_previous_mentors
     all_mentors = []
-    mentee.mentees.each do |mentor|
+    Mentorship.mentoring(mentee).each do |mentor|
       all_mentors << mentor
     end
     all_mentors

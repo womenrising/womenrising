@@ -4,10 +4,12 @@ class UsersController < ApplicationController
 
   def show
     @user = policy_scope(User).find(params[:id])
+    @mentee_mentorships = Mentorship.mentored_by(@user).order(:created_at).last(3)
+    @mentor_mentorships = Mentorship.mentoring(@user).order(:created_at).last(3)
   end
 
   def edit
-    @user = current_user    
+    @user = current_user
   end
 
   def update
