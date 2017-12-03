@@ -99,6 +99,12 @@ nav {
   margin-bottom: 4px;
 }
 
+.btn-secondary {
+  background-color: #eee;
+  color: black;
+  font-weight: bold;
+}
+
 .hero {
   background: asset-url('splash_filtered.jpg') no-repeat top center;
   background-size: cover;
@@ -669,5 +675,14 @@ a.btn:hover {
     font-size: 14px;
     font-weight: 500;
     margin: 13px 0;
+  }
+}
+
+.mentorships-index {
+  font-size: 16px;
+  padding-top: 20px;
+
+  .mentorship--mentee, .mentorship--mentor, .mentorship--created-at {
+    width: 150px;
   }
 }

@@ -7,7 +7,7 @@ class MentorshipsController < ApplicationController
 
   def new
     @user = current_user
-    @mentorship = Mentorship.new()
+    @mentorship = Mentorship.new
     @industries = ['Technology', 'Business', 'Startup']
   end
 
@@ -34,6 +34,10 @@ class MentorshipsController < ApplicationController
       flash[:success] = 'Your question has been cancelled'
       redirect_to user_path(current_user)
     end
+  end
+
+  def index
+    @mentorships = current_user.mentorships
   end
 
   private

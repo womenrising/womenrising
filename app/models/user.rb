@@ -47,10 +47,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :omniauthable
 
-
-  has_many :mentors, class_name: "Mentorship", foreign_key: "mentor_id"
-  has_many :mentees, class_name: "Mentorship", foreign_key: "mentee_id"
-
   has_many :peer_group_users
   has_many :peer_groups, through: :peer_group_users
   belongs_to :location
@@ -67,6 +63,7 @@ class User < ActiveRecord::Base
   before_save :ensure_location_or_zip
 
   scope :mentors, -> { where(mentor: true) }
+  scope :viewable_by, -> (user) { where(id: user.related_user_ids) }
 
   CURRENT_GOALS = [
     "Rising the ranks / breaking the glass ceiling",
@@ -158,6 +155,10 @@ class User < ActiveRecord::Base
     SlackNotification.notify(action, message)
   end
 
+  def mentorships
+    Mentorship.where('mentor_id = :user_id OR mentee_id = :user_id', user_id: id)
+  end
+
   def check_industry
     if self.primary_industry == "Other" || self.primary_industry == nil || self.peer_industry == nil || self.top_3_interests == [] || self.current_goal == nil
       self.waitlist = true
@@ -198,11 +199,11 @@ class User < ActiveRecord::Base
   end
 
   def my_mentors
-    mentees.all.map(&:mentor_id).compact
+    Mentorship.mentoring(self).all.map(&:mentor_id).compact
   end
 
   def my_mentees
-    mentors.all.map(&:mentee_id).compact
+    Mentorship.mentored_by(self).all.map(&:mentee_id).compact
   end
 
   def related_user_ids

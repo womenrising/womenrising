@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
   before_filter :auth_user
+  before_filter :set_industries_and_interests, only: [:edit, :update]
 
   def show
     permitted_users = User.where(id: current_user.related_user_ids)
     @user = permitted_users.find(params[:id])
     @career_stages = MentorIndustryUser.career_stages
+    @mentee_mentorships = Mentorship.mentored_by(@user).order(:created_at).last(3)
+    @mentor_mentorships = Mentorship.mentoring(@user).order(:created_at).last(3)
   end
 
   def edit
@@ -22,6 +25,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+
     if @user.update(user_params)
       redirect_to user_path(current_user)
     else
@@ -34,7 +38,7 @@ class UsersController < ApplicationController
           @user.mentor_industry_users.build(mentor_industry_id: industry.id)
         end
       end
-
+      
       render 'edit'
     end
   end
@@ -58,6 +62,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_industries_and_interests
+    @industries = User::PRIMARY_INDUSTRY
+    @interests = User::TOP_3_INTERESTS
+  end
 
   def user_params
     params.require(:user).permit(
@@ -83,5 +92,9 @@ class UsersController < ApplicationController
       },
       top_3_interests: []
     )
+  end
+
+  def policy_scope scope
+    scope.viewable_by(current_user)
   end
 end
