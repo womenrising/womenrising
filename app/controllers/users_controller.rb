@@ -3,13 +3,24 @@ class UsersController < ApplicationController
   before_filter :set_industries_and_interests, only: [:edit, :update]
 
   def show
-    @user = policy_scope(User).find(params[:id])
+    permitted_users = User.where(id: current_user.related_user_ids)
+    @user = permitted_users.find(params[:id])
+    @career_stages = MentorIndustryUser.career_stages
     @mentee_mentorships = Mentorship.mentored_by(@user).order(:created_at).last(3)
     @mentor_mentorships = Mentorship.mentoring(@user).order(:created_at).last(3)
   end
 
   def edit
     @user = current_user
+    @industries = MentorIndustry.all
+    @interests = User::TOP_3_INTERESTS
+    @career_stages = MentorIndustryUser.career_stages
+
+    MentorIndustry.all.each do |industry|
+      if !@user.mentor_industry_ids.include?(industry.id)
+        @user.mentor_industry_users.build(mentor_industry_id: industry.id)
+      end
+    end
   end
 
   def update
@@ -18,6 +29,16 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(current_user)
     else
+      @industries = MentorIndustry.all
+      @interests = User::TOP_3_INTERESTS
+      @career_stages = MentorIndustryUser.career_stages
+
+      MentorIndustry.all.each do |industry|
+        if !@user.mentor_industry_ids.include?(industry.id)
+          @user.mentor_industry_users.build(mentor_industry_id: industry.id)
+        end
+      end
+      
       render 'edit'
     end
   end
@@ -56,11 +77,19 @@ class UsersController < ApplicationController
       :mentor_limit,
       :primary_industry,
       :stage_of_career,
-      :mentor_industry,
       :peer_industry,
       :current_goal,
       :location_id,
       :zip_code,
+      {
+        mentor_industry_users_attributes: [
+          :name,
+          :career_stage,
+          :_destroy,
+          :id,
+          :mentor_industry_id
+        ]
+      },
       top_3_interests: []
     )
   end

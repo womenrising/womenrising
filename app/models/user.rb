@@ -53,7 +53,11 @@ class User < ActiveRecord::Base
 
   validates :top_3_interests, length: { maximum: 3, too_long: " is limited to %{count} interests" }
   validates_presence_of :first_name, :last_name
-  validates_presence_of :mentor_industry, if: :mentor
+
+  has_many :mentor_industry_users, dependent: :destroy
+  has_many :mentor_industries, through: :mentor_industry_users
+  accepts_nested_attributes_for :mentor_industry_users, allow_destroy: true
+
   after_validation :check_industry
 
   before_save :ensure_location_or_zip
@@ -65,14 +69,6 @@ class User < ActiveRecord::Base
     "Rising the ranks / breaking the glass ceiling",
     "Switching industries",
     "Finding work/life balance"
-  ]
-
-  STAGE_OF_CAREER = [
-    "Intern/Apprentice/Aspiring",
-    "Gaining a foothold",
-    "Management / Senior",
-    "Director/VP/Chief Architect",
-    "C-Level/Founder"
   ]
 
   PRIMARY_INDUSTRY = [

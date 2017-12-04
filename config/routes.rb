@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :career_stages
+
+  resources :mentor_industries
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
