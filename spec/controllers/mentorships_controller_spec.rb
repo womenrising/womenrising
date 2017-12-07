@@ -29,7 +29,7 @@ describe MentorshipsController do
     end
 
     it 'does not destroy other users mentorships' do
-      expect(Mentorship.find(other_pending_mentorship.id)).not_to be_nil
+      expect(Mentorship.find_by_id(other_pending_mentorship.id)).not_to be_nil
 
       expect do
         delete :destroy, id: other_pending_mentorship.id
