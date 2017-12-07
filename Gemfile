@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.7'
 
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'annotate'
