@@ -2,12 +2,14 @@
 #
 # Table name: mentorships
 #
-#  id         :integer          not null, primary key
-#  mentor_id  :integer
-#  mentee_id  :integer
-#  question   :text
-#  created_at :datetime
-#  updated_at :datetime
+#  id               :integer          not null, primary key
+#  mentor_id        :integer
+#  mentee_id        :integer
+#  question         :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  mentor_completed :boolean          default(FALSE)
+#  mentee_completed :boolean          default(FALSE)
 #
 
 class Mentorship < ActiveRecord::Base
@@ -41,8 +43,8 @@ class Mentorship < ActiveRecord::Base
   end
 
   def send_mail
-    UserMailer.mentor_mail(self).deliver
-    UserMailer.mentee_mail(self).deliver
+    UserMailer.mentor_mail(self).deliver_now
+    UserMailer.mentee_mail(self).deliver_now
   end
 
 private

@@ -16,10 +16,10 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include ActiveSupport::Testing::TimeHelpers
   config.include FeatureHelpers, type: :feature
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Capybara::Email::DSL
 
   include Warden::Test::Helpers
@@ -91,19 +91,9 @@ RSpec.configure do |config|
   end
 end
 
-# Shoulda::Matchers.configure do |config|
-#   config.integrate do |with|
-#     # Choose a test framework:
-#     with.test_framework :rspec
-#     # with.test_framework :minitest
-#     # with.test_framework :minitest_4
-#     # with.test_framework :test_unit
-
-#     # Choose one or more libraries:
-#     with.library :active_record
-#     with.library :active_model
-#     with.library :action_controller
-#     # Or, choose the following (which implies all of the above):
-#     with.library :rails
-#   end
-# end
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end

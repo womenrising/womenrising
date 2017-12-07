@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :mentor_industry_user, class: MentorIndustryUser do
     user
     mentor_industry

@@ -125,7 +125,7 @@ class User < ActiveRecord::Base
       message  = "#{user.id} is a new user"
       SlackNotification.notify(action, message)
 
-      UserMailer.welcome_mail(user).deliver
+      UserMailer.welcome_mail(user).deliver_now
     end
     return user
   end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.4'
+gem 'rails', '4.2.7'
 
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'annotate'
@@ -8,7 +8,7 @@ gem 'devise'
 gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-linkedin-oauth2'
-gem 'pg'
+gem 'pg', '0.20'
 gem 'rollbar'
 gem 'slack-notifier'
 
@@ -25,6 +25,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'better_errors'
+  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
@@ -34,7 +35,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'faker'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'launchy'
   gem 'guard'
   gem 'guard-rails'

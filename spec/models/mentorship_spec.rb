@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Mentorship, :type => :model do
    it{should belong_to(:mentee).class_name('User').with_foreign_key('mentee_id')}
    it{should belong_to(:mentor).class_name('User').with_foreign_key('mentor_id')}
-   before{100.times{FactoryGirl.create(:user)}}
+   before{FactoryBot.create_list(:user, 100)}
    before(:all) do
      MentorIndustry.create(name: "Business")
      MentorIndustry.create(name: "Technology")
@@ -11,7 +11,7 @@ RSpec.describe Mentorship, :type => :model do
    end
 
   it "can get users" do
-    expect(FactoryGirl.create(:user)).to be_valid
+    expect(FactoryBot.create(:user)).to be_valid
   end
 
   context "#choose_mentor" do

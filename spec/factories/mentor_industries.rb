@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :mentor_industry, class: MentorIndustry do
     trait :business do
       name "Business"
