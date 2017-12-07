@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :auth_user
-  before_filter :set_industries_and_interests, only: [:edit, :update]
+  before_action :auth_user
+  before_action :set_industries_and_interests, only: [:edit, :update]
 
   def show
     @user = policy_scope(User).find(params[:id])

@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
 
-    before_filter :redirect_unless_admin
-    before_filter :set_location, only: [:show]
+    before_action :redirect_unless_admin
+    before_action :set_location, only: [:show]
 
     def index
         @locations = Location.all

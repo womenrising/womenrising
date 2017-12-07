@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.5'
 
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'annotate'
@@ -25,6 +25,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'better_errors'
+  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
