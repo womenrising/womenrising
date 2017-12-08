@@ -7,10 +7,11 @@
   <div class="large-frame">
     <h2><%= @user.full_name %></h2>
   </div>
-  <% if @user == current_user && @user.mentees.present? %>
+
+  <% if @user == current_user && @mentor_mentorships.present? %>
     <h4>Your Mentors</h4>
     <ul class="mentor-list">
-      <% @user.mentees.each do |mentorship| %>
+      <% @mentor_mentorships.each do |mentorship| %>
         <li title="<%= mentorship.question %>">
           <%= image_tag mentorship.mentor.get_image_url rescue content_tag(:div, nil, class: 'profile-placeholder') %>
           <p>
@@ -29,35 +30,41 @@
             <% else %>
               <em>Pending</em>
               <%= link_to "Cancel", mentorship_path(mentorship), method: :delete %></br>
-            <% end %> 
+            <% end %>
           </p>
         </li>
       <% end %>
     </ul>
   <% end %>
 
-  <% if @user == current_user && @user.mentors.present? %>
+  <% if @user == current_user && @mentee_mentorships.present? %>
     <h4>Your Mentees</h4>
     <ul class="mentor-list">
-      <% @user.mentors.each do |mentee| %>
+      <% @mentee_mentorships.each do |mentorship| %>
         <li>
-          <%= image_tag mentee.mentee.get_image_url %>
+          <%= image_tag mentorship.mentee.get_image_url %>
           <p>
-            &quot;<%= truncate(mentee.question) %>&quot;
+            &quot;<%= truncate(mentorship.question) %>&quot;
             <br>
-            <a href="<%= user_path mentee.mentee %>">
-              <%= mentee.mentee.full_name %>
+            <a href="<%= user_path mentorship.mentee %>">
+              <%= mentorship.mentee.full_name %>
             </a>
             <br>
-            <% if mentee.mentor_completed %>
+            <% if mentorship.mentor_completed %>
               Completed
             <% else %>
-              Not Completed <%= button_to "I met my Mentee!", mark_completed_mentorship_path(mentee) %>
-            <% end %>    
+              Not Completed <%= button_to "I met my Mentee!", mark_completed_mentorship_path(mentorship) %>
+            <% end %>
           </p>
         </li>
       <% end %>
     </ul>
+  <% end %>
+
+  <% if @user == current_user %>
+    <div>
+      <%= link_to "Mentorship History", mentorships_path, class: 'btn medium-frame btn-secondary' %>
+    </div>
   <% end %>
 
   <% if @user.peers.any? %>
@@ -112,20 +119,28 @@
           <h4 class="medium-frame">Goal Right Now: <div><%= @user.current_goal%></div></h4>
           <div class="medium-frame">
             <h4 class="no-frame">My Top 3 non-career interests are: </h4>
-            <ol>
+            <ul>
               <% @user.top_3_interests.each do |interest|%>
-                <li><%= interest%></li>
+                <li><h4 id="gray-text"><%= interest%></h4></li>
               <% end %>
-            </ol>
+            </ul>
           </div>
         </div>
         <div class="col-md-6">
           <h4 class="medium-frame">Email: <div><%= @user.email%></div></h4>
-          <h4 class="medium-frame">Stage Of Career: <div><%= @user.stage_of_career_name %></div>
+          <h4 class="medium-frame">Stage Of Career: <div><%= @career_stages.key(@user.stage_of_career) %></div>
           </h4>
-          <h4 class="medium-frame">I want to be a peer with: <div><%= @user.peer_industry%></div></h4>
+          <h4 class="medium-frame">I want to find peers in this industry: <div><%= @user.peer_industry%></div></h4>
           <% if @user.mentor == true %>
-            <h4 class="medium-frame">I will mentor women in this industry: <div><%= @user.mentor_industry %></div></h4>
+            <h4 class="medium-frame">Industries I will mentor in:
+              <% @user.mentor_industry_users.each do |miu| %>
+                <ul>
+                  <li>
+                    <div><strong><%= miu.name %></strong> as a <%= miu.career_stage %> in the industry.</div>
+                  </li>
+                </ul>
+              <% end %>
+            </h4>
           <% end %>
         </div>
       </div>

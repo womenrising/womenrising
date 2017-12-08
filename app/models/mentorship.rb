@@ -19,6 +19,9 @@ class Mentorship < ActiveRecord::Base
   belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
   belongs_to :mentor, class_name: "User", foreign_key: 'mentor_id'
 
+  scope :mentored_by, -> (user) { where mentor: user }
+  scope :mentoring, -> (user) { where mentee: user }
+
   def not_on_waitlist
     errors.add("You are currently Waitlisted","members who are waitlisted cannot get mentors") if self.mentee.waitlist
   end
@@ -40,28 +43,31 @@ class Mentorship < ActiveRecord::Base
   end
 
   def send_mail
-    UserMailer.mentor_mail(self).deliver
-    UserMailer.mentee_mail(self).deliver
+    UserMailer.mentor_mail(self).deliver_now
+    UserMailer.mentee_mail(self).deliver_now
   end
 
 private
-
   def get_possible_mentors
+    industry_key = MentorIndustry.find_by_name(mentee.primary_industry).id
+
     if mentee.stage_of_career == 5
-      User.where(mentor: true, waitlist: false, stage_of_career: 5)
+      User.where(mentor: true, waitlist: false)
           .where( "mentor_times > ?", 0)
-          .where(mentor_industry: mentee.primary_industry)
-          .where("id != ?", mentee.id)
+          .where.not(id: mentee.id)
+          .joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
+          .joins(:mentor_industry_users).where("mentor_industry_users.career_stage" => 5)
     else
       User.where(mentor: true, waitlist: false)
-          .where("stage_of_career > ? AND mentor_times > ?", mentee.stage_of_career, 0)
-          .where(mentor_industry: mentee.primary_industry)
+          .where("mentor_times > ?", 0)
+          .joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
+          .joins(:mentor_industry_users).where("mentor_industry_users.career_stage > ?", mentee.stage_of_career)
     end
   end
 
   def get_previous_mentors
     all_mentors = []
-    mentee.mentees.each do |mentor|
+    Mentorship.mentoring(mentee).each do |mentor|
       all_mentors << mentor
     end
     all_mentors

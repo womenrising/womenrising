@@ -1,6 +1,6 @@
 require 'faker'
 
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:email) {|x| "email-#{x}@example.com"}
 
   factory :user, class: User do
@@ -66,5 +66,6 @@ FactoryGirl.define do
       primary_industry 'Technology'
       any_stage_of_career
     end
+
   end
 end

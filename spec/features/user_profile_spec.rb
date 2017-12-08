@@ -19,8 +19,9 @@ describe 'user show page' do
   end
 
   it 'should not be viewable by other users not in current group' do
-    visit user_path(user_in_other_group)
-    expect(page).to_not have_content user_in_other_group.full_name
+    expect do
+      visit user_path(user_in_other_group)
+    end.to raise_error ActiveRecord::RecordNotFound
   end
 
   it 'should show other users in peer group' do

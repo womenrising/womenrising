@@ -46,6 +46,6 @@ class PeerGroup < ActiveRecord::Base
 
   def send_mail
     SlackNotification.notify(:peer_group_send_mail, "Users ##{users.map(&:id).join(", #")}")
-    UserMailer.peer_mail(self).deliver
+    UserMailer.peer_mail(self).deliver_now
   end
 end

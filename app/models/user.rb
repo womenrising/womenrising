@@ -47,35 +47,28 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :omniauthable
 
-
-  has_many :mentors, class_name: "Mentorship", foreign_key: "mentor_id"
-  has_many :mentees, class_name: "Mentorship", foreign_key: "mentee_id"
-
   has_many :peer_group_users
   has_many :peer_groups, through: :peer_group_users
   belongs_to :location
 
   validates :top_3_interests, length: { maximum: 3, too_long: " is limited to %{count} interests" }
   validates_presence_of :first_name, :last_name
-  validates_presence_of :mentor_industry, if: :mentor
+
+  has_many :mentor_industry_users, dependent: :destroy
+  has_many :mentor_industries, through: :mentor_industry_users
+  accepts_nested_attributes_for :mentor_industry_users, allow_destroy: true
+
   after_validation :check_industry
 
   before_save :ensure_location_or_zip
 
   scope :mentors, -> { where(mentor: true) }
+  scope :viewable_by, -> (user) { where(id: user.related_user_ids) }
 
   CURRENT_GOALS = [
     "Rising the ranks / breaking the glass ceiling",
     "Switching industries",
     "Finding work/life balance"
-  ]
-
-  STAGE_OF_CAREER = [
-    "Intern/Apprentice/Aspiring",
-    "Gaining a foothold",
-    "Management / Senior",
-    "Director/VP/Chief Architect",
-    "C-Level/Founder"
   ]
 
   PRIMARY_INDUSTRY = [
@@ -132,7 +125,7 @@ class User < ActiveRecord::Base
       message  = "#{user.id} is a new user"
       SlackNotification.notify(action, message)
 
-      UserMailer.welcome_mail(user).deliver
+      UserMailer.welcome_mail(user).deliver_now
     end
     return user
   end
@@ -160,6 +153,10 @@ class User < ActiveRecord::Base
     action = :match_peers_and_update_users_finish
     message  = "finished update month"
     SlackNotification.notify(action, message)
+  end
+
+  def mentorships
+    Mentorship.where('mentor_id = :user_id OR mentee_id = :user_id', user_id: id)
   end
 
   def check_industry
@@ -202,11 +199,11 @@ class User < ActiveRecord::Base
   end
 
   def my_mentors
-    mentees.all.map(&:mentor_id).compact
+    Mentorship.mentoring(self).all.map(&:mentor_id).compact
   end
 
   def my_mentees
-    mentors.all.map(&:mentee_id).compact
+    Mentorship.mentored_by(self).all.map(&:mentee_id).compact
   end
 
   def related_user_ids

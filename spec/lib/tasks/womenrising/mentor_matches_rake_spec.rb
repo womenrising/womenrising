@@ -2,10 +2,23 @@ require "rails_helper"
 
 describe "womenrising:mentor_matches" do
   include_context "rake"
+  before(:all) do
+    MentorIndustry.create(name: "Business")
+    MentorIndustry.create(name: "Technology")
+    MentorIndustry.create(name: "Startup")
+  end
 
-  context 'with mutliple mentors and mentorships' do
+  context 'with multiple mentors and mentorships' do
     let!(:mentors) { create_list :mentor, 3 }
     let!(:mentorships) { create_list :mentorship, 3 }
+
+    before do
+      User.all.each do |user|
+        if user.mentor
+          create :mentor_industry_user, user: user, mentor_industry: MentorIndustry.where(name: "Technology").first
+        end
+      end
+    end
 
     it "matches available mentors with available mentorships" do
       subject.invoke
@@ -28,6 +41,7 @@ describe "womenrising:mentor_matches" do
       completed_mentorship = mentorships.first
       completed_mentorship.update(mentor: mentors.first)
 
+
       expect{ subject.invoke }.to change{ Mentorship.where(mentor_id: nil).count }.by(-2)
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(4)
     end
@@ -41,6 +55,7 @@ describe "womenrising:mentor_matches" do
     end
 
     it 'sends an email when mentors are matched' do
+
       subject.invoke
 
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(6)
@@ -51,6 +66,8 @@ describe "womenrising:mentor_matches" do
     later_mentorships = create_list :mentorship, 10
     first_mentorship = create :mentorship, created_at: 1.week.ago
     mentor = create :mentor
+    miu = create :mentor_industry_user, user: mentor, mentor_industry: MentorIndustry.where(name: "Technology").first
+
 
     subject.invoke
 

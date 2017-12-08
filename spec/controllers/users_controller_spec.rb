@@ -11,7 +11,6 @@ describe UsersController do
     mentor_limit: 3,
     primary_industry: 'Business',
     stage_of_career: 1,
-    mentor_industry: 'Business',
     peer_industry: 'Business',
     current_goal: 'Switching industries',
     location_id: 1,
@@ -28,7 +27,6 @@ describe UsersController do
       subject = patch :update, id: user.id, user: user_params
 
       expect(user.first_name).to eq 'Test'
-      expect(user.mentor_industry).to eq 'Business'
       expect(user.peer_industry).to eq 'Business'
       expect(user.current_goal).to eq 'Switching industries'
       expect(user.top_3_interests).to eq ["Arts", "Music", "Crafting"]
