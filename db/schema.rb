@@ -57,17 +57,17 @@ ActiveRecord::Schema.define(version: 20171019201011) do
     t.string "state",       limit: 255
   end
 
-  create_table "mentor_industries", force: :cascade do |t|
-    t.string "name", limit: 255
+  create_table "mentor_industries", force: true do |t|
+    t.string "name"
   end
 
-  create_table "mentor_industry_users", force: :cascade do |t|
+  create_table "mentor_industry_users", force: true do |t|
     t.integer "mentor_industry_id"
     t.integer "user_id"
     t.integer "career_stage"
   end
 
-  create_table "mentorships", force: :cascade do |t|
+  create_table "mentorships", force: true do |t|
     t.integer  "mentor_id"
     t.integer  "mentee_id"
     t.text     "question"

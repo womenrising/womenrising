@@ -40,6 +40,10 @@ class MentorshipsController < ApplicationController
     @mentorships = current_user.mentorships
   end
 
+  def index
+    @mentorships = current_user.mentorships
+  end
+
   def mark_completed
     mentorship = mark_completed_policy_scope(Mentorship).find(params[:id])
     user = current_user
