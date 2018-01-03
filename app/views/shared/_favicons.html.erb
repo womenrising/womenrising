@@ -1,0 +1,6 @@
+<% %w(57 72 76 114 120 144 152 180).each do |size| %>
+  <%= favicon_link_tag "icons/apple-touch-icon-#{size}x#{size}.png", rel: 'apple-touch-icon', type: 'image/png', sizes: "#{size}x#{size}" %>
+<% end %>
+
+<%= favicon_link_tag "icons/apple-touch-icon.png", rel: 'apple-touch-icon', type: 'image/png' %>
+<%= favicon_link_tag "icons/favicon.ico", rel: 'icon', type: 'image/x-icon' %>
