@@ -21,4 +21,15 @@ namespace :womenrising do
       end
     end
   end
+
+  desc 'Remind users to participate in peer matches'
+  task :peer_group_signup_reminder => :environment do
+    if Date.today == (Date.today.end_of_month - 3.days)
+      non_participating_users = User.where.not(is_participating_this_month: true)
+      non_participating_users.each do |user|
+        UserMailer.peer_group_signup_reminder(user).deliver_now
+      end
+    end
+  end
+
 end
