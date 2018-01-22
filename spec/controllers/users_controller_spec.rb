@@ -13,7 +13,7 @@ describe UsersController do
     stage_of_career: 1,
     peer_industry: 'Business',
     current_goal: 'Switching industries',
-    location_id: 1,
+    location_id: location.id,
   } }
 
   before do
@@ -55,25 +55,31 @@ describe UsersController do
     end
   end
 
-  describe '#participate' do
-    it "changes a user's participation status to true" do
-      user.is_participating_this_month = false
-
-      subject = patch :participate, id: user
-
-      expect(user.is_participating_this_month).to eq(true)
-      expect(subject).to redirect_to(user_path)
+  context 'with profile filled out' do
+    before do
+      subject = patch :update, id: user.id, user: user_params
     end
-  end
 
-  describe '#not_participate' do
-    it "changes a user's participation status to false" do
-      user.is_participating_this_month = true
+    describe '#participate' do
+      it "changes a user's participation status to true" do
+        user.is_participating_this_month = false
 
-      subject = patch :not_participate, id: user.id
+        subject = patch :participate, id: user
 
-      expect(user.is_participating_this_month).to eq(false)
-      expect(subject).to redirect_to(user_path)
+        expect(user.is_participating_this_month).to eq(true)
+        expect(subject).to redirect_to(user_path)
+      end
+    end
+
+    describe '#not_participate' do
+      it "changes a user's participation status to false" do
+        user.is_participating_this_month = true
+
+        subject = patch :not_participate, id: user.id
+
+        expect(user.is_participating_this_month).to eq(false)
+        expect(subject).to redirect_to(user_path)
+      end
     end
   end
 end
