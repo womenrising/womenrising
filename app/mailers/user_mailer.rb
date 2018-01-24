@@ -30,4 +30,9 @@ class UserMailer < ActionMailer::Base
     @indv = indv
     mail(to: @indv.email, subject: '"Women Rising" could not match you this month :(')
   end
+
+  def peer_group_signup_reminder(user)
+    @user = user
+    mail(to: @user.email, subject: 'Reminder to sign up for peer groups')
+  end
 end

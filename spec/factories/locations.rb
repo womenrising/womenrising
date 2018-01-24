@@ -4,5 +4,6 @@ FactoryBot.define do
     description 'city description'
     city 'Boulder'
     state 'CO'
+    name 'Boulder'
   end
 end

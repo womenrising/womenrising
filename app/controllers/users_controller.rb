@@ -38,7 +38,7 @@ class UsersController < ApplicationController
           @user.mentor_industry_users.build(mentor_industry_id: industry.id)
         end
       end
-      
+
       render 'edit'
     end
   end
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     @user.update(is_participating_this_month: true)
 
     action = :user_participating
-    message  = "User id #{@user.id} is participating"
+    message  = "User id #{@user.id} is participating in #{@user.location.name}"
     SlackNotification.notify(action, message)
 
     redirect_to user_path(current_user)
