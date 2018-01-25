@@ -27,6 +27,7 @@ group :development do
   gem 'letter_opener'
   gem 'better_errors'
   gem 'web-console', '~> 2.0'
+  gem 'rubocop'
 end
 
 group :development, :test do
