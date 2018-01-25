@@ -55,7 +55,6 @@ describe 'womenrising:mentor_matches' do
     end
 
     it 'sends an email when mentors are matched' do
-
       subject.invoke
 
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(6)

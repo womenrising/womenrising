@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :career_stages
 
   resources :mentor_industries

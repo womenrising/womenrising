@@ -1,5 +1,4 @@
 ActiveAdmin.register User do
-
   config.comments = false
 
   index do

@@ -42,5 +42,4 @@ feature 'User can edit information' do
     expect(user.reload.location).to eq detroit
     expect(user.zip_code).to be_nil
   end
-
 end

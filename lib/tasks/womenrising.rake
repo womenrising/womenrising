@@ -1,5 +1,4 @@
 namespace :womenrising do
-
   desc 'Run the PeerGroup monthly match'
   task :peer_group_monthly_match => :environment do
     if DateTime.current.day == 1
@@ -31,5 +30,4 @@ namespace :womenrising do
       end
     end
   end
-
 end

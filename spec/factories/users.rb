@@ -66,6 +66,5 @@ FactoryBot.define do
       primary_industry 'Technology'
       any_stage_of_career
     end
-
   end
 end

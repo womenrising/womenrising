@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'admin/users' do
-
   before do
     @admin_user = FactoryBot.create(:admin_user)
     login_as(@admin_user, :scope => :admin_user)
