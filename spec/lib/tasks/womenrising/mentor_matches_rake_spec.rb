@@ -34,7 +34,7 @@ describe 'womenrising:mentor_matches' do
       unavailable_mentor = mentors.first
       unavailable_mentor.update(mentor_times: 0)
 
-      expect{ subject.invoke }.to change{ Mentorship.where(mentor_id: nil).count }.by(-2)
+      expect { subject.invoke }.to change { Mentorship.where(mentor_id: nil).count }.by(-2)
     end
 
     it 'does not change mentorships that already have a mentor' do
@@ -42,7 +42,7 @@ describe 'womenrising:mentor_matches' do
       completed_mentorship.update(mentor: mentors.first)
 
 
-      expect{ subject.invoke }.to change{ Mentorship.where(mentor_id: nil).count }.by(-2)
+      expect { subject.invoke }.to change { Mentorship.where(mentor_id: nil).count }.by(-2)
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(4)
     end
 

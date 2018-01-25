@@ -43,7 +43,7 @@ describe PeerGroup do
     it 'does not group denver user with detroit users' do
       PeerGroup.generate_groups
       groups = PeerGroup.all.map(&:users)
-      detroit_group = groups.select{|g| g.include?(detroit_users.first)}.first
+      detroit_group = groups.select {|g| g.include?(detroit_users.first)}.first
 
       expect(groups.count).to eq(2)
       expect(detroit_group).to match_array(detroit_users)

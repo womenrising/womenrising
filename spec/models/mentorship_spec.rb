@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Mentorship, :type => :model do
-   it{should belong_to(:mentee).class_name('User').with_foreign_key('mentee_id')}
-   it{should belong_to(:mentor).class_name('User').with_foreign_key('mentor_id')}
-   before{FactoryBot.create_list(:user, 100)}
+   it {should belong_to(:mentee).class_name('User').with_foreign_key('mentee_id')}
+   it {should belong_to(:mentor).class_name('User').with_foreign_key('mentor_id')}
+   before {FactoryBot.create_list(:user, 100)}
    before(:all) do
      MentorIndustry.create(name: 'Business')
      MentorIndustry.create(name: 'Technology')
