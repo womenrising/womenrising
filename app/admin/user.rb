@@ -15,7 +15,7 @@ ActiveAdmin.register User do
     actions
   end
 
-  form do |f|
+  form do
     inputs 'Details' do
       input :email
       input :first_name
