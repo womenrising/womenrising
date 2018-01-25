@@ -25,3 +25,6 @@ config/application.production.yml
 
 # copy one of the sample files instead
 config/database.yml
+
+# Ignore RubyMine files
+.idea/
