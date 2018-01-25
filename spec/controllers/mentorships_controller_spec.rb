@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe MentorshipsController do
-  let!(:user) { create :user, :not_on_waitlist  }
+  let!(:user) { create :user, :not_on_waitlist }
   let!(:mentor_user) { create :user, :not_on_waitlist }
   let!(:location) { create :location }
   let!(:pending_mentorship) { create :mentorship, mentee: user }

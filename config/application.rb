@@ -14,7 +14,6 @@ Bundler.require(*Rails.groups)
 
 module Womenrising
   class Application < Rails::Application
-
     # auto load the lib folder
     config.autoload_paths << Rails.root.join('lib')
 
@@ -26,4 +25,3 @@ module Womenrising
     end
   end
 end
-

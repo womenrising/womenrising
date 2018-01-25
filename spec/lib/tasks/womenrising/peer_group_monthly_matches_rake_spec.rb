@@ -8,7 +8,7 @@ describe 'womenrising:peer_group_monthly_match' do
   let!(:mentor) { create :mentor, mentor_limit: 2, mentor_times: 0, is_participating_this_month: true }
 
   it 'runs on the first day of the month' do
-    travel_to(DateTime.new(2017,8,1)) do
+    travel_to(DateTime.new(2017, 8, 1)) do
       expect(User).to receive(:match_peers_and_update_users).and_call_original
 
       subject.invoke
@@ -18,7 +18,7 @@ describe 'womenrising:peer_group_monthly_match' do
   end
 
   it 'does not run on other days of the month' do
-    travel_to(DateTime.new(20017,1,11)) do
+    travel_to(DateTime.new(20017, 1, 11)) do
       expect(User).to_not receive(:match_peers_and_update_users)
 
       subject.invoke

@@ -9,7 +9,7 @@ shared_context 'rake' do
   subject         { rake[task_name] }
 
   def loaded_files_excluding_current_rake_file
-    $".reject {|file| file == Rails.root.join("#{task_path}.rake").to_s }
+    $".reject { |file| file == Rails.root.join("#{task_path}.rake").to_s }
   end
 
   before do

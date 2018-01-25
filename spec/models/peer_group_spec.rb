@@ -13,7 +13,6 @@ describe PeerGroup do
       expect(PeerGroup.all.length).to be(2)
     end
 
-
     it 'sends emails to peers with correct information' do
       expect(ActionMailer::Base.deliveries.count).to eq(2)
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(7)
@@ -35,7 +34,7 @@ describe PeerGroup do
       create_list(:user, 2, :groupable, location_id: boulder.id)
     end
 
-    let(:detroit) { create :location, city: 'Detroit'}
+    let(:detroit) { create :location, city: 'Detroit' }
     let!(:detroit_users) do
       create_list(:user, 2, :groupable, location_id: detroit.id)
     end
@@ -43,7 +42,7 @@ describe PeerGroup do
     it 'does not group denver user with detroit users' do
       PeerGroup.generate_groups
       groups = PeerGroup.all.map(&:users)
-      detroit_group = groups.select {|g| g.include?(detroit_users.first)}.first
+      detroit_group = groups.select { |g| g.include?(detroit_users.first) }.first
 
       expect(groups.count).to eq(2)
       expect(detroit_group).to match_array(detroit_users)

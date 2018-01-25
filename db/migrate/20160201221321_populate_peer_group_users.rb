@@ -1,5 +1,4 @@
 class PopulatePeerGroupUsers < ActiveRecord::Migration
-
   def up
     #
     # we need to use raw SQL because we want to run the migration even if the
@@ -18,5 +17,4 @@ class PopulatePeerGroupUsers < ActiveRecord::Migration
 
   def down
   end
-
 end

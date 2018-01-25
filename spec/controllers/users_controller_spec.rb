@@ -4,17 +4,19 @@ describe UsersController do
   let!(:user) { create :user }
   let!(:location) { create :location }
 
-  let(:user_params) { {
-    first_name: 'Test',
-    last_name: 'User',
-    mentor: false,
-    mentor_limit: 3,
-    primary_industry: 'Business',
-    stage_of_career: 1,
-    peer_industry: 'Business',
-    current_goal: 'Switching industries',
-    location_id: location.id,
-  } }
+  let(:user_params) {
+    {
+      first_name: 'Test',
+      last_name: 'User',
+      mentor: false,
+      mentor_limit: 3,
+      primary_industry: 'Business',
+      stage_of_career: 1,
+      peer_industry: 'Business',
+      current_goal: 'Switching industries',
+      location_id: location.id
+    }
+  }
 
   before do
     allow_any_instance_of(UsersController).to receive(:current_user).and_return user

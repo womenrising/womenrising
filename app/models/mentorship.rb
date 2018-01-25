@@ -19,16 +19,16 @@ class Mentorship < ActiveRecord::Base
   belongs_to :mentee, class_name: 'User', foreign_key: 'mentee_id'
   belongs_to :mentor, class_name: 'User', foreign_key: 'mentor_id'
 
-  scope :mentored_by, -> (user) { where mentor: user }
-  scope :mentoring, -> (user) { where mentee: user }
+  scope :mentored_by, ->(user) { where mentor: user }
+  scope :mentoring, ->(user) { where mentee: user }
 
   def not_on_waitlist
-    errors.add('You are currently Waitlisted','members who are waitlisted cannot get mentors') if mentee.waitlist
+    errors.add('You are currently Waitlisted', 'members who are waitlisted cannot get mentors') if mentee.waitlist
   end
 
   after_save do
     if mentor_id_changed? && mentor_id.present?
-      mentor.update(mentor_times: mentor.mentor_times -=1)
+      mentor.update(mentor_times: mentor.mentor_times -= 1)
     end
   end
 
@@ -47,13 +47,14 @@ class Mentorship < ActiveRecord::Base
     UserMailer.mentee_mail(self).deliver_now
   end
 
-private
+  private
+
   def get_possible_mentors
     industry_key = MentorIndustry.find_by_name(mentee.primary_industry).id
 
     if mentee.stage_of_career == 5
       User.where(mentor: true, waitlist: false)
-          .where( 'mentor_times > ?', 0)
+          .where('mentor_times > ?', 0)
           .where.not(id: mentee.id)
           .joins(:mentor_industry_users).where('mentor_industry_users.mentor_industry_id' => industry_key)
           .joins(:mentor_industry_users).where('mentor_industry_users.career_stage' => 5)
@@ -72,5 +73,4 @@ private
     end
     all_mentors
   end
-
 end

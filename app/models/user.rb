@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   before_save :ensure_location_or_zip
 
   scope :mentors, -> { where(mentor: true) }
-  scope :viewable_by, -> (user) { where(id: user.related_user_ids) }
+  scope :viewable_by, ->(user) { where(id: user.related_user_ids) }
 
   CURRENT_GOALS = [
     'Rising the ranks / breaking the glass ceiling',
@@ -93,8 +93,8 @@ class User < ActiveRecord::Base
     'Running',
     'Beer',
     'Wine',
-    'Traveling','
-    Local events',
+    'Traveling',
+    'Local events',
     'Reading',
     'Photography',
     'Movies',
@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
     'Video Games'
   ]
 
-  def self.connect_to_linkedin(auth, signed_in_resource=nil)
+  def self.connect_to_linkedin(auth, signed_in_resource = nil)
     user = User.where(provider: auth.provider, uid: auth.uid).first
     user ||= User.where(email: auth.info.email).first
     image_url = auth.extra.raw_info.pictureUrls.values[1][0] rescue nil
@@ -117,12 +117,12 @@ class User < ActiveRecord::Base
         ).merge(
           image_url: image_url,
           linkedin_url: linkedin_url,
-          password: Devise.friendly_token[0,20]
+          password: Devise.friendly_token[0, 20]
         ).to_h
       )
 
       action = :new_user
-      message  = "#{user.id} is a new user"
+      message = "#{user.id} is a new user"
       SlackNotification.notify(action, message)
 
       UserMailer.welcome_mail(user).deliver_now
@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
   def self.match_peers_and_update_users
     # start
     action = :match_peers_and_update_users_start
-    message  = 'started update month'
+    message = 'started update month'
     SlackNotification.notify(action, message)
 
     PeerGroup.generate_groups
@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
 
     # finish
     action = :match_peers_and_update_users_finish
-    message  = 'finished update month'
+    message = 'finished update month'
     SlackNotification.notify(action, message)
   end
 

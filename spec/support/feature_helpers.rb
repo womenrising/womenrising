@@ -1,5 +1,4 @@
 module FeatureHelpers
-
   def visit_and_confirm(path)
     visit path
     expect(page.current_path).to eq(path)
@@ -12,10 +11,7 @@ module FeatureHelpers
     end
   end
 
-
-
   def finished_all_ajax_requests?
     page.evaluate_script('jQuery.active').zero?
   end
-
 end

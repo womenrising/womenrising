@@ -41,7 +41,6 @@ describe 'womenrising:mentor_matches' do
       completed_mentorship = mentorships.first
       completed_mentorship.update(mentor: mentors.first)
 
-
       expect { subject.invoke }.to change { Mentorship.where(mentor_id: nil).count }.by(-2)
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(4)
     end
@@ -66,7 +65,6 @@ describe 'womenrising:mentor_matches' do
     first_mentorship = create :mentorship, created_at: 1.week.ago
     mentor = create :mentor
     miu = create :mentor_industry_user, user: mentor, mentor_industry: MentorIndustry.where(name: 'Technology').first
-
 
     subject.invoke
 

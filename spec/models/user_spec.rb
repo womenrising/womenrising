@@ -12,7 +12,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'assigns location' do
-    let!(:location) { Location.create(city: 'Detroit', state: 'MI')}
+    let!(:location) { Location.create(city: 'Detroit', state: 'MI') }
     let(:user) { create(:user, location_id: location.id) }
 
     scenario 'user has a location' do
@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '.match_peers_and_update_users' do
-    #match_peers_and_update_users 'refreshes' user settings for next month
+    # match_peers_and_update_users 'refreshes' user settings for next month
 
     context 'if user is participating this month' do
       let!(:participating_user) do

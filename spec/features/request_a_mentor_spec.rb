@@ -48,7 +48,7 @@ feature 'User can request a mentor' do
   scenario 'mentee can cancel pending request' do
     expect(page).to have_content 'Pending'
     expect(page).to have_content 'Cancel'
-    expect { click_on 'Cancel' }.to change {Mentorship.count}.by(-1)
+    expect { click_on 'Cancel' }.to change { Mentorship.count }.by(-1)
 
     expect(page).to have_content 'Your question has been cancelled'
     expect(page).to have_content 'Will you participate'

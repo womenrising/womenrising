@@ -15,7 +15,7 @@ namespace :womenrising do
       if mentorship.mentor_id
         mentorship.send_mail
 
-        message  = "User id #{mentorship.mentor_id} is a now mentoring User #{mentorship.mentee_id}"
+        message = "User id #{mentorship.mentor_id} is a now mentoring User #{mentorship.mentee_id}"
         SlackNotification.notify(:new_mentor, message)
       end
     end
