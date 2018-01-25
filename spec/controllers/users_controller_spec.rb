@@ -22,14 +22,14 @@ describe UsersController do
 
   describe '#update' do
     it 'updates all attributes' do
-      user_params.merge! top_3_interests: ["Arts", "Music", "Crafting"]
+      user_params.merge! top_3_interests: ['Arts', 'Music', 'Crafting']
 
       subject = patch :update, id: user.id, user: user_params
 
       expect(user.first_name).to eq 'Test'
       expect(user.peer_industry).to eq 'Business'
       expect(user.current_goal).to eq 'Switching industries'
-      expect(user.top_3_interests).to eq ["Arts", "Music", "Crafting"]
+      expect(user.top_3_interests).to eq ['Arts', 'Music', 'Crafting']
       expect(user.mentor_limit).to eq 3
       expect(user.mentor_times).to eq 3
 
@@ -47,7 +47,7 @@ describe UsersController do
   end
 
   describe '#show' do
-    it "shows a user" do
+    it 'shows a user' do
       get :show, id: user
 
       expect(response.status).to eq(200)

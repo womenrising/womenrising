@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :mentorship do
     mentee
-    question "Hello?"
+    question 'Hello?'
 
     trait :with_mentor do
       mentor

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "I want to see a list of past mentorships" do
+feature 'I want to see a list of past mentorships' do
   let(:user) { create :user, :not_on_waitlist }
   let!(:mentorship1) { create :mentorship, :with_mentor, mentee: user }
   let!(:mentorship2) { create :mentorship, :with_mentor, mentor: user }
@@ -11,16 +11,16 @@ feature "I want to see a list of past mentorships" do
 
   ACCESS_BUTTON_TEXT = 'Mentorship History'
 
-  scenario "On my profile page, there is a link to my mentorship history" do
+  scenario 'On my profile page, there is a link to my mentorship history' do
     visit user_path(user)
 
     expect(page).to have_selector(:link_or_button, ACCESS_BUTTON_TEXT)
   end
 
-  scenario "I should have a list of past mentorships" do
+  scenario 'I should have a list of past mentorships' do
     visit user_path(user)
 
-    click_on "Mentorship History"
+    click_on 'Mentorship History'
 
     within 'tr', text: mentorship1.mentor.full_name do
       expect(page).to have_content mentorship1.mentor.full_name

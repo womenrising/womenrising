@@ -1,7 +1,7 @@
-require "rails_helper"
+require 'rails_helper'
 
-describe "womenrising:peer_group_monthly_match" do
-  include_context "rake"
+describe 'womenrising:peer_group_monthly_match' do
+  include_context 'rake'
 
   let(:boulder) { create :location }
   let!(:users) { create_list :user, 10, :groupable, location: boulder }

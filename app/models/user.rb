@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   has_many :peer_groups, through: :peer_group_users
   belongs_to :location
 
-  validates :top_3_interests, length: { maximum: 3, too_long: " is limited to %{count} interests" }
+  validates :top_3_interests, length: { maximum: 3, too_long: ' is limited to %{count} interests' }
   validates_presence_of :first_name, :last_name
 
   has_many :mentor_industry_users, dependent: :destroy
@@ -66,41 +66,41 @@ class User < ActiveRecord::Base
   scope :viewable_by, -> (user) { where(id: user.related_user_ids) }
 
   CURRENT_GOALS = [
-    "Rising the ranks / breaking the glass ceiling",
-    "Switching industries",
-    "Finding work/life balance"
+    'Rising the ranks / breaking the glass ceiling',
+    'Switching industries',
+    'Finding work/life balance'
   ]
 
   PRIMARY_INDUSTRY = [
-    "Business",
-    "Technology",
-    "Startup"
+    'Business',
+    'Technology',
+    'Startup'
   ]
 
   TOP_3_INTERESTS = [
-    "Arts",
-    "Music",
-    "Crafting",
-    "Home improvement / Decorating",
-    "Being a mom",
-    "Dogs",
-    "Cats",
-    "Watching Sports",
-    "Outdoors / Hiking",
-    "Exercise",
-    "Biking",
-    "Yoga",
-    "Running",
-    "Beer",
-    "Wine",
-    "Traveling","
-    Local events",
-    "Reading",
-    "Photography",
-    "Movies",
-    "Cooking / Eating / Being a foodie",
-    "Social issues / volunteering",
-    "Video Games"
+    'Arts',
+    'Music',
+    'Crafting',
+    'Home improvement / Decorating',
+    'Being a mom',
+    'Dogs',
+    'Cats',
+    'Watching Sports',
+    'Outdoors / Hiking',
+    'Exercise',
+    'Biking',
+    'Yoga',
+    'Running',
+    'Beer',
+    'Wine',
+    'Traveling','
+    Local events',
+    'Reading',
+    'Photography',
+    'Movies',
+    'Cooking / Eating / Being a foodie',
+    'Social issues / volunteering',
+    'Video Games'
   ]
 
   def self.connect_to_linkedin(auth, signed_in_resource=nil)
@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
   def self.match_peers_and_update_users
     # start
     action = :match_peers_and_update_users_start
-    message  = "started update month"
+    message  = 'started update month'
     SlackNotification.notify(action, message)
 
     PeerGroup.generate_groups
@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
 
     # finish
     action = :match_peers_and_update_users_finish
-    message  = "finished update month"
+    message  = 'finished update month'
     SlackNotification.notify(action, message)
   end
 
@@ -160,7 +160,7 @@ class User < ActiveRecord::Base
   end
 
   def check_industry
-    if self.primary_industry == "Other" || self.primary_industry == nil || self.peer_industry == nil || self.top_3_interests == [] || self.current_goal == nil
+    if self.primary_industry == 'Other' || self.primary_industry == nil || self.peer_industry == nil || self.top_3_interests == [] || self.current_goal == nil
       self.waitlist = true
     else
       self.waitlist = false
@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
   end
 
   def get_image_url
-    self.image_url ? self.image_url : "icons/yello_person.png"
+    self.image_url ? self.image_url : 'icons/yello_person.png'
   end
 
   def full_name

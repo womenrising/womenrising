@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :career_stage do
-    name "MyString"
+    name 'MyString'
   end
 
 end

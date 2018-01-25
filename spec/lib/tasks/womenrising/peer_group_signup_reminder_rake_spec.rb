@@ -1,7 +1,7 @@
-require "rails_helper"
+require 'rails_helper'
 
-describe "womenrising:peer_group_signup_reminder" do
-  include_context "rake"
+describe 'womenrising:peer_group_signup_reminder' do
+  include_context 'rake'
 
   let!(:users) { create_list :user, 10, is_participating_this_month: false }
 

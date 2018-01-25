@@ -112,7 +112,7 @@ RSpec.describe User, type: :model do
                       :with_interests,
                       :with_goal,
                       :technology_primary_industry,
-                      peer_industry: "Business")
+                      peer_industry: 'Business')
         expect(user.waitlist).to eq(false)
       end
     end
@@ -172,11 +172,11 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe ".mentors" do
+  describe '.mentors' do
     let!(:mentor) { create(:mentor) }
     let!(:mentee) { create(:mentee) }
 
-    it "returns all mentors" do
+    it 'returns all mentors' do
       mentors = described_class.mentors
       expect(mentors).to include(mentor)
       expect(mentors).to_not include(mentee)

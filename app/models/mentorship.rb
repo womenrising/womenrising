@@ -16,14 +16,14 @@ class Mentorship < ActiveRecord::Base
   validate :not_on_waitlist
   validates_presence_of :question
 
-  belongs_to :mentee, class_name: "User", foreign_key: 'mentee_id'
-  belongs_to :mentor, class_name: "User", foreign_key: 'mentor_id'
+  belongs_to :mentee, class_name: 'User', foreign_key: 'mentee_id'
+  belongs_to :mentor, class_name: 'User', foreign_key: 'mentor_id'
 
   scope :mentored_by, -> (user) { where mentor: user }
   scope :mentoring, -> (user) { where mentee: user }
 
   def not_on_waitlist
-    errors.add("You are currently Waitlisted","members who are waitlisted cannot get mentors") if self.mentee.waitlist
+    errors.add('You are currently Waitlisted','members who are waitlisted cannot get mentors') if self.mentee.waitlist
   end
 
   after_save do
@@ -53,15 +53,15 @@ private
 
     if mentee.stage_of_career == 5
       User.where(mentor: true, waitlist: false)
-          .where( "mentor_times > ?", 0)
+          .where( 'mentor_times > ?', 0)
           .where.not(id: mentee.id)
-          .joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
-          .joins(:mentor_industry_users).where("mentor_industry_users.career_stage" => 5)
+          .joins(:mentor_industry_users).where('mentor_industry_users.mentor_industry_id' => industry_key)
+          .joins(:mentor_industry_users).where('mentor_industry_users.career_stage' => 5)
     else
       User.where(mentor: true, waitlist: false)
-          .where("mentor_times > ?", 0)
-          .joins(:mentor_industry_users).where("mentor_industry_users.mentor_industry_id" => industry_key)
-          .joins(:mentor_industry_users).where("mentor_industry_users.career_stage > ?", mentee.stage_of_career)
+          .where('mentor_times > ?', 0)
+          .joins(:mentor_industry_users).where('mentor_industry_users.mentor_industry_id' => industry_key)
+          .joins(:mentor_industry_users).where('mentor_industry_users.career_stage > ?', mentee.stage_of_career)
     end
   end
 
