@@ -63,7 +63,11 @@ Make sure you have Docker installed and the daemon running.
   ```sh
   docker-compose up
   ```
+5. Update your your test db with the latest migrations
 
+  ```sh
+  docker-compose run web rake db:migrate RAILS_ENV=test
+  ```
 You should be able to see it running at [localhost:3000](http://localhost:3000).
 
 Try `docker-compose run web rspec` to run the tests.
