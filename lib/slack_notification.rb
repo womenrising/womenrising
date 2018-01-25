@@ -3,7 +3,7 @@ class SlackNotification
     def self.notify(action, message)
         app_name = ENV['APP_NAME'] || 'dev'
         str = "#{action} -- (#{app_name}) #{message}"
-        self.transmit(str) if Rails.env.production?
+        transmit(str) if Rails.env.production?
     end
 
     def self.transmit(str)

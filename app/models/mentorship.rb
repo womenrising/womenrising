@@ -23,7 +23,7 @@ class Mentorship < ActiveRecord::Base
   scope :mentoring, -> (user) { where mentee: user }
 
   def not_on_waitlist
-    errors.add('You are currently Waitlisted','members who are waitlisted cannot get mentors') if self.mentee.waitlist
+    errors.add('You are currently Waitlisted','members who are waitlisted cannot get mentors') if mentee.waitlist
   end
 
   after_save do

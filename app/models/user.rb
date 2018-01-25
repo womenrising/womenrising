@@ -160,7 +160,7 @@ class User < ActiveRecord::Base
   end
 
   def check_industry
-    if self.primary_industry == 'Other' || self.primary_industry == nil || self.peer_industry == nil || self.top_3_interests == [] || self.current_goal == nil
+    if primary_industry == 'Other' || primary_industry == nil || peer_industry == nil || top_3_interests == [] || current_goal == nil
       self.waitlist = true
     else
       self.waitlist = false
@@ -168,22 +168,22 @@ class User < ActiveRecord::Base
   end
 
   def mentor_limit= new_mentor_limit
-    mentor_diff = new_mentor_limit.to_i - self.mentor_limit
-    self.mentor_times = [self.mentor_times + mentor_diff, 0].max
+    mentor_diff = new_mentor_limit.to_i - mentor_limit
+    self.mentor_times = [mentor_times + mentor_diff, 0].max
 
     super
   end
 
   def get_image_url
-    self.image_url ? self.image_url : 'icons/yello_person.png'
+    image_url ? image_url : 'icons/yello_person.png'
   end
 
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   def stage_of_career_name
-    STAGE_OF_CAREER[self.stage_of_career - 1] rescue nil
+    STAGE_OF_CAREER[stage_of_career - 1] rescue nil
   end
 
   def current_peer_group
