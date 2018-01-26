@@ -13,7 +13,7 @@ describe "womenrising:peer_group_signup_reminder" do
   end
 
   it 'does not run on other days of the month' do
-    travel_to(DateTime.new(20018,1,26)) do
+    travel_to(DateTime.new(2018,1,26)) do
       subject.invoke
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(0)
     end
