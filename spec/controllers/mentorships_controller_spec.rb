@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe MentorshipsController do
-  let!(:user) { create :user, :not_on_waitlist  }
+  let!(:user) { create :user, :not_on_waitlist }
   let!(:mentor_user) { create :user, :not_on_waitlist }
   let!(:location) { create :location }
   let!(:pending_mentorship) { create :mentorship, mentee: user }
@@ -16,14 +16,14 @@ describe MentorshipsController do
     it 'destroys a mentorship' do
       expect do
         delete :destroy, id: pending_mentorship.id
-      end.to change{ Mentorship.count }.by(-1)
+      end.to change { Mentorship.count }.by(-1)
       expect(flash[:success]).to eq 'Your question has been cancelled'
     end
 
     it 'does not destroy if there is a mentor' do
       expect do
         delete :destroy, id: completed_mentorship.id
-      end.to change{ Mentorship.count }.by(0)
+      end.to change { Mentorship.count }.by(0)
 
       expect(flash[:danger]).to eq 'Unable to delete active or past mentorships'
     end

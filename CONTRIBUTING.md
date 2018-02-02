@@ -21,6 +21,10 @@
   * Name your branch appropriately: [github-issue-#]-short-description
   * Example `21-refactor-peer-group-specs`
 
+* Ensure your code conforms to the Ruby and Rails style guides by running `rubocop`
+  until your code meets the guidelines (see [Rubocop manual](http://rubocop.readthedocs.io/en/latest/basic_usage/)):
+
+    `rubocop`
 
 * Write tests and make your change. Make the tests pass:
 

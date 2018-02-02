@@ -1,9 +1,9 @@
 class UserMailer < ActionMailer::Base
-  default from: "info@womenrising.co"
+  default from: 'info@womenrising.co'
 
   def welcome_mail(user)
     @user = user
-    mail(to: @user.email, subject: "Welcome to Women Rising!")
+    mail(to: @user.email, subject: 'Welcome to Women Rising!')
   end
 
   def mentor_mail(mentor_match)

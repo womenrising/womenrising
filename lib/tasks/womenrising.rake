@@ -1,5 +1,4 @@
 namespace :womenrising do
-
   desc 'Run the PeerGroup monthly match'
   task :peer_group_monthly_match => :environment do
     if DateTime.current.day == 1
@@ -16,7 +15,7 @@ namespace :womenrising do
       if mentorship.mentor_id
         mentorship.send_mail
 
-        message  = "User id #{mentorship.mentor_id} is a now mentoring User #{mentorship.mentee_id}"
+        message = "User id #{mentorship.mentor_id} is a now mentoring User #{mentorship.mentee_id}"
         SlackNotification.notify(:new_mentor, message)
       end
     end
@@ -31,5 +30,4 @@ namespace :womenrising do
       end
     end
   end
-
 end

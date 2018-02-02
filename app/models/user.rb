@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   has_many :peer_groups, through: :peer_group_users
   belongs_to :location
 
-  validates :top_3_interests, length: { maximum: 3, too_long: " is limited to %{count} interests" }
+  validates :top_3_interests, length: { maximum: 3, too_long: ' is limited to %{count} interests' }
   validates_presence_of :first_name, :last_name
 
   has_many :mentor_industry_users, dependent: :destroy
@@ -63,47 +63,47 @@ class User < ActiveRecord::Base
   before_save :ensure_location_or_zip
 
   scope :mentors, -> { where(mentor: true) }
-  scope :viewable_by, -> (user) { where(id: user.related_user_ids) }
+  scope :viewable_by, ->(user) { where(id: user.related_user_ids) }
 
   CURRENT_GOALS = [
-    "Rising the ranks / breaking the glass ceiling",
-    "Switching industries",
-    "Finding work/life balance"
+    'Rising the ranks / breaking the glass ceiling',
+    'Switching industries',
+    'Finding work/life balance'
   ]
 
   PRIMARY_INDUSTRY = [
-    "Business",
-    "Technology",
-    "Startup"
+    'Business',
+    'Technology',
+    'Startup'
   ]
 
   TOP_3_INTERESTS = [
-    "Arts",
-    "Music",
-    "Crafting",
-    "Home improvement / Decorating",
-    "Being a mom",
-    "Dogs",
-    "Cats",
-    "Watching Sports",
-    "Outdoors / Hiking",
-    "Exercise",
-    "Biking",
-    "Yoga",
-    "Running",
-    "Beer",
-    "Wine",
-    "Traveling","
-    Local events",
-    "Reading",
-    "Photography",
-    "Movies",
-    "Cooking / Eating / Being a foodie",
-    "Social issues / volunteering",
-    "Video Games"
+    'Arts',
+    'Music',
+    'Crafting',
+    'Home improvement / Decorating',
+    'Being a mom',
+    'Dogs',
+    'Cats',
+    'Watching Sports',
+    'Outdoors / Hiking',
+    'Exercise',
+    'Biking',
+    'Yoga',
+    'Running',
+    'Beer',
+    'Wine',
+    'Traveling',
+    'Local events',
+    'Reading',
+    'Photography',
+    'Movies',
+    'Cooking / Eating / Being a foodie',
+    'Social issues / volunteering',
+    'Video Games'
   ]
 
-  def self.connect_to_linkedin(auth, signed_in_resource=nil)
+  def self.connect_to_linkedin(auth, signed_in_resource = nil)
     user = User.where(provider: auth.provider, uid: auth.uid).first
     user ||= User.where(email: auth.info.email).first
     image_url = auth.extra.raw_info.pictureUrls.values[1][0] rescue nil
@@ -117,12 +117,12 @@ class User < ActiveRecord::Base
         ).merge(
           image_url: image_url,
           linkedin_url: linkedin_url,
-          password: Devise.friendly_token[0,20]
+          password: Devise.friendly_token[0, 20]
         ).to_h
       )
 
       action = :new_user
-      message  = "#{user.id} is a new user"
+      message = "#{user.id} is a new user"
       SlackNotification.notify(action, message)
 
       UserMailer.welcome_mail(user).deliver_now
@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
   def self.match_peers_and_update_users
     # start
     action = :match_peers_and_update_users_start
-    message  = "started update month"
+    message = 'started update month'
     SlackNotification.notify(action, message)
 
     PeerGroup.generate_groups
@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
 
     # finish
     action = :match_peers_and_update_users_finish
-    message  = "finished update month"
+    message = 'finished update month'
     SlackNotification.notify(action, message)
   end
 
@@ -160,7 +160,7 @@ class User < ActiveRecord::Base
   end
 
   def check_industry
-    if self.primary_industry == "Other" || self.primary_industry == nil || self.peer_industry == nil || self.top_3_interests == [] || self.current_goal == nil
+    if primary_industry == 'Other' || primary_industry == nil || peer_industry == nil || top_3_interests == [] || current_goal == nil
       self.waitlist = true
     else
       self.waitlist = false
@@ -168,22 +168,22 @@ class User < ActiveRecord::Base
   end
 
   def mentor_limit= new_mentor_limit
-    mentor_diff = new_mentor_limit.to_i - self.mentor_limit
-    self.mentor_times = [self.mentor_times + mentor_diff, 0].max
+    mentor_diff = new_mentor_limit.to_i - mentor_limit
+    self.mentor_times = [mentor_times + mentor_diff, 0].max
 
     super
   end
 
   def get_image_url
-    self.image_url ? self.image_url : "icons/yello_person.png"
+    image_url ? image_url : 'icons/yello_person.png'
   end
 
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   def stage_of_career_name
-    STAGE_OF_CAREER[self.stage_of_career - 1] rescue nil
+    STAGE_OF_CAREER[stage_of_career - 1] rescue nil
   end
 
   def current_peer_group

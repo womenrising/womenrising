@@ -2,19 +2,18 @@ require 'rails_helper'
 
 describe PeerGroup do
   let!(:boulder) { create :location }
-  context "#generate_groups" do
+  context '#generate_groups' do
     before do
       clear_emails
       create_list(:user, 7, :groupable, location_id: boulder.id)
       PeerGroup.generate_groups
     end
 
-    it "loops through all the users and makes groups" do
+    it 'loops through all the users and makes groups' do
       expect(PeerGroup.all.length).to be(2)
     end
 
-
-    it "sends emails to peers with correct information" do
+    it 'sends emails to peers with correct information' do
       expect(ActionMailer::Base.deliveries.count).to eq(2)
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(7)
 
@@ -30,20 +29,20 @@ describe PeerGroup do
     end
   end
 
-  context "assigns users based on location" do
+  context 'assigns users based on location' do
     let!(:boulder_users) do
       create_list(:user, 2, :groupable, location_id: boulder.id)
     end
 
-    let(:detroit) { create :location, city: "Detroit"}
+    let(:detroit) { create :location, city: 'Detroit' }
     let!(:detroit_users) do
       create_list(:user, 2, :groupable, location_id: detroit.id)
     end
 
-    it "does not group denver user with detroit users" do
+    it 'does not group denver user with detroit users' do
       PeerGroup.generate_groups
       groups = PeerGroup.all.map(&:users)
-      detroit_group = groups.select{|g| g.include?(detroit_users.first)}.first
+      detroit_group = groups.select { |g| g.include?(detroit_users.first) }.first
 
       expect(groups.count).to eq(2)
       expect(detroit_group).to match_array(detroit_users)
@@ -51,14 +50,14 @@ describe PeerGroup do
     end
   end
 
-  context "with 200 random users that can be grouped" do
+  context 'with 200 random users that can be grouped' do
     let(:users) do
       create_list(:user, 200, :groupable, :any_stage_of_career,
                   location_id: boulder.id)
     end
 
-    context "#automatically_create_groups(location)" do
-      it "should loop through and assign groups" do
+    context '#automatically_create_groups(location)' do
+      it 'should loop through and assign groups' do
         start_group = User.all
         groups = PeerGroup.automatically_create_groups(boulder)
 

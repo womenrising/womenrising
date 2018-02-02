@@ -9,7 +9,7 @@ Rollbar.configure do |config|
   #
   #   heroku config --app womenrising
   #
-  config.access_token = ENV['ROLLBAR_ACCESS_TOKEN'] || "nil"
+  config.access_token = ENV['ROLLBAR_ACCESS_TOKEN'] || 'nil'
 
   # Here we'll disable in 'test' and 'development':
   if Rails.env.test? or Rails.env.development?

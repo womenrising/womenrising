@@ -12,7 +12,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'assigns location' do
-    let!(:location) { Location.create(city: 'Detroit', state: 'MI')}
+    let!(:location) { Location.create(city: 'Detroit', state: 'MI') }
     let(:user) { create(:user, location_id: location.id) }
 
     scenario 'user has a location' do
@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '.match_peers_and_update_users' do
-    #match_peers_and_update_users 'refreshes' user settings for next month
+    # match_peers_and_update_users 'refreshes' user settings for next month
 
     context 'if user is participating this month' do
       let!(:participating_user) do
@@ -112,7 +112,7 @@ RSpec.describe User, type: :model do
                       :with_interests,
                       :with_goal,
                       :technology_primary_industry,
-                      peer_industry: "Business")
+                      peer_industry: 'Business')
         expect(user.waitlist).to eq(false)
       end
     end
@@ -172,11 +172,11 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe ".mentors" do
+  describe '.mentors' do
     let!(:mentor) { create(:mentor) }
     let!(:mentee) { create(:mentee) }
 
-    it "returns all mentors" do
+    it 'returns all mentors' do
       mentors = described_class.mentors
       expect(mentors).to include(mentor)
       expect(mentors).to_not include(mentee)

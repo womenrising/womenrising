@@ -4,17 +4,19 @@ describe UsersController do
   let!(:user) { create :user }
   let!(:location) { create :location }
 
-  let(:user_params) { {
-    first_name: 'Test',
-    last_name: 'User',
-    mentor: false,
-    mentor_limit: 3,
-    primary_industry: 'Business',
-    stage_of_career: 1,
-    peer_industry: 'Business',
-    current_goal: 'Switching industries',
-    location_id: location.id,
-  } }
+  let(:user_params) {
+    {
+      first_name: 'Test',
+      last_name: 'User',
+      mentor: false,
+      mentor_limit: 3,
+      primary_industry: 'Business',
+      stage_of_career: 1,
+      peer_industry: 'Business',
+      current_goal: 'Switching industries',
+      location_id: location.id
+    }
+  }
 
   before do
     allow_any_instance_of(UsersController).to receive(:current_user).and_return user
@@ -22,14 +24,14 @@ describe UsersController do
 
   describe '#update' do
     it 'updates all attributes' do
-      user_params.merge! top_3_interests: ["Arts", "Music", "Crafting"]
+      user_params.merge! top_3_interests: ['Arts', 'Music', 'Crafting']
 
       subject = patch :update, id: user.id, user: user_params
 
       expect(user.first_name).to eq 'Test'
       expect(user.peer_industry).to eq 'Business'
       expect(user.current_goal).to eq 'Switching industries'
-      expect(user.top_3_interests).to eq ["Arts", "Music", "Crafting"]
+      expect(user.top_3_interests).to eq ['Arts', 'Music', 'Crafting']
       expect(user.mentor_limit).to eq 3
       expect(user.mentor_times).to eq 3
 
@@ -47,7 +49,7 @@ describe UsersController do
   end
 
   describe '#show' do
-    it "shows a user" do
+    it 'shows a user' do
       get :show, id: user
 
       expect(response.status).to eq(200)

@@ -7,7 +7,7 @@ module OmniAuth
       extra do
         {
           'raw_info' => {
-            'pictureUrls' => {'0' => nil, '1' => [random_pic]},
+            'pictureUrls' => { '0' => nil, '1' => [random_pic] },
             'publicProfileUrl' => 'http://example.com/123'
           }
         }

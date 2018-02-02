@@ -1,11 +1,11 @@
-require "rails_helper"
+require 'rails_helper'
 
-describe "womenrising:mentor_matches" do
-  include_context "rake"
+describe 'womenrising:mentor_matches' do
+  include_context 'rake'
   before(:all) do
-    MentorIndustry.create(name: "Business")
-    MentorIndustry.create(name: "Technology")
-    MentorIndustry.create(name: "Startup")
+    MentorIndustry.create(name: 'Business')
+    MentorIndustry.create(name: 'Technology')
+    MentorIndustry.create(name: 'Startup')
   end
 
   context 'with multiple mentors and mentorships' do
@@ -15,12 +15,12 @@ describe "womenrising:mentor_matches" do
     before do
       User.all.each do |user|
         if user.mentor
-          create :mentor_industry_user, user: user, mentor_industry: MentorIndustry.where(name: "Technology").first
+          create :mentor_industry_user, user: user, mentor_industry: MentorIndustry.where(name: 'Technology').first
         end
       end
     end
 
-    it "matches available mentors with available mentorships" do
+    it 'matches available mentors with available mentorships' do
       subject.invoke
 
       mentorships.each do |mentorship|
@@ -34,15 +34,14 @@ describe "womenrising:mentor_matches" do
       unavailable_mentor = mentors.first
       unavailable_mentor.update(mentor_times: 0)
 
-      expect{ subject.invoke }.to change{ Mentorship.where(mentor_id: nil).count }.by(-2)
+      expect { subject.invoke }.to change { Mentorship.where(mentor_id: nil).count }.by(-2)
     end
 
     it 'does not change mentorships that already have a mentor' do
       completed_mentorship = mentorships.first
       completed_mentorship.update(mentor: mentors.first)
 
-
-      expect{ subject.invoke }.to change{ Mentorship.where(mentor_id: nil).count }.by(-2)
+      expect { subject.invoke }.to change { Mentorship.where(mentor_id: nil).count }.by(-2)
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(4)
     end
 
@@ -55,7 +54,6 @@ describe "womenrising:mentor_matches" do
     end
 
     it 'sends an email when mentors are matched' do
-
       subject.invoke
 
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.count).to eq(6)
@@ -66,8 +64,7 @@ describe "womenrising:mentor_matches" do
     later_mentorships = create_list :mentorship, 10
     first_mentorship = create :mentorship, created_at: 1.week.ago
     mentor = create :mentor
-    miu = create :mentor_industry_user, user: mentor, mentor_industry: MentorIndustry.where(name: "Technology").first
-
+    miu = create :mentor_industry_user, user: mentor, mentor_industry: MentorIndustry.where(name: 'Technology').first
 
     subject.invoke
 

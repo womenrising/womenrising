@@ -22,15 +22,15 @@ feature 'User can request a mentor' do
   end
 
   scenario 'shows that the request is pending' do
-    expect(page). to have_content "Your Mentors"
+    expect(page). to have_content 'Your Mentors'
     expect(page). to have_content question
-    expect(page). to have_content "Pending"
+    expect(page). to have_content 'Pending'
   end
 
   scenario 'mentee can view mentors profile' do
     click_on mentor.full_name
     expect(current_path).to eq user_path(mentor)
-    expect(page).to_not have_content "Your"
+    expect(page).to_not have_content 'Your'
   end
 
   scenario 'mentor can view mentees profile' do
@@ -38,20 +38,20 @@ feature 'User can request a mentor' do
     login_as(mentor, :scope => :user)
     visit user_path(mentor)
 
-    expect(page).to_not have_content "Your Mentors"
-    expect(page).to have_content "Your Mentees"
+    expect(page).to_not have_content 'Your Mentors'
+    expect(page).to have_content 'Your Mentees'
     click_on user.full_name
     expect(current_path).to eq user_path(user)
-    expect(page).to_not have_content "Your"
+    expect(page).to_not have_content 'Your'
   end
 
   scenario 'mentee can cancel pending request' do
-    expect(page).to have_content "Pending"
-    expect(page).to have_content "Cancel"
-    expect{ click_on "Cancel" }.to change{Mentorship.count}.by(-1)
+    expect(page).to have_content 'Pending'
+    expect(page).to have_content 'Cancel'
+    expect { click_on 'Cancel' }.to change { Mentorship.count }.by(-1)
 
-    expect(page).to have_content "Your question has been cancelled"
-    expect(page).to have_content "Will you participate"
+    expect(page).to have_content 'Your question has been cancelled'
+    expect(page).to have_content 'Will you participate'
   end
 
   context 'with multiple mentors' do

@@ -1,5 +1,4 @@
 ActiveAdmin.register User do
-
   config.comments = false
 
   index do
@@ -16,7 +15,7 @@ ActiveAdmin.register User do
     actions
   end
 
-  form do |f|
+  form do
     inputs 'Details' do
       input :email
       input :first_name
@@ -74,11 +73,11 @@ ActiveAdmin.register User do
 
   collection_action :run_matches, method: :post do
     User.match_peers_and_update_users
-    redirect_to admin_users_path, notice: "Ran Monthly Matches"
+    redirect_to admin_users_path, notice: 'Ran Monthly Matches'
   end
 
   action_item :view, only: :index do
-    link_to "Run Monthly Matching", run_matches_admin_users_path, method: :post
+    link_to 'Run Monthly Matching', run_matches_admin_users_path, method: :post
   end
 
   controller do
