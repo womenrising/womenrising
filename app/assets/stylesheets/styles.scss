@@ -27,6 +27,14 @@ body {
   margin: 0;
 }
 
+.content {
+  margin-top: $navbar-height;
+
+  @media (min-width: $screen-xs-max) {
+    margin-top: 100px;
+  }
+}
+
 h2,h3 {
   &.sectionHead {
     font-size: 6.9rem;
@@ -259,6 +267,7 @@ nav {
 
 .unit.partners {
   padding-bottom: 10rem;
+  max-width: 100%;
 
   div.col-sm-6 {
     min-height: 190px;
@@ -273,6 +282,7 @@ nav {
 
     @media (min-width: $screen-xs-max) {
       width: 400px;
+      max-width: 100%;
     }
   }
 
