@@ -44,6 +44,10 @@ ul.navbar-nav {
   display: flex;
 }
 
+.navbar {
+  margin-bottom: 0;
+}
+
 /* Extra small devices (phones <768px) */
 @media (max-width: $screen-xs-max) {
   .navbar-brand img {
