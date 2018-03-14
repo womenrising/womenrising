@@ -13,7 +13,7 @@
 
   <div class="collapse navbar-collapse" id="wr-navbar">
     <ul class="nav navbar-nav navbar-right">
-      <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+      <li class="<%= 'active' if params[:controller] == 'welcome' %>"><a href="/">Home <span class="sr-only">(current)</span></a></li>
       <li><a href="/#featured">Featured</a></li>
       <li><a href="/#howitworks">How It Works</a></li>
       <li><a href="/#tips">Tips</a></li>
