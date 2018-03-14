@@ -39,3 +39,10 @@ ul.navbar-nav {
 .navbar-header {
   display: flex;
 }
+
+/* Extra small devices (phones <768px) */
+@media (max-width: $screen-xs-max) {
+  .navbar-brand img {
+    width: 50%;
+  }
+}
