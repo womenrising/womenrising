@@ -1,26 +1,36 @@
-<nav>
-  <div class="logo">
-    <%= image_tag "logo.png" %>
-  </div>
-  <ul class="headerNav">
-    <li><a href="/" class='active'>Home</a></li>
-    <li><a href="/#featured">Featured</a></li>
-    <li><a href="/#howitworks">How It Works</a></li>
-    <li><a href="/#tips">Tips</a></li>
-    <li><a href="/#partners">Partners</a></li>
-    <li><a href="https://thewomenrising.wordpress.com/" target="_blank">Blog</a></li>
-    <li><a href="https://github.com/womenrising/womenrising" target="_blank">Contribute on GitHub</a></li>
-    <li>
-      <% if current_user and user_signed_in? %>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+        data-target="#wr-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><%= image_tag "logo.png" %></a>
+    </div>
 
-        <a href="<%= user_path(current_user) %>" class="avatar">
-          <%= image_tag current_user.get_image_url, class: "img-circle img-responsive" %>
-          <%= current_user.full_name %>
-        </a>
-        <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "Sign in", default_omniauth_authorize_path, class: "with-border" %>
-      <% end %>
-    </li>
-  </ul>
+    <div class="collapse navbar-collapse" id="wr-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+        <li><a href="/#featured">Featured</a></li>
+        <li><a href="/#howitworks">How It Works</a></li>
+        <li><a href="/#tips">Tips</a></li>
+        <li><a href="/#partners">Partners</a></li>
+        <li><a href="https://thewomenrising.wordpress.com/" target="_blank">Blog</a></li>
+        <li><a href="https://github.com/womenrising/womenrising" target="_blank">Contribute on GitHub</a></li>
+        <li>
+          <% if current_user and user_signed_in? %>
+
+            <a href="<%= user_path(current_user) %>" class="avatar">
+              <%= image_tag current_user.get_image_url, class: "img-circle img-responsive" %>
+              <%= current_user.full_name %>
+            </a>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "Sign in", default_omniauth_authorize_path, class: "with-border" %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
 </nav>
