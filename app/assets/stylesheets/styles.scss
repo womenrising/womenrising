@@ -268,7 +268,12 @@ nav {
     margin: 0 auto;
     display: block;
     padding: 0 1rem;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
+
+    @media (min-width: $screen-xs-max) {
+      width: 400px;
+    }
   }
 
   div.row div:last-child img {
