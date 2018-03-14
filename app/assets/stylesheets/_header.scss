@@ -35,3 +35,7 @@ ul.navbar-nav {
   padding-top: ($navbar-height / 2);
   padding-right: 10px;
 }
+
+.navbar-header {
+  display: flex;
+}
