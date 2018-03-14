@@ -26,6 +26,10 @@
         color: $highLighted;
         font-size: 1.4rem;
         font-weight: 600;
+
+        @media (min-width: $screen-xs-max) {
+          display: inline-block;
+        }
       }
     }
   }
