@@ -16,6 +16,8 @@
 //= require_tree .
 
 $(function() {
+  $('body').scrollspy({ target: '#navbar' });
+
   $('#user_mentor').on('change', function() {
     $('#mentor_info').toggleClass('hidden', $(this).val() == 'false');
   }).trigger('change');

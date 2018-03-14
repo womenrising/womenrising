@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar">
   <div class="navbar-header">
     <a class="navbar-brand hidden-sm" href="/"><%= image_tag "logo.png" %></a>
     <a class="navbar-brand visible-sm" href="/"><%= image_tag "icons/apple-touch-icon-72x72.png" %></a>
@@ -13,7 +13,7 @@
 
   <div class="collapse navbar-collapse" id="wr-navbar">
     <ul class="nav navbar-nav navbar-right">
-      <li class="<%= 'active' if params[:controller] == 'welcome' %>"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+      <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
       <li><a href="/#featured">Featured</a></li>
       <li><a href="/#howitworks">How It Works</a></li>
       <li><a href="/#tips">Tips</a></li>
