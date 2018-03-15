@@ -22,7 +22,6 @@ body {
   font-family: Helvetica Neue, Helvetica, San Serif;
   min-height: 100vh;
   background-color: white;
-  position: relative;
 }
 .row {
   margin: 0;
@@ -194,6 +193,10 @@ nav {
 
   .sectionHead {
     padding: 2rem 0;
+  }
+
+  .col-md-12 .sectionHead {
+    padding-top: 10rem;
   }
 
   .tips-info {

@@ -13,11 +13,19 @@
 
   <div class="collapse navbar-collapse" id="wr-navbar">
     <ul class="nav navbar-nav navbar-right">
-      <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
-      <li><a href="/#featured">Featured</a></li>
-      <li><a href="/#howitworks">How It Works</a></li>
-      <li><a href="/#tips">Tips</a></li>
-      <li><a href="/#partners">Partners</a></li>
+      <% if current_page? root_path %>
+        <li class="active"><a href="#home">Home <span class="sr-only">(current)</span></a></li>
+        <li><a href="#featured">Featured</a></li>
+        <li><a href="#howitworks">How It Works</a></li>
+        <li><a href="#tips">Tips</a></li>
+        <li><a href="#partners">Partners</a></li>
+      <% else %>
+        <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+        <li><a href="/#featured">Featured</a></li>
+        <li><a href="/#howitworks">How It Works</a></li>
+        <li><a href="/#tips">Tips</a></li>
+        <li><a href="/#partners">Partners</a></li>
+      <% end %>
       <li><a href="https://thewomenrising.wordpress.com/" target="_blank">Blog</a></li>
       <li><a href="https://github.com/womenrising/womenrising" target="_blank">Contribute on GitHub</a></li>
       <li>
