@@ -1,34 +1,9 @@
-.headerNav,
-.headerNav li {
-	padding: 0;
-	margin: 0;
-	list-style-type: none;
-}
+.navbar-nav {
+  li {
+    &:last-child {
+      display: inline-block;
 
-.headerNav {
-	float:right;
-	li {
-		display: inline-block;
-    
-		a {
-			display: inline-block;
-			margin: 1.9rem 0;
-			padding: 1.8rem 1.2rem 1.7rem;
-			font-size: 1.2rem;
-			color: $headerNavColor;
-			font-weight: 500;
-
-			&.active {
-				color: $activeColor;
-			}
-
-			&:hover {
-				text-decoration: none;
-			}
-		}
-
-		&:last-child {
-      .with-border, 
+      .with-border,
       .avatar {
         border-left: 1px solid $headerNavColor;
       }
@@ -50,10 +25,32 @@
       a {
         color: $highLighted;
         font-size: 1.4rem;
-        padding: 1rem 2rem;
         font-weight: 600;
+
+        @media (min-width: $screen-xs-max) {
+          display: inline-block;
+        }
       }
     }
-	}
+  }
 }
 
+ul.navbar-nav {
+  padding-top: ($navbar-height / 2);
+  padding-right: 10px;
+}
+
+.navbar-header {
+  display: flex;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+/* Extra small devices (phones <768px) */
+@media (max-width: $screen-xs-max) {
+  .navbar-brand img {
+    width: 50%;
+  }
+}

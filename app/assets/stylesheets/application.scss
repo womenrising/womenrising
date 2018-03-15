@@ -13,6 +13,12 @@
  *= require_self
  */
 
+$activeColor: #EFA936;
+
+$navbar-default-bg: #fff;
+$navbar-default-link-active-color: $activeColor;
+$navbar-default-link-active-bg: inherit;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "styles";
