@@ -68,7 +68,7 @@ h3 {
     font-size: 3.0rem;
     letter-spacing: 3px;
 
-    @media (min-width: 992px) {
+    @media (min-width: $screen-md) {
       font-size: 4rem;
     }
   }
@@ -114,7 +114,9 @@ nav {
 
 .tips {
   .row {
-    margin: 0 50px;
+    @media (min-width: $screen-md) {
+      margin: 0 50px;
+    }
   }
 
   p {
@@ -262,7 +264,7 @@ nav {
   width: 100%;
   top: 12rem;
 
-  @media (min-width: 992px) {
+  @media (min-width: $screen-md) {
     display: block;
   }
 
@@ -315,21 +317,19 @@ nav {
 }
 
 // /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
+@media (min-width: $screen-md) {
   .list-md-inline li {
     display: list-item;
   }
 }
 
-
-
 #container {
-  font-family: Helvetica Neue, Helvetica, Sans Serif;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
   color: #9B9B9B;
   margin: 60px;
 }
 
-#container h1,#container h2 {
+#container h1, #container h2 {
   color:#1BC49B;
   font-size: 23px;
 }
@@ -524,7 +524,7 @@ a.btn:hover {
       padding: 10rem 10% 5rem;
     }
 
-    @media (min-width: 992px) {
+    @media (min-width: $screen-md) {
       font-size: 6.4rem;
       padding: 15rem 10% 10rem;
     }
@@ -573,7 +573,7 @@ a.btn:hover {
     letter-spacing: .3rem;
     padding: 0 2rem;
 
-    @media (min-width: 992px) {
+    @media (min-width: $screen-md) {
       font-size: 4rem;
     }
   }
@@ -586,7 +586,6 @@ a.btn:hover {
 }
 
 .unit.partners {
-  padding-bottom: 10rem;
   max-width: 100%;
 
   div.col-sm-6 {
@@ -640,5 +639,11 @@ a.btn:hover {
 
   .row {
     position: relative;
+  }
+
+  h3 {
+    &.sectionHead {
+      padding: 2rem 0;
+    }
   }
 }
