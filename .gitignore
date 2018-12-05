@@ -28,3 +28,6 @@ config/database.yml
 
 # Ignore RubyMine files
 .idea/
+
+# File with the LinkedIn API key
+config/initializers/devise.rb
